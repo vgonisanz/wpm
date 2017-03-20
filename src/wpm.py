@@ -33,7 +33,8 @@ class Wpm(object):
         # Initialize screen
         self._screen = curses.initscr()
         self._base_window_height, self._base_window_width = self._screen.getmaxyx()
-        self._base_window = self.create_window(self._base_window_height, self._base_window_width, 0, 0)
+        self._base_window = self.create_window(self._base_window_width, self._base_window_height, 0, 0)
+        self.print_background(self._base_window, 1, 2)
         self.push_widget(self._base_window)
 
         # Initialize cursor
@@ -187,6 +188,21 @@ class Wpm(object):
             window.addstr(message)
             # Restore attributes
             window.attroff(attributes)
+        return None
+    """
+    Print background with color.
+
+    :return: returns nothing
+    """
+    @classmethod
+    def print_background(self, window, color_character, color_background):
+        if window != None:
+            # Set color
+            curses.init_pair(7, color_character, color_background);
+            # Draw background
+            window.bkgd(curses.color_pair(7));
+            self.wait(1)
+            window.refresh()
         return None
     """
     Create a curses window
