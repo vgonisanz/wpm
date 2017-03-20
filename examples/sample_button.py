@@ -2,7 +2,7 @@ import curses
 from curses import wrapper
 
 import sys, os
-sys.path.append(os.path.join(os.path.dirname(__file__), '../..', 'managers'))
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
 from wpm import Wpm
 
 def main(stdscr):
