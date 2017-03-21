@@ -34,13 +34,39 @@ class Wpm(object):
         self._screen = curses.initscr()
         self._base_window_height, self._base_window_width = self._screen.getmaxyx()
         self._base_window = self.create_window(self._base_window_width, self._base_window_height, 0, 0)
-        self.print_background(self._base_window, 1, 2)
         self.push_widget(self._base_window)
 
         # Initialize cursor
         curses.curs_set(0)  # Invisible
+
+        # Configure colors
+
+        # Custom colors
         return
 
+    """
+    Diagnose terminal and print info. Static, you can use githout instance.
+    Give all info about curses and you terminal. Use it at the beginning to test.
+
+    :return: returns nothing
+    """
+    @staticmethod
+    def diagnose():
+        window = curses.initscr()
+        window.addstr("\n  Userful info:")
+        window.addstr("\n  Terminal: %s" % curses.longname())
+        window.addstr("\n  Can use color: %s" % curses.has_colors())
+        if curses.has_colors():
+            window.addstr("\n  Can change colors: %s" % curses.can_change_color())
+            window.addstr("\n  Terminal has %s colors" % curses.COLORS)
+            window.addstr("\n  Terminal has %s pairs of colors" % curses.COLOR_PAIRS)
+        window.addstr("\n  Number of lines: %s (y size) " % curses.LINES)
+        window.addstr("\n  Number of cols: %s (x size)" % curses.COLS)
+
+        window.border()
+        window.getkey()
+        curses.endwin()
+        return None
     """
     Manage stack: Add a new window or widget into stack.
 
@@ -87,6 +113,15 @@ class Wpm(object):
         return width, height
 
     """
+    Getters: Get current color pair. Internally is stored into curses color pair 7. To set a color user set_color function.
+
+    :return: returns None
+    """
+    @classmethod
+    def get_current_color(self):
+        return curses.color_pair(7)
+
+    """
     Getter stack element: Return current stack element.
 
     :return: returns None
@@ -96,6 +131,15 @@ class Wpm(object):
         widget = self._widget_stack[len(self._widget_stack)-1]
         return widget
 
+    """
+    Manage terminal color: Set a character color and background color.
+
+    :return: returns None
+    """
+    @classmethod
+    def set_color(self, color_character, color_background):
+        curses.init_pair(7, color_character, color_background);
+        return None
     """
     Manage cursor: Set cursor at position.
 
@@ -108,12 +152,24 @@ class Wpm(object):
         return None
 
     """
+    Clear line y.
+
+    :return: returns None
+    """
+    @classmethod
+    def clearln(self, window, y0):
+        if window != None:
+            window.move(y0, 0)
+            window.clrtoeol()
+        return None
+
+    """
     Refresh screen and wait time in milliseconds.
 
     :return: returns None
     """
     @classmethod
-    def wait(self, ms = 1):
+    def msleep(self, ms = 1):
         curses.napms(ms)
         return None
 
@@ -159,7 +215,10 @@ class Wpm(object):
                 # Set cursor position
                 window.move(y0, x0)
             # Print
-            window.addstr(message)
+            try:
+                window.addstr(message)
+            except curses.error:
+                pass    # Allow to print last position
             # Restore attributes
             window.attroff(attributes)
             # Refresh
@@ -198,10 +257,10 @@ class Wpm(object):
     def print_background(self, window, color_character, color_background):
         if window != None:
             # Set color
-            curses.init_pair(7, color_character, color_background);
+            self.set_color(color_character, color_background)
             # Draw background
-            window.bkgd(curses.color_pair(7));
-            self.wait(1)
+            window.bkgd(self.get_current_color());
+            self.msleep(1)
             window.refresh()
         return None
     """
@@ -212,6 +271,7 @@ class Wpm(object):
     @classmethod
     def create_window(self, width, height, x0 = 0, y0 = 0):
         window = curses.newwin(height, width, y0, x0)
+        #self.print_background(window, 1, 2) # Truqui to check window
         return window
 
     """
@@ -220,8 +280,8 @@ class Wpm(object):
     :return: returns nothing
     """
     @classmethod
-    def create_element_button(self):
-        button = Button(self)
+    def create_element_button(self, message, width, x0, y0):
+        button = Button(self, message, width, x0, y0)
         return button
 
     """
