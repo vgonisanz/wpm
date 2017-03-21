@@ -7,23 +7,23 @@ from wpm import Wpm
 
 def main(stdscr):
     wpm = Wpm()
-    #wpm.size_stack(False)
-    #width, height = wpm.get_window_size()
-    #wpm.print_message(stdscr, "Window size: %d, %d" %(width, height))
-    #wpm.print_message(stdscr, "idiota", 5, 5)
-    button = wpm.create_element_button()
-    #wpm.rwait(1)
+    main_window = wpm.get_current_widget()
+
+    # Create button element
+    button_message = "12345678910"
+    button_width = 10
+    button_x0 = 1
+    button_y0 = 2
+    button = wpm.create_element_button(button_message, button_width, button_x0, button_y0)
+
+    # Print normal button
+    wpm.print_message(main_window, "Button normal:", 1, 1)
     button.draw()
-    wpm.wait(2000)
-    #wpm.rwait(1)
-    #wpm.waitforkey(True)
-    # Initialize curses manager
-    #cm = CursesManager()
-    #cm.set_current_window(stdscr)
-    #cm.clear()
-    #
-    #button.hello()
-    #cm.waitforkey()
+    wpm.msleep(2000)
+    wpm.waitforkey(main_window, True, 1, 2)
+
+    # Print focus button
+    ## TODO change status internal
     return None
 
 if __name__ == "__main__":
