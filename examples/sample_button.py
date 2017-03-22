@@ -17,7 +17,7 @@ def main(stdscr):
     button = wpm.create_element_button(button_message, button_width, button_x0, button_y0)
 
     # Print normal button
-    wpm.print_message(main_window, "Button normal:", 1, 1)
+    wpm.print_message(main_window, "Button normal:", 1, 1, curses.A_NORMAL)
     button.draw()
     wpm.msleep(2000)
     wpm.waitforkey(main_window, True, 1, 2)

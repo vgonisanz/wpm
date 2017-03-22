@@ -40,6 +40,8 @@ class Wpm(object):
         curses.curs_set(0)  # Invisible
 
         # Configure colors
+        curses.start_color()
+        curses.use_default_colors()
 
         # Custom colors
         return
@@ -113,6 +115,15 @@ class Wpm(object):
         return width, height
 
     """
+    Getters: Get number of custom colors
+
+    :return: returns None
+    """
+    @classmethod
+    def get_max_custom_colors(self):
+        return curses.COLORS
+
+    """
     Getters: Get current color pair. Internally is stored into curses color pair 7. To set a color user set_color function.
 
     :return: returns None
@@ -161,6 +172,19 @@ class Wpm(object):
         if window != None:
             window.move(y0, 0)
             window.clrtoeol()
+            window.refresh()
+        return None
+
+    """
+    Clear current window.
+
+    :return: returns nothing
+    """
+    @classmethod
+    def clear(self, window):
+        if window != None:
+            window.clear()
+            window.refresh()
         return None
 
     """
@@ -209,18 +233,14 @@ class Wpm(object):
     @classmethod
     def print_message(self, window, message, x0 = -1, y0 = -1, attributes = curses.A_NORMAL):
         if window != None:
-            # Set attributes
-            window.attrset(attributes)
             if x0 > -1 and y0 > -1:
                 # Set cursor position
                 window.move(y0, x0)
             # Print
             try:
-                window.addstr(message)
+                window.addstr(message, attributes)
             except curses.error:
                 pass    # Allow to print last position
-            # Restore attributes
-            window.attroff(attributes)
             # Refresh
             window.refresh()
         return None
