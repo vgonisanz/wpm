@@ -55,6 +55,19 @@ All widget can contain one or more elements.
 
 * It can be draw calling draw method. This refresh all child elements. Update first background and then front elements.
 
+# Software design
+
+## General
+
+wpm is using curses. But it shall transparent to the users. Users shall not parse exceptions while using wpm, but all problems shall be reported in a error file.
+## Output
+
+Logs are required. Print into a file.
+
+## Exceptions
+
+All exceptions shall be in a try, and pass the execution, reporting problem in a error.log
+
 # Static code analysis
 
 Using Codacy to analyze code status

@@ -27,7 +27,11 @@ def main(stdscr):
     wpm.clear(main_window)
 
     wpm.print_message(main_window, "Creating custom color RED: %d" % custom_color, 1, 1)
-    curses.init_color(2, 1000, 0, 0)
+    try:
+        curses.init_color(2, 1000, 0, 0)
+    except:
+        print("This terminal cannot init_color")
+        pass
     wpm.waitforkey(main_window, True, 1, 2)
 
     return None

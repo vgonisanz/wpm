@@ -20,8 +20,10 @@ def main(stdscr):
         pass
     stdscr.getch()
 
-    curses.init_color(2, 1000, 0, 0)
-
+    try:
+        curses.init_color(2, 1000, 0, 0)
+    except:
+        pass
     stdscr.getch()
     return None
 
