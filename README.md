@@ -7,13 +7,17 @@ This manager could be a widget library --> wpm = Widget python manager
 
 ## Requeriments
 
-## Concepts
+## Basic concepts
 
-* Wpm is a class manage screen and associated widgets, elements and functions.
-* Element is a interactive class with a low level functionality.
-* Widget is a interactive class with high level functionality.
+### Basic classes types
 
-## Organization
+* Wpm is a class manage screen and associated widgets, elements and functions. Manager to initialize/respoter terminal, manage widget stack and control all UI.
+* Element is a Dummy interactive class with a low level functionality. It contains a curses WindowClass. Calling its functions can be drawn in different ways.
+* Widget is a interactive class with high level functionality. It have a element with width, height, x and y. Also run function to take I/O control.
+
+* TODO: Remove window parameter. Apply with manager all actions a current windows only (easier) or allow to use window parameter (more complicated, more versatile)?
+
+### Design rules
 
 * All data struct shall be classes without constructor.
 * Manager will use a internal stack to manage different widgets.
@@ -29,20 +33,22 @@ This manager could be a widget library --> wpm = Widget python manager
     * Widget_popup_okcancel: Ask user ok or cancel button.
     * Widget_help: Print a message, ok button.
 
-## wpm
+### Ideas
 
-* print: All functions starting with print shall apply to current widget in widget stack. Exist a group of interesting print elements.
+* themes: Change different themes to use different colors.
 
-## Elements
+### Documentation /  Full Description
 
-A element is an object with low level logic.
+#### Elements
+
+A element is an object with low level logic. It hierachy from window, adding functions to print inside.
 
 * All element have a status
 * It can be draw calling draw method.
 
 ### Button
 
-A button is a class with 3 states:
+A button is a class with 4 states:
 
 * Normal: The button is active. It is selectable.
 * Inactive: The button is not selectable.
@@ -51,7 +57,7 @@ A button is a class with 3 states:
 
 ## Widget
 
-All widget can contain one or more elements.
+A widget is an object with high level logic. All widget can contain one or more elements and a function to take control.
 
 * It can be draw calling draw method. This refresh all child elements. Update first background and then front elements.
 
@@ -60,6 +66,7 @@ All widget can contain one or more elements.
 ## General
 
 wpm is using curses. But it shall transparent to the users. Users shall not parse exceptions while using wpm, but all problems shall be reported in a error file.
+
 ## Output
 
 Logs are required. Print into a file.

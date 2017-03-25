@@ -31,20 +31,15 @@ class Wpm(object):
         #code = locale.getpreferredencoding()
 
         # Initialize screen
-        self._screen = curses.initscr()
-        self._base_window_height, self._base_window_width = self._screen.getmaxyx()
-        self._base_window = self.create_window(self._base_window_width, self._base_window_height, 0, 0)
-        self.push_widget(self._base_window)
+        self.initializeScreen()
+        return None
 
-        # Initialize cursor
-        curses.curs_set(0)  # Invisible
-
-        # Configure colors
-        curses.start_color()
-        curses.use_default_colors()
-
-        # Custom colors
-        return
+    # Catch any weird termination situations
+    def __del__(self):
+        self.restoreScreen()
+        # Deactive control
+        self._base_window.keypad(True)
+        return None
 
     """
     Diagnose terminal and print info. Static, you can use githout instance.
@@ -69,6 +64,45 @@ class Wpm(object):
         window.getkey()
         curses.endwin()
         return None
+
+    """
+    Manage screen: Initialize terminal to be used appropitly
+
+    :return: returns None
+    """
+    @classmethod
+    def initializeScreen(self):
+        self._screen = curses.initscr()
+        self._base_window_height, self._base_window_width = self._screen.getmaxyx()
+        self._base_window = self.create_window(self._base_window_width, self._base_window_height, 0, 0)
+        self.push_widget(self._base_window)
+
+        # Initialize cursor
+        curses.curs_set(0)  # Invisible
+
+        # Configure colors
+        curses.start_color()
+        curses.use_default_colors()
+
+        # Custom colors
+
+        # Active control
+        self._base_window.keypad(True)
+        return None
+
+    """
+    Manage screen: Restore normal terminal behavior
+
+    :return: returns None
+    """
+    @classmethod
+    def restoreScreen(self):
+        curses.initscr()
+        curses.nocbreak()
+        curses.echo()
+        curses.endwin()
+        return None
+
     """
     Manage stack: Add a new window or widget into stack.
 
@@ -217,11 +251,11 @@ class Wpm(object):
     @classmethod
     def waitforkey(self, window, print_text = True, x0 = -1, y0 = -1):
         if window != None:
-            self.rwait(1)
+            #self.rwait(1)
             if x0 > -1 and y0 > -1:
                 self.set_cursor(window, x0, y0)
             if print_text:
-                self.print_message(self.get_current_widget(), "\n Press any key to continue.")
+                self.print_message(window, "Press any key to continue.")
             return window.getkey()
         return None
 
@@ -268,21 +302,55 @@ class Wpm(object):
             # Restore attributes
             window.attroff(attributes)
         return None
+
+    """
+    Print a message with delay between character. It cannot be skipped.
+
+    :return: returns nothing
+    """
+    @classmethod
+    def print_message_slow(self, window, message, x0 = -1, y0 = -1, inter_delay = 100, attributes = curses.A_NORMAL):
+        if window != None:
+            if x0 > -1 and y0 > -1:
+                # Set cursor position
+                window.move(y0, x0)
+            for char in message:
+                # Print
+                try:
+                    window.addch(char, attributes)
+                    window.refresh()
+                    self.msleep(inter_delay)
+                except curses.error:
+                    pass    # Allow to print last position
+            # Refresh
+            window.refresh()
+        return None
+
     """
     Print background with color.
 
     :return: returns nothing
     """
     @classmethod
-    def print_background(self, window, color_character, color_background):
+    def change_color(self, window, color_character, color_background):
         if window != None:
-            # Set color
-            self.set_color(color_character, color_background)
-            # Draw background
-            window.bkgd(self.get_current_color());
-            self.msleep(1)
+            curses.init_pair(7, color_character, color_background)
+            window.bkgd(curses.color_pair(7))
             window.refresh()
         return None
+
+    """
+    Print border.
+
+    :return: returns nothing
+    """
+    @classmethod
+    def print_border(self, window):
+        if window != None:
+            window.border('|', '|', '-', '-', '+', '+', '+', '+')
+            window.refresh()
+        return None
+
     """
     Create a curses window
 
@@ -293,6 +361,19 @@ class Wpm(object):
         window = curses.newwin(height, width, y0, x0)
         #self.print_background(window, 1, 2) # Truqui to check window
         return window
+
+    """
+    Destroy a curses window
+
+    :return: returns window
+    """
+    @classmethod
+    def clear_window(self, window):
+        if window != None:
+            #window.border()
+            window.clear()
+            window.refresh()
+        return None
 
     """
     Create button element
