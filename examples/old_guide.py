@@ -1,21 +1,4 @@
-import curses
-from curses import wrapper
-import locale
 
-import sys, os
-sys.path.append(os.path.join(os.path.dirname(__file__), '../..', 'managers'))
-from cursesManager import CursesManager
-
-"""
-Print userful info about your terminal
-"""
-def diagnose(stdscr):
-    CursesManager.diagnose()    # Check terminal properties
-    return None
-
-"""
-Create slow text
-"""
 def step1(stdscr):
     message1 = "Welcome to this guide."
     message2 = "You can write slow text with print_message_slow_at"
@@ -85,46 +68,6 @@ def step2(stdscr):
     #cm.waitforkey()
     #cm.delch(9, 7)
     #cm.waitforkey()
-    cm.cleanup()
-    return None
-
-"""
-Attributes usage
-"""
-def step3(stdscr):
-    message = "Lets play with attributes:\n"
-    options = "You can combine: A_ALTCHARSET, A_BLINK, A_BOLD, A_DIM, A_NORMAL, A_REVERSE, A_STANDOUT , A_UNDERLINE\n"
-    alternate = " Alternate\n"
-    blink = " Blink\n"
-    bold = " Bold\n"
-    dim = " Dim\n"
-    normal = " Normal\n"
-    reverse = " Reverse\n"
-    standard = " Standard\n"
-    underline = " Underline\n"
-
-    cm = CursesManager()
-    cm.set_current_window(stdscr)
-    cm.clear()
-    cm.print_message(message)
-    cm.print_message(options)
-    cm.rwait(1000)
-    cm.print_message(alternate, curses.A_ALTCHARSET)
-    cm.rwait(300)
-    cm.print_message(blink, curses.A_BLINK)
-    cm.rwait(300)
-    cm.print_message(bold, curses.A_BOLD)
-    cm.rwait(300)
-    cm.print_message(dim, curses.A_DIM)
-    cm.rwait(300)
-    cm.print_message(normal, curses.A_NORMAL)
-    cm.rwait(300)
-    cm.print_message(reverse, curses.A_REVERSE)
-    cm.rwait(300)
-    cm.print_message(standard, curses.A_STANDOUT)
-    cm.rwait(300)
-    cm.print_message(underline, curses.A_UNDERLINE)
-    cm.waitforkey()
     cm.cleanup()
     return None
 

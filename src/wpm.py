@@ -1,5 +1,9 @@
-import curses
 import locale
+
+import sys, os
+sys.path.append(os.path.join(os.path.dirname(__file__), 'elements'))
+
+import curses
 
 from element import Element
 

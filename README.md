@@ -13,7 +13,7 @@ This manager could be a widget library --> wpm = Widget python manager
 
 * Wpm is a class manage screen and associated widgets, elements and functions. Manager to initialize/respoter terminal, manage widget stack and control all UI.
 * Element is a Dummy interactive class with a low level functionality. It contains a curses WindowClass. Calling its functions can be drawn in different ways.
-* Widget is a interactive class with high level functionality. It have a element with width, height, x and y. Also run function to take I/O control.
+* Widget is a interactive class with high level functionality. It have a element with width, height, x and y. Also run function to take I/O control. It ccan generate control and actions externally.
 
 * TODO: Remove window parameter. Apply with manager all actions a current windows only (easier) or allow to use window parameter (more complicated, more versatile)?
 

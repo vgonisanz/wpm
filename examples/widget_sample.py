@@ -1,12 +1,12 @@
 import sys, os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src/elements'))
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src/widgets'))
 
 import curses               # Todo remove chaning own variables
 from curses import wrapper  # Use my own wrapper
 
 from wpm import Wpm
-from element import Element
+from widget import Widget
 
 # Configuration
 
@@ -16,16 +16,16 @@ def main(stdscr):
     wpm = Wpm()
     background = wpm.get_background()
 
-    # Create test element
-    element_width = 20
-    element_height = 10
-    element_x0 = 1
-    element_y0 = 2
+    # Create widget or widget here
+    widget_width = 20
+    widget_height = 10
+    widget_x0 = 1
+    widget_y0 = 2
 
-    element = Element(element_width, element_height, element_x0, element_y0)
-    element.change_color(curses.COLOR_RED, curses.COLOR_YELLOW)
+    widget = Widget(widget_width, widget_height, widget_x0, widget_y0)
+    widget.run_test()
 
-    wpm.msleep(2000)
+    wpm.msleep(1)
     background.waitforkey(True, 1, 2)
     return None
 

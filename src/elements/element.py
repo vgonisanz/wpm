@@ -128,6 +128,30 @@ class Element(object):
         #    self.print_message(window, "Press any key to continue.")
         return self._window.getkey()
 
+    """
+    If input true, start taking keyboard events.
+
+    :return: returns None
+    """
+    @classmethod
+    def set_input_mode(self, input):
+        self._window.keypad(input)
+        return None
+
+    """
+    Wait for a character. Need set input mode true
+
+    :return: returns None
+    """
+    @classmethod
+    def get_character(self):
+        # Set always NO DELAY?
+        #if x0 > -1 and y0 > -1:
+        #    self.set_cursor(window, x0, y0)
+        #if print_text:
+        #    self.print_message(window, "Press any key to continue.")
+        return self._window.getch()
+
     @classmethod
     def draw(self):
         # Override me
