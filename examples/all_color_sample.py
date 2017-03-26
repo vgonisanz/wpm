@@ -11,18 +11,25 @@ def main(stdscr):
     # How improve this code using wpm????
     for i in range(0, curses.COLORS):
         curses.init_pair(i + 1, i, -1)
-    try:
-        for i in range(0, 255):
-            stdscr.addstr(str(i), curses.color_pair(i))
-            stdscr.addstr("-", curses.color_pair(1))
-    except curses.ERR:
+    #try:
+    for i in range(0, 255):
+        stdscr.addstr(str(i), curses.color_pair(i))
+        stdscr.addstr("-", curses.color_pair(1))
+    #except curses.ERR:
         # End of screen reached
-        pass
+    #    stdscr.addstr(curses.ERR)
+    #except:
+    #    print("Unexpected error:", sys.exc_info()[0])
+    #    pass
     stdscr.getch()
 
     try:
         curses.init_color(2, 1000, 0, 0)
-    except:
+    except curses.ERR:
+        # End of screen reached
+        stdscr.addstr(curses.ERR)
+    except Exception as e:
+        print("Unexpected error: %s" % e)
         pass
     stdscr.getch()
     return None

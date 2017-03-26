@@ -13,26 +13,27 @@ def main(stdscr):
     custom_color = 2
 
     # Get main window to print
-    main_window = wpm.get_current_widget()
-    wpm.print_message(main_window, "Character color will change every time you push a key. This terminal have: %d" % color_to_print, 1, 1)
-    wpm.waitforkey(main_window, True, 1, 2)
-    wpm.clearln(main_window, 1)
+    background = wpm.get_background()
+    background.print_message("Character color will change every time you push a key. This terminal have: %d" % color_to_print, 1, 1)
+    background.waitforkey()
+    background.clearln(1)
 
     for x in range(1, color_to_print):
-        wpm.print_background(main_window, x, 0)
+        background.change_color(x, 0)
         wpm.msleep(5)
-        wpm.print_message(main_window, "Color %d is this text color." % x, 1, 1)
-        wpm.waitforkey(main_window, True, 1, 2)
+        background.print_message("Color %d is this text color." % x, 1, 1)
+        background.waitforkey(True, 1, 2)
 
-    wpm.clear(main_window)
+    background.clear()
 
-    wpm.print_message(main_window, "Creating custom color RED: %d" % custom_color, 1, 1)
+    background.print_message("Creating custom color RED: %d" % custom_color, 1, 1)
     try:
         curses.init_color(2, 1000, 0, 0)
     except:
         print("This terminal cannot init_color")
         pass
-    wpm.waitforkey(main_window, True, 1, 2)
+
+    background.waitforkey(background, True, 1, 2)
 
     return None
 

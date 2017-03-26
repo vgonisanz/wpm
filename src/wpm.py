@@ -1,7 +1,7 @@
 import curses
 import locale
 
-from element_button import Button
+from element import Element
 
 """
 This python 3 class will manager a widgets using curses for you,
@@ -38,7 +38,7 @@ class Wpm(object):
     def __del__(self):
         self.restoreScreen()
         # Deactive control
-        self._base_window.keypad(True)
+        #self._base_window.keypad(True)
         return None
 
     """
@@ -74,7 +74,7 @@ class Wpm(object):
     def initializeScreen(self):
         self._screen = curses.initscr()
         self._base_window_height, self._base_window_width = self._screen.getmaxyx()
-        self._base_window = self.create_window(self._base_window_width, self._base_window_height, 0, 0)
+        self._base_window = Element(self._base_window_width, self._base_window_height, 0, 0)
         self.push_widget(self._base_window)
 
         # Initialize cursor
@@ -87,7 +87,7 @@ class Wpm(object):
         # Custom colors
 
         # Active control
-        self._base_window.keypad(True)
+        #self._base_window.keypad(True)
         return None
 
     """
@@ -136,6 +136,14 @@ class Wpm(object):
             self.print_message(self.get_current_widget(), "You have %d widgets in the stack" % size)
         return size
 
+    """
+    Getters: Get background window
+
+    :return: returns None
+    """
+    @classmethod
+    def get_background(self):
+        return self._base_window
 
     """
     Getters: Get size current window
@@ -185,41 +193,6 @@ class Wpm(object):
     def set_color(self, color_character, color_background):
         curses.init_pair(7, color_character, color_background);
         return None
-    """
-    Manage cursor: Set cursor at position.
-
-    :return: returns None
-    """
-    @classmethod
-    def set_cursor(self, window, x0, y0):
-        if window != None:
-            window.move(y0, x0)
-        return None
-
-    """
-    Clear line y.
-
-    :return: returns None
-    """
-    @classmethod
-    def clearln(self, window, y0):
-        if window != None:
-            window.move(y0, 0)
-            window.clrtoeol()
-            window.refresh()
-        return None
-
-    """
-    Clear current window.
-
-    :return: returns nothing
-    """
-    @classmethod
-    def clear(self, window):
-        if window != None:
-            window.clear()
-            window.refresh()
-        return None
 
     """
     Refresh screen and wait time in milliseconds.
@@ -232,151 +205,7 @@ class Wpm(object):
         return None
 
     """
-    Refresh screen and wait time in milliseconds.
-
-    :return: returns None
-    """
-    @classmethod
-    def rwait(self, ms = 1):
-        if self._current_window != None:
-            self._current_window.refresh()
-        curses.napms(ms)
-        return None
-
-    """
-    Wait for key. TODO remove?
-
-    :return: returns None
-    """
-    @classmethod
-    def waitforkey(self, window, print_text = True, x0 = -1, y0 = -1):
-        if window != None:
-            #self.rwait(1)
-            if x0 > -1 and y0 > -1:
-                self.set_cursor(window, x0, y0)
-            if print_text:
-                self.print_message(window, "Press any key to continue.")
-            return window.getkey()
-        return None
-
-    """
-    Print a message string into a window. Choose a position. This affect to cursor.
-
-    :return: returns nothing
-    """
-    @classmethod
-    def print_message(self, window, message, x0 = -1, y0 = -1, attributes = curses.A_NORMAL):
-        if window != None:
-            if x0 > -1 and y0 > -1:
-                # Set cursor position
-                window.move(y0, x0)
-            # Print
-            try:
-                window.addstr(message, attributes)
-            except curses.error:
-                pass    # Allow to print last position
-            # Refresh
-            window.refresh()
-        return None
-
-    """
-    Print a message string into a window. Choose y position, x automatically in the center. This affect to cursor.
-
-    :return: returns nothing
-    """
-    @classmethod
-    def print_message_center(self, window, message, y0, attributes = curses.A_NORMAL):
-        if window != None:
-            y_max, x_max = window.getmaxyx()
-            lenght = len( message )
-            indent = x_max - lenght
-            indent = (int)(indent / 2)
-            y0_int = (int)(y0)
-
-            # Set attributes
-            window.attrset(attributes)
-            # Set cursor
-            self.set_cursor(window, indent, y0_int)
-            # Print
-            window.addstr(message)
-            # Restore attributes
-            window.attroff(attributes)
-        return None
-
-    """
-    Print a message with delay between character. It cannot be skipped.
-
-    :return: returns nothing
-    """
-    @classmethod
-    def print_message_slow(self, window, message, x0 = -1, y0 = -1, inter_delay = 100, attributes = curses.A_NORMAL):
-        if window != None:
-            if x0 > -1 and y0 > -1:
-                # Set cursor position
-                window.move(y0, x0)
-            for char in message:
-                # Print
-                try:
-                    window.addch(char, attributes)
-                    window.refresh()
-                    self.msleep(inter_delay)
-                except curses.error:
-                    pass    # Allow to print last position
-            # Refresh
-            window.refresh()
-        return None
-
-    """
-    Print background with color.
-
-    :return: returns nothing
-    """
-    @classmethod
-    def change_color(self, window, color_character, color_background):
-        if window != None:
-            curses.init_pair(7, color_character, color_background)
-            window.bkgd(curses.color_pair(7))
-            window.refresh()
-        return None
-
-    """
-    Print border.
-
-    :return: returns nothing
-    """
-    @classmethod
-    def print_border(self, window):
-        if window != None:
-            window.border('|', '|', '-', '-', '+', '+', '+', '+')
-            window.refresh()
-        return None
-
-    """
-    Create a curses window
-
-    :return: returns window
-    """
-    @classmethod
-    def create_window(self, width, height, x0 = 0, y0 = 0):
-        window = curses.newwin(height, width, y0, x0)
-        #self.print_background(window, 1, 2) # Truqui to check window
-        return window
-
-    """
-    Destroy a curses window
-
-    :return: returns window
-    """
-    @classmethod
-    def clear_window(self, window):
-        if window != None:
-            #window.border()
-            window.clear()
-            window.refresh()
-        return None
-
-    """
-    Create button element
+    Create button element. *TODO* Need create????
 
     :return: returns nothing
     """
