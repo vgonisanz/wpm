@@ -27,13 +27,13 @@ class Button(Element):
         if len_text > 0:
             start_position = int( ( self._width - len_text) / 2)
 
-        attributes = A_NORMAL
+        attributes = curses.A_NORMAL
 
         # Calculate attributes
         if self._state == ButtonState.pushed:
-            attributes = A_REVERSE
-        else if self._state == ButtonState.focus:
-            attributes = A_UNDERLINE
+            attributes = curses.A_REVERSE
+        elif self._state == ButtonState.focus:
+            attributes = curses.A_UNDERLINE
 
         # Print it
         self.print_message(">", 0, 0)

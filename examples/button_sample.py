@@ -1,16 +1,19 @@
+import sys, os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src/elements'))
+
 import curses               # Todo remove chaning own variables
 from curses import wrapper  # Use my own wrapper
 
-import sys, os
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
 from wpm import Wpm
-
-from element import Element
 from button import Button
+
+# Configuration
+
+# Variables
 
 def main(stdscr):
     wpm = Wpm()
-    main_window = wpm.get_current_widget()
 
     # Create button element
     button_message = "12345678910"
@@ -23,9 +26,9 @@ def main(stdscr):
     button.draw()
 
     wpm.msleep(2000)
-    wpm.waitforkey(main_window, True, 1, 2)
+    background.waitforkey(True, 1, 2)
     return None
 
 if __name__ == "__main__":
     wrapper(main)
-    print("Thanks for use button sample")
+    print("Thanks for use %s" % os.path.basename(__file__))

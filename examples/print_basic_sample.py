@@ -1,31 +1,34 @@
-import curses
-from curses import wrapper
-
 import sys, os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src/elements'))
+
+import curses               # Todo remove chaning own variables
+from curses import wrapper  # Use my own wrapper
+
 from wpm import Wpm
+from element import Element
+
+# Configuration
+
+# Variables
 
 def main(stdscr):
     wpm = Wpm()
-
-    # Get main window to print
-    main_window = wpm.get_current_widget()
+    background = wpm.get_background()
 
     # Initial message
-    wpm.print_message(main_window, "In this sample we are going to print messages.")
-    wpm.waitforkey(main_window, True)
-    wpm.clear(main_window)
+    background.print_message("In this sample we are going to print messages.")
+    background.waitforkey(True)
+    background.clear()
 
     # Change color character and background
-    wpm.print_message(main_window, "But first, we change background color.")
-    wpm.change_color(main_window, curses.COLOR_BLACK, curses.COLOR_WHITE)
-    wpm.print_border(main_window)
-    wpm.waitforkey(main_window, True)
-    wpm.clear(main_window)
-
+    background.print_message("But first, we change background color.")
+    background.change_color(curses.COLOR_BLACK, curses.COLOR_WHITE)
+    background.waitforkey(True)
+    background.clear()
 
     return None
 
 if __name__ == "__main__":
     wrapper(main)
-    print("Thanks for use window color.")
+    print("Thanks for use %s" % os.path.basename(__file__))
