@@ -26,7 +26,7 @@ def main(stdscr):
     element.change_color(curses.COLOR_RED, curses.COLOR_YELLOW)
 
     wpm.msleep(2000)
-    background.waitforkey(True, 1, 2)
+    background.waitforkey()
     return None
 
 if __name__ == "__main__":

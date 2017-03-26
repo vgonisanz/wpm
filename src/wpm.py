@@ -26,7 +26,7 @@ class Wpm(object):
     """
     Initialize class: Initialize CursesManager
     """
-    @classmethod
+
     def __init__(self, echo=False):
         print("Initializing widget python manager")
 
@@ -74,7 +74,7 @@ class Wpm(object):
 
     :return: returns None
     """
-    @classmethod
+
     def initializeScreen(self):
         self._screen = curses.initscr()
         self._base_window_height, self._base_window_width = self._screen.getmaxyx()
@@ -99,7 +99,7 @@ class Wpm(object):
 
     :return: returns None
     """
-    @classmethod
+
     def restoreScreen(self):
         curses.initscr()
         curses.nocbreak()
@@ -112,7 +112,7 @@ class Wpm(object):
 
     :return: returns None
     """
-    @classmethod
+
     def push_widget(self, widget):
         self._widget_stack.append(widget)
         self.restore_stack()
@@ -123,7 +123,7 @@ class Wpm(object):
 
     :return: returns None
     """
-    @classmethod
+
     def restore_stack(self):
         self._current_window = self._widget_stack[len(self._widget_stack)-1]
         return None
@@ -133,7 +133,7 @@ class Wpm(object):
 
     :return: returns None
     """
-    @classmethod
+
     def size_stack(self, echo = False):
         size = len(self._widget_stack)
         if echo:
@@ -145,7 +145,7 @@ class Wpm(object):
 
     :return: returns None
     """
-    @classmethod
+
     def get_background(self):
         return self._base_window
 
@@ -154,7 +154,7 @@ class Wpm(object):
 
     :return: returns None
     """
-    @classmethod
+
     def get_window_size(self):
         if self._current_window != None:
             height, width = self._current_window.getmaxyx()
@@ -165,7 +165,7 @@ class Wpm(object):
 
     :return: returns None
     """
-    @classmethod
+
     def get_max_custom_colors(self):
         return curses.COLORS
 
@@ -174,7 +174,7 @@ class Wpm(object):
 
     :return: returns None
     """
-    @classmethod
+
     def get_current_color(self):
         return curses.color_pair(7)
 
@@ -183,7 +183,7 @@ class Wpm(object):
 
     :return: returns None
     """
-    @classmethod
+
     def get_current_widget(self):
         widget = self._widget_stack[len(self._widget_stack)-1]
         return widget
@@ -193,7 +193,7 @@ class Wpm(object):
 
     :return: returns None
     """
-    @classmethod
+
     def set_color(self, color_character, color_background):
         curses.init_pair(7, color_character, color_background);
         return None
@@ -203,7 +203,7 @@ class Wpm(object):
 
     :return: returns None
     """
-    @classmethod
+
     def msleep(self, ms = 1):
         curses.napms(ms)
         return None
@@ -213,7 +213,7 @@ class Wpm(object):
 
     :return: returns nothing
     """
-    @classmethod
+
     def create_element_button(self, message, width, x0, y0):
         button = Button(self, message, width, x0, y0)
         return button
@@ -223,7 +223,7 @@ class Wpm(object):
 
     :return: returns nothing
     """
-    @classmethod
+
     def create_popup_message(self):
         print("create_popup_message")
         return None

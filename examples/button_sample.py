@@ -57,19 +57,19 @@ def draw_buttons():
     button_focus.set_focus()
     button_focus.draw()
 
-    background.waitforkey(True, 1, 2)
+    background.waitforkey()
     return None
 
 def change_palette():
     button_focus.change_color(curses.COLOR_GREEN, curses.COLOR_BLACK)
-    background.waitforkey(True, 1, 2)
+    background.waitforkey()
     return None
 
 def clean_and_update_normal_button():
     background.clear()
     background.print_message("Now we clean and redraw normal button", button_x0, button_y0)
     button.draw()
-    background.waitforkey(True, 1, 2)
+    background.waitforkey()
     return None
 
 def main(stdscr):

@@ -12,7 +12,7 @@ class ButtonState(Enum):
 class Button(Element):
     _title = ""
 
-    @classmethod
+    
     def __init__(self, text, width, x0, y0):
         super(Button, self).__init__(width, 1, x0, y0) # Initialize variables in Element, Override height
         self._text = text[:self._width-2]
@@ -24,7 +24,7 @@ class Button(Element):
 
     return: True always
     """
-    @classmethod
+    
     def set_active(self, active):
         if active:
             self._state = ButtonState.normal
@@ -37,7 +37,7 @@ class Button(Element):
 
     return: True always
     """
-    @classmethod
+    
     def set_focus(self):
         success = True
         if self._state == ButtonState.inactive:
@@ -51,7 +51,7 @@ class Button(Element):
 
     return: None
     """
-    @classmethod
+    
     def draw(self):
         # Put text cropped and centered
         len_text = len(self._text)

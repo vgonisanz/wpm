@@ -25,7 +25,7 @@ class Widget(object):
     _background = None
     _events = []    # List with trigger and action
 
-    @classmethod
+    
     def __init__(self, width, height, x0, y0):
         self._background = Element(width, height, x0, y0)
         return None
@@ -35,7 +35,7 @@ class Widget(object):
 
     :return: returns nothing
     """
-    @classmethod
+
     def _iterate_events(self):
         self._background.change_color(curses.COLOR_BLACK, curses.COLOR_WHITE) # Test
         self._background.set_input_mode(True)
@@ -53,7 +53,7 @@ class Widget(object):
     :input action_object
     :return: returns nothing
     """
-    @classmethod
+
     def add_event(self, action_object):
         self._events.append(action_object)
         return None
@@ -63,7 +63,7 @@ class Widget(object):
 
     :return: returns nothing
     """
-    @classmethod
+
     def end_condition(self):
         self._end_condition = True
         return None
@@ -73,7 +73,7 @@ class Widget(object):
 
     :return: returns nothing
     """
-    @classmethod
+
     def get_background(self):
         return self._background
 
@@ -82,7 +82,7 @@ class Widget(object):
 
     :return: returns nothing
     """
-    @classmethod
+
     def run(self):
         # Override me
         self._iterate_events()
@@ -93,7 +93,7 @@ class Widget(object):
 
     :return: returns nothing
     """
-    @classmethod
+
     def run_test(self):
         self._background.change_color(curses.COLOR_BLACK, curses.COLOR_WHITE) # Test
         self._background.set_input_mode(True)

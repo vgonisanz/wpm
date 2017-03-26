@@ -18,7 +18,7 @@ class CursesManager(object):
     """
     Initialize CursesManager
     """
-    @classmethod
+    
     def __init__(self, echo=False):
         print("Initializing curses Manager")
 
@@ -33,7 +33,7 @@ class CursesManager(object):
     """
     Enter CursesManager
     """
-    @classmethod
+    
     def __enter__(self):
         print("Enter curses Manager")
         return self
@@ -41,7 +41,7 @@ class CursesManager(object):
     """
     Exit CursesManager
     """
-    @classmethod
+    
     def __exit__(self, exc_type, exc_value, traceback):
         print("Exit curses Manager")
         curses.endwin()
@@ -52,7 +52,7 @@ class CursesManager(object):
 
     :return: returns nothing
     """
-    @classmethod
+    
     def init(self):
         print("Init basic stuffs")
         if curses.has_colors():
@@ -65,7 +65,7 @@ class CursesManager(object):
 
     :return: returns nothing
     """
-    @classmethod
+    
     def print_screen_info(self):
         self._screen.addstr("\n  Userful info:")
         self._screen.addstr("\n  Terminal: %s" % curses.longname())
@@ -85,7 +85,7 @@ class CursesManager(object):
 
     :return: returns nothing
     """
-    @classmethod
+    
     def create_button(self):
         button = Button()
         return button
@@ -95,7 +95,7 @@ class CursesManager(object):
 
     :return: returns nothing
     """
-    @classmethod
+    
     def create_screen_info_popup(self):
         return None
 
@@ -127,7 +127,7 @@ class CursesManager(object):
 
     :return: returns nothing
     """
-    @classmethod
+    
     def create_window(self, width = 20, height = 20):
         print("Creating window with size: %sx%s" % (width, height))
         return None
@@ -137,7 +137,7 @@ class CursesManager(object):
 
     :return: returns nothing
     """
-    @classmethod
+    
     def draw(self):
         print("Drawing...")
         #self._stdscr.addstr(0, 0, "Hi!")
@@ -149,7 +149,7 @@ class CursesManager(object):
 
     :return: returns nothing
     """
-    @classmethod
+    
     def cleanup(self):
         curses.endwin()
         print("Cleaning up...")
@@ -160,7 +160,7 @@ class CursesManager(object):
 
     :return: returns nothing
     """
-    @classmethod
+    
     def set_current_window(self, stdscr):
         self._current_window = stdscr
         return None
@@ -170,7 +170,7 @@ class CursesManager(object):
 
     :return: returns nothing
     """
-    @classmethod
+    
     def clear(self):
         if self._current_window != None:
             self._current_window.clear()
@@ -182,7 +182,7 @@ class CursesManager(object):
 
     :return: returns None
     """
-    @classmethod
+    
     def getkey(self):
         if self._current_window != None:
             return self._current_window.getkey()
@@ -193,7 +193,7 @@ class CursesManager(object):
 
     :return: returns character
     """
-    @classmethod
+    
     def getch(self):
         if self._current_window != None:
             return self._current_window.getch()
@@ -204,7 +204,7 @@ class CursesManager(object):
 
     :return: returns string entered
     """
-    @classmethod
+    
     def getstr(self):
         if self._current_window != None:
             return self._current_window.getstr()
@@ -215,7 +215,7 @@ class CursesManager(object):
 
     :return: returns None
     """
-    @classmethod
+    
     def waitforkey(self, print_text = True, x0 = -1, y0 = -1):
         if self._current_window != None:
             self.rwait(1)
@@ -231,7 +231,7 @@ class CursesManager(object):
 
     :return: returns None
     """
-    @classmethod
+    
     def rwait(self, ms = 1):
         if self._current_window != None:
             self._current_window.refresh()
@@ -243,7 +243,7 @@ class CursesManager(object):
 
     :return: returns None
     """
-    @classmethod
+    
     def set_cursor(self, x0, y0):
         if self._current_window != None:
             self._current_window.move(y0, x0)
@@ -257,7 +257,7 @@ class CursesManager(object):
 
     :return: returns None
     """
-    @classmethod
+    
     def set_cursor_mode(self, mode):
         if mode >= 0 and mode < 3:
             curses.curs_set(mode)
@@ -268,7 +268,7 @@ class CursesManager(object):
 
     :return: returns None
     """
-    @classmethod
+    
     def reverseln(self, y0, clear = False):
         if self._current_window != None:
             y_max, x_max = self._current_window.getmaxyx()
@@ -283,7 +283,7 @@ class CursesManager(object):
 
     :return: returns None
     """
-    @classmethod
+    
     def clearln(self, y0):
         if self._current_window != None:
             self._current_window.move(y0, 0)
@@ -295,7 +295,7 @@ class CursesManager(object):
 
     :return: returns None
     """
-    @classmethod
+    
     def clrtoeol(self, x0, y0):
         if self._current_window != None:
             self._current_window.move(y0, x0)
@@ -307,7 +307,7 @@ class CursesManager(object):
 
     :return: returns None
     """
-    @classmethod
+    
     def clrtobot(self, x0, y0):
         if self._current_window != None:
             self._current_window.move(y0, x0)
@@ -319,7 +319,7 @@ class CursesManager(object):
 
     :return: returns None
     """
-    @classmethod
+    
     def hline(self, x0, y0):
         if self._current_window != None:
             self._current_window.move(y0, x0)
@@ -331,7 +331,7 @@ class CursesManager(object):
 
     :return: returns None
     """
-    @classmethod
+    
     def vline(self, x0, y0):
         if self._current_window != None:
             self._current_window.move(y0, x0)
@@ -343,7 +343,7 @@ class CursesManager(object):
 
     :return: returns None
     """
-    @classmethod
+    
     def flash(self):
         curses.flash()
         return None
@@ -353,7 +353,7 @@ class CursesManager(object):
 
     :return: returns None
     """
-    @classmethod
+    
     def insertln(self, y0):
         if self._current_window != None:
             self._current_window.move(y0, 0)
@@ -365,7 +365,7 @@ class CursesManager(object):
 
     :return: returns None
     """
-    @classmethod
+    
     def deleteln(self, y0 = -1):
         if self._current_window != None:
             if y0 >= 0:
@@ -378,7 +378,7 @@ class CursesManager(object):
 
     :return: returns None
     """
-    @classmethod
+    
     def delch(self, x0, y0):
         if self._current_window != None:
             self._current_window.delch(y0, x0)
@@ -389,7 +389,7 @@ class CursesManager(object):
 
     :return: returns x and y, or -1 if not window
     """
-    @classmethod
+    
     def get_cursor(self):
         y = -1
         x = -1
@@ -402,7 +402,7 @@ class CursesManager(object):
 
     :return: returns max valid x and y, or -1 if not window
     """
-    @classmethod
+    
     def get_max_cursor(self):
         y = -1
         x = -1
@@ -417,7 +417,7 @@ class CursesManager(object):
 
     :return: returns valid x and y, or -1 if not window
     """
-    @classmethod
+    
     def get_valid_cursor(self, x0, y0):
         y = -1
         x = -1
@@ -440,7 +440,7 @@ class CursesManager(object):
 
     :return: returns nothing
     """
-    @classmethod
+    
     def print_background(self, color_character, color_background):
         if self._current_window != None:
             # Set color
@@ -455,7 +455,7 @@ class CursesManager(object):
 
     :return: returns nothing
     """
-    @classmethod
+    
     def print_border(self, type = 0):
         if self._current_window != None:
             # Set border
@@ -483,7 +483,7 @@ class CursesManager(object):
 
     :return: returns nothing
     """
-    @classmethod
+    
     def fill_with_pattern(self, pattern):
         if self._current_window != None:
             y_max, x_max = self._current_window.getmaxyx()
@@ -500,7 +500,7 @@ class CursesManager(object):
 
     :return: returns nothing
     """
-    @classmethod
+    
     def print_ch(self, ch, attributes = curses.A_NORMAL):
         if self._current_window != None:
             # Set attributes
@@ -516,7 +516,7 @@ class CursesManager(object):
 
     :return: returns nothing
     """
-    @classmethod
+    
     def print_ch_at(self, ch, x0 = -1, y0 = -1, attributes = curses.A_NORMAL):
         if self._current_window != None:
             # Set attributes
@@ -535,7 +535,7 @@ class CursesManager(object):
 
     :return: returns nothing
     """
-    @classmethod
+    
     def print_message(self, message, attributes = curses.A_NORMAL):
         if self._current_window != None:
             # Set attributes
@@ -551,7 +551,7 @@ class CursesManager(object):
 
     :return: returns nothing
     """
-    @classmethod
+    
     def print_message_center(self, message, y0, attributes = curses.A_NORMAL):
         if self._current_window != None:
             y_max, x_max = self._current_window.getmaxyx()
@@ -575,7 +575,7 @@ class CursesManager(object):
 
     :return: returns nothing
     """
-    @classmethod
+    
     def print_message_slow(self, message, inter_delay = 100, attributes = curses.A_NORMAL):
         if self._current_window != None:
             # Set attributes
@@ -593,7 +593,7 @@ class CursesManager(object):
 
     :return: returns nothing
     """
-    @classmethod
+    
     def print_message_at(self, message, x0 = -1, y0 = -1, attributes = curses.A_NORMAL):
         if self._current_window != None:
             # Set attributes
@@ -612,7 +612,7 @@ class CursesManager(object):
 
     :return: returns nothing
     """
-    @classmethod
+    
     def print_message_slow_at(self, message, x0 = 0, y0 = 0, inter_delay = 100, attributes = curses.A_NORMAL):
         if self._current_window != None:
             # Set attributes
@@ -633,7 +633,7 @@ class CursesManager(object):
     :param: progress from 0 to 100
     :return: returns nothing
     """
-    @classmethod
+    
     def print_progress_bar(self, progress, x0 = 0, y0 = 0, width = 0, attributes = curses.A_NORMAL):
         if self._current_window != None:
             if width == 0:
@@ -670,7 +670,7 @@ class CursesManager(object):
 
     :return: returns nothing
     """
-    @classmethod
+    
     def print_character_array(self, character_array, row_size, x0 = 0, y0 = 0, offset = 0, attributes = curses.A_NORMAL):
         if self._current_window != None:
             cols = int(len(character_array) / row_size)
@@ -697,7 +697,7 @@ class CursesManager(object):
 
     :return: returns nothing
     """
-    @classmethod
+    
     def print_book(self, title, pages, author = ""):
         if self._current_window != None:
             y_max, x_max = self._current_window.getmaxyx()
@@ -728,7 +728,7 @@ class CursesManager(object):
 
     :return: returns win0, win1, win2, win3
     """
-    @classmethod
+    
     def print_4windows(self):
         y_max, x_max = self._current_window.getmaxyx()
         y_2 = y_max / 2
@@ -761,7 +761,7 @@ class CursesManager(object):
 
     :return: returns string
     """
-    @classmethod
+    
     def print_question(self, question, feedback = True, x0_question = -1, y0_question = -1, x0_answer = -1, y0_answer = -1):
         answer = ""
         if len(question) <= 0:
@@ -784,7 +784,7 @@ class CursesManager(object):
 
     :return: Return option delimiter line
     """
-    @classmethod
+    
     def create_simple_ui(self, window, options, title = "", print_title = True):
         simpleui = self.SimpleUserInterfaceCM(self, window, options, title, print_title)
         return simpleui
@@ -794,7 +794,7 @@ class CursesManager(object):
 
     :return: returns menu object
     """
-    @classmethod
+    
     def create_menu(self, window, title, options, instructions):
         menu = self.MenuCM(self, window, title, options, instructions)
         return menu
@@ -818,7 +818,7 @@ class CursesManager(object):
         """
         Initialize MenuCM
         """
-        @classmethod
+        
         def __init__(self, curses_manager, window, title, options, instructions = "", offset_x = 15, offset_y = 0, title_padding = 1, instruction_padding = 1):
             if len(options) <= 0:
                 return None
@@ -839,7 +839,7 @@ class CursesManager(object):
 
         :return: returns -1 if quit with q or ESC, option id from [0, N-1] if ENTER
         """
-        @classmethod
+        
         def run(self):
             self._cm.set_current_window(self._window)
             self._cm.clear()
@@ -869,7 +869,7 @@ class CursesManager(object):
 
         :return: None
         """
-        @classmethod
+        
         def clear(self):
             self._cm.set_current_window(self._window)
             self._cm.clear()
@@ -880,7 +880,7 @@ class CursesManager(object):
 
         :return: returns option selected
         """
-        @classmethod
+        
         def __draw_menu(self, option_selected):
             if option_selected < 0:
                 option_selected = 0
@@ -914,7 +914,7 @@ class CursesManager(object):
         """
         Initialize SimpleUserInterfaceCM
         """
-        @classmethod
+        
         def __init__(self, curses_manager, window, options, title, print_title):
             option_size = len(options)
             if option_size <= 0:
@@ -952,7 +952,7 @@ class CursesManager(object):
 
         :return: returns -1 if quit with q or ESC, option id from [0, N-1] if ENTER
         """
-        @classmethod
+        
         def draw(self):
             self._cm.set_current_window(self._window)
             # Get terminal size
@@ -971,7 +971,7 @@ class CursesManager(object):
 
         :return: None
         """
-        @classmethod
+        
         def clear_secondary_window(self):
             self._cm.set_current_window(self._secondary_window)
             self._cm.clear()
@@ -981,7 +981,7 @@ class CursesManager(object):
 
         :return: None
         """
-        @classmethod
+        
         def print_command(self, message, x0 = 1):
             self._cm.set_current_window(self._window)
             self._cm.reverseln(self._delimiter_line, True)
@@ -994,7 +994,7 @@ class CursesManager(object):
 
         :return: Secondary window
         """
-        @classmethod
+        
         def get_secondary_window(self):
             return self._secondary_window
 
@@ -1003,7 +1003,7 @@ class CursesManager(object):
 
         :return: Secondary window
         """
-        @classmethod
+        
         def get_delimiter_line(self):
             return self._delimiter_line
 
@@ -1012,7 +1012,7 @@ class CursesManager(object):
 
     :return: returns nothing
     """
-    @classmethod
+    
     def template(self):
         #
         return None

@@ -20,7 +20,7 @@ def main(stdscr):
     # ...
 
     wpm.msleep(1)
-    background.waitforkey(True, 1, 2)
+    background.waitforkey()
     return None
 
 if __name__ == "__main__":

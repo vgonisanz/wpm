@@ -29,7 +29,7 @@ def main(stdscr):
         background.change_color(x, 0)
         wpm.msleep(5)
         background.print_message("Color %d is this text color." % x, 1, 1)
-        background.waitforkey(True, 1, 2)
+        background.waitforkey()
 
     background.clear()
 
@@ -40,7 +40,7 @@ def main(stdscr):
         print("This terminal cannot init_color")
         pass
 
-    background.waitforkey(background, True, 1, 2)
+    background.waitforkey()
 
     return None
 

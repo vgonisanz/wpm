@@ -8,7 +8,7 @@ class Element(object):
     _x = None
     _y = None
 
-    @classmethod
+
     def __init__(self, width, height, x0, y0):
         self._width = width
         self._height = height
@@ -22,7 +22,7 @@ class Element(object):
 
     :return: returns nothing
     """
-    @classmethod
+
     def clear(self):
         if self._window != None:
             self._window.clear()
@@ -34,7 +34,7 @@ class Element(object):
 
     :return: returns None
     """
-    @classmethod
+
     def clearln(self, y0):
         if self._window != None:
             self._window.move(y0, 0)
@@ -46,7 +46,7 @@ class Element(object):
 
     :return: returns nothing
     """
-    @classmethod
+
     def print_message(self, message, x0 = -1, y0 = -1, attributes = curses.A_NORMAL):
         if self._window != None:
             if x0 > -1 and y0 > -1:
@@ -66,7 +66,7 @@ class Element(object):
 
     :return: returns nothing
     """
-    @classmethod
+
     def print_message_center(self, message, y0, attributes = curses.A_NORMAL):
         if self._window != None:
             y_max, x_max = self._window.getmaxyx()
@@ -84,7 +84,7 @@ class Element(object):
 
     :return: returns nothing
     """
-    @classmethod
+
     def print_message_slow(self, message, x0 = -1, y0 = -1, inter_delay = 100, attributes = curses.A_NORMAL):
         if self._window != None:
             if x0 > -1 and y0 > -1:
@@ -107,7 +107,7 @@ class Element(object):
 
     :return: returns nothing
     """
-    @classmethod
+
     def change_color(self, color_character, color_background):
         if self._window != None:
             curses.init_pair(7, color_character, color_background)
@@ -120,7 +120,7 @@ class Element(object):
 
     :return: returns None
     """
-    @classmethod
+
     def waitforkey(self, print_text = True, x0 = -1, y0 = -1):
         #if x0 > -1 and y0 > -1:
         #    self.set_cursor(window, x0, y0)
@@ -133,7 +133,7 @@ class Element(object):
 
     :return: returns None
     """
-    @classmethod
+
     def set_input_mode(self, input):
         self._window.keypad(input)
         return None
@@ -143,7 +143,7 @@ class Element(object):
 
     :return: returns None
     """
-    @classmethod
+
     def get_character(self):
         # Set always NO DELAY?
         #if x0 > -1 and y0 > -1:
@@ -152,7 +152,7 @@ class Element(object):
         #    self.print_message(window, "Press any key to continue.")
         return self._window.getch()
 
-    @classmethod
+
     def draw(self):
         # Override me
         return None
