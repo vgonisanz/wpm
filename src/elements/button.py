@@ -6,7 +6,7 @@ from enum import Enum
 class ButtonState(Enum):
     normal = 0
     inactive = 1
-    focus = 2
+    focused = 2
     pushed = 3
 
 class Button(Element):
@@ -19,6 +19,38 @@ class Button(Element):
         self._state = ButtonState.normal
         return None
 
+    """
+    Force to ser normal or inactive a button
+
+    return: True always
+    """
+    @classmethod
+    def set_active(self, active):
+        if active:
+            self._state = ButtonState.normal
+        else:
+            self._state = ButtonState.inactive
+        return True
+
+    """
+    Set button on focus mode if is not inactive
+
+    return: True always
+    """
+    @classmethod
+    def set_focus(self):
+        success = True
+        if self._state == ButtonState.inactive:
+            sucess = False
+        else:
+            self._state = ButtonState.focused
+        return success
+
+    """
+    Draw button in its position with its state
+
+    return: None
+    """
     @classmethod
     def draw(self):
         # Put text cropped and centered
@@ -32,11 +64,13 @@ class Button(Element):
         # Calculate attributes
         if self._state == ButtonState.pushed:
             attributes = curses.A_REVERSE
-        elif self._state == ButtonState.focus:
+        elif self._state == ButtonState.focused:
             attributes = curses.A_UNDERLINE
+        elif self._state == ButtonState.inactive:
+            attributes = curses.A_DIM
 
         # Print it
         self.print_message(">", 0, 0)
-        self.print_message(self._text, start_position, 0)
+        self.print_message(self._text, start_position, 0, attributes)
         self.print_message("<", self._width - 1, 0)
         return None

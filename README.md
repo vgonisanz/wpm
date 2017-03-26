@@ -35,7 +35,7 @@ This manager could be a widget library --> wpm = Widget python manager
 
 ### Ideas
 
-* themes: Change different themes to use different colors.
+* themes: Change different themes to use different colors. (Use a palette, change a color type without affect others)
 
 ### Documentation /  Full Description
 

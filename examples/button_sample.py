@@ -9,24 +9,76 @@ from wpm import Wpm
 from button import Button
 
 # Configuration
+button_message = "Normal"
+button_message_inactive = "Inactive"
+button_message_focus = "Focus"
+
+button_width = 10
+button_x0 = 1
+button_y0 = 2
 
 # Variables
+background = None
+button = None
+button_inactive = None
+button_focus = None
 
-def main(stdscr):
+def initialize():
+    global wpm
+    global background
+
     wpm = Wpm()
+    background = wpm.get_background()   # Get main window to print
+    return None
 
-    # Create button element
-    button_message = "12345678910"
-    button_width = 10
-    button_x0 = 1
-    button_y0 = 2
+def draw_buttons():
+    global button
+    global button_inactive
+    global button_focus
 
-    button = Button(button_message, button_width, button_x0, button_y0)
-    button.change_color(curses.COLOR_RED, curses.COLOR_YELLOW)
+    current_y = button_y0
+
+    background.print_message("This is a %s button" % button_message, button_x0, current_y)
+    current_y += 1
+    button = Button(button_message, button_width, button_x0, current_y)
     button.draw()
 
-    wpm.msleep(2000)
+    current_y += 2
+    background.print_message("This is a %s button" % button_message_inactive, button_x0, current_y)
+    current_y += 1
+    button_inactive = Button(button_message_inactive, button_width, button_x0, current_y)
+    button_inactive.set_active(False)
+    button_inactive.draw()
+
+    current_y += 2
+    background.print_message("This is a %s button" % button_message_focus, button_x0, current_y)
+    current_y += 1
+    button_focus = Button(button_message_focus, button_width, button_x0, current_y)
+    button_focus.set_focus()
+    button_focus.draw()
+
     background.waitforkey(True, 1, 2)
+    return None
+
+def change_palette():
+    button_focus.change_color(curses.COLOR_GREEN, curses.COLOR_BLACK)
+    background.waitforkey(True, 1, 2)
+    return None
+
+def clean_and_update_normal_button():
+    background.clear()
+    background.print_message("Now we clean and redraw normal button", button_x0, button_y0)
+    button.draw()
+    background.waitforkey(True, 1, 2)
+    return None
+
+def main(stdscr):
+    initialize()
+    draw_buttons()
+    #change_palette()
+    clean_and_update_normal_button()
+
+    #
     return None
 
 if __name__ == "__main__":
