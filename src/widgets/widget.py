@@ -11,7 +11,6 @@ class ActionObject(object):
     character = None
     action = None
 
-    @classmethod
     def __init__(self, character_input, action_input):
         # check type() is type
         self.character = character_input
@@ -43,21 +42,9 @@ class Widget(object):
         self._end_condition = False
         while not self._end_condition:
             event = self._background.get_character()
-            #self._background.print_message(str(len(self._events)))
             for member in self._events:
-                self._background.print_message(str(member.character))
-                self._background.print_message(" END ")
-                #if event == member.character:
-                #    self._background.print_message(str(event))
-                #    self._background.print_message(str(member.character))
-                #    self._background.print_message("si")
-                #    self._background.print_message("SI")
-                #else:
-                #    self._background.print_message("NO")
-
-                #if event == member.character:
-                    #self._background.print_message(str(member.character))
-                    #member.action()
+                if event == member.character:
+                    member.action()
         self._background.set_input_mode(False)
         return None
 

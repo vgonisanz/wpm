@@ -19,15 +19,15 @@ widget_y0 = 2
 widget = None
 widget_background = None
 
-def callback_action1(ignore):
+def callback_action1():
     widget_background.print_message("Left")
     return None
 
-def callback_c(ignore):
+def callback_c():
     widget_background.print_message("c")
     return None
 
-def callback_quit(ignore):
+def callback_quit():
     widget.end_condition()
     return None
 
@@ -45,14 +45,12 @@ def create_widget():
 
     widget = Widget(widget_width, widget_height, widget_x0, widget_y0)
     widget_background = widget.get_background()
-    action_c = ActionObject(ord('c'), callback_c)
-    #action_quit = ActionObject(ord('q'), callback_quit)
-    background.print_message(str(action_c.character))
-    #background.print_message(str(action_quit.character))
-    background.waitforkey(True, 1, 2)
-    #action1 = ActionObject(curses.KEY_LEFT, callback_action1)
 
-    #widget.add_event(action1)
+    action_c = ActionObject(ord('c'), callback_c)
+    action_quit = ActionObject(ord('q'), callback_quit)
+    action1 = ActionObject(curses.KEY_LEFT, callback_action1)
+
+    widget.add_event(action1)
     widget.add_event(action_quit)
     widget.add_event(action_c)
 
@@ -64,9 +62,6 @@ def create_widget():
 def main(stdscr):
     initialize()
     create_widget()
-
-    wpm.msleep(1)
-    background.waitforkey(True, 1, 2)
     return None
 
 if __name__ == "__main__":
