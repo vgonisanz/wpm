@@ -101,7 +101,7 @@ class Wpm(object):
     """
 
     def restoreScreen(self):
-        curses.initscr()
+        #curses.initscr()
         curses.nocbreak()
         curses.echo()
         curses.endwin()

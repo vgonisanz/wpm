@@ -7,14 +7,16 @@ from curses import wrapper  # Use my own wrapper
 from wpm import Wpm
 from element import Element
 
-class ActionObject(object):
+class EventObject(object):
     character = None
     action = None
+    args = []
 
-    def __init__(self, character_input, action_input):
+    def __init__(self, character_input, action_input, args_input = None):
         # check type() is type
         self.character = character_input
         self.action = action_input
+        self.args = args_input
         return None
 """
 Functionality
@@ -25,7 +27,7 @@ class Widget(object):
     _background = None
     _events = []    # List with trigger and action
 
-    
+
     def __init__(self, width, height, x0, y0):
         self._background = Element(width, height, x0, y0)
         return None
@@ -44,7 +46,10 @@ class Widget(object):
             event = self._background.get_character()
             for member in self._events:
                 if event == member.character:
-                    member.action()
+                    if not member.args == None:
+                        member.action(*member.args)
+                    else:
+                        member.action()
         self._background.set_input_mode(False)
         return None
 
@@ -63,7 +68,6 @@ class Widget(object):
 
     :return: returns nothing
     """
-
     def end_condition(self):
         self._end_condition = True
         return None
@@ -73,7 +77,6 @@ class Widget(object):
 
     :return: returns nothing
     """
-
     def get_background(self):
         return self._background
 
@@ -82,37 +85,17 @@ class Widget(object):
 
     :return: returns nothing
     """
-
     def run(self):
         # Override me
         self._iterate_events()
         return None
 
     """
-    This widget take the control of the UI.
+    Remove all events added of predefined.
 
     :return: returns nothing
     """
 
-    def run_test(self):
-        self._background.change_color(curses.COLOR_BLACK, curses.COLOR_WHITE) # Test
-        self._background.set_input_mode(True)
-        self._end_condition = False
-        while not self._end_condition:
-            event = self._background.get_character()
-            if event == curses.KEY_LEFT:
-                self._background.print_message("Left\n")
-            if event == curses.KEY_RIGHT:
-                self._background.print_message("Right\n")
-            if event == curses.KEY_UP:
-                self._background.print_message("Up\n")
-            if event == curses.KEY_DOWN:
-                self._background.print_message("Down\n")
-            if event == curses.KEY_BACKSPACE:
-                self._background.print_message("Backspace\n")
-            if event == ord('q'):
-                self._background.print_message("Quit command\n")
-                curses.napms(300)
-                self._end_condition = True
-        self._background.set_input_mode(False)
+    def purge_events(self):
+        self._events = []
         return None
