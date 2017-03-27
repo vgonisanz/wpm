@@ -189,6 +189,20 @@ class Wpm(object):
         return widget
 
     """
+    Set cursor mode.
+    0 = Invisible
+    1 = Visible
+    2 = Very visible
+    TODO use a class enum.
+    :return: returns None
+    """
+
+    def set_cursor_mode(self, mode):
+        if mode >= 0 and mode < 3:
+            curses.curs_set(mode)
+        return None
+
+    """
     Manage terminal color: Set a character color and background color.
 
     :return: returns None

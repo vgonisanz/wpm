@@ -11,6 +11,7 @@ from element import Element
 # Configuration
 position_x0 = 1
 position_y0 = 2
+pattern = "#==|==#"
 
 # Variables
 wpm = None
@@ -24,19 +25,31 @@ def initialize():
     background = wpm.get_background()   # Get main window to print
     return None
 
-def function1():
-    # ...
+def fill_with_pattern():
+    background.fill_with_pattern(pattern)
+    wpm.msleep(1)
+    background.waitforkey()
+    return None
+
+def clear_line_from():
+    background.print_message("Clear line from position: (%dx%d) " % (position_x0, position_y0), position_x0, position_y0)
+    # clrtoeol(4, 5)
+    wpm.msleep(1)
+    background.waitforkey()
+    return None
+
+def clear_until_bottom():
+    background.print_message("Clear to bottom from position: (%dx%d) " % (position_x0, position_y0), position_x0, position_y0)
+    #cm.clrtobot(6, 7)
     wpm.msleep(1)
     background.waitforkey()
     return None
 
 def main(stdscr):
     initialize()
-
-    # Create element or widget here
-    # ...
-    function1()
-
+    fill_with_pattern()
+    clear_line_from() #TODO complete
+    clear_until_bottom() #TODO complete
     return None
 
 if __name__ == "__main__":

@@ -18,6 +18,7 @@ button_x0 = 1
 button_y0 = 2
 
 # Variables
+wpm = None
 background = None
 button = None
 button_inactive = None

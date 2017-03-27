@@ -103,6 +103,22 @@ class Element(object):
         return None
 
     """
+    Print background with a pattern from (0, 0).
+
+    :return: returns nothing
+    """
+
+    def fill_with_pattern(self, pattern):
+        if self._window != None:
+            y_max, x_max = self._window.getmaxyx()
+            lenght = len( pattern )
+            times = (int)(x_max * y_max / lenght)
+            self._window.move(0, 0)
+            for i in range(0, times):
+                self.print_message(pattern)
+        return None
+
+    """
     Print background with color.
 
     :return: returns nothing
