@@ -2,7 +2,7 @@ import curses
 
 class Element(object):
 
-    _window = None
+    window = None
     _width = None
     _height = None
     _x = None
@@ -14,7 +14,18 @@ class Element(object):
         self._height = height
         self._x = x0
         self._y = y0
-        self._window = curses.newwin(height, width, y0, x0)
+        self.window = curses.newwin(height, width, y0, x0)
+        return None
+
+    """
+    Set cursor at position.
+
+    :return: returns None
+    """
+
+    def set_cursor(self, x0, y0):
+        if self.window != None:
+            self.window.move(y0, x0)
         return None
 
     """
@@ -24,9 +35,9 @@ class Element(object):
     """
 
     def clear(self):
-        if self._window != None:
-            self._window.clear()
-            self._window.refresh()
+        if self.window != None:
+            self.window.clear()
+            self.window.refresh()
         return None
 
     """
@@ -36,9 +47,9 @@ class Element(object):
     """
 
     def clearln(self, y0):
-        if self._window != None:
-            self._window.move(y0, 0)
-            self._window.clrtoeol()
+        if self.window != None:
+            self.window.move(y0, 0)
+            self.window.clrtoeol()
         return None
 
     """
@@ -48,17 +59,17 @@ class Element(object):
     """
 
     def print_message(self, message, x0 = -1, y0 = -1, attributes = curses.A_NORMAL):
-        if self._window != None:
+        if self.window != None:
             if x0 > -1 and y0 > -1:
                 # Set cursor position
-                self._window.move(y0, x0)
+                self.window.move(y0, x0)
             # Print
             try:
-                self._window.addstr(message, attributes)
+                self.window.addstr(message, attributes)
             except curses.error:
                 pass    # Allow to print last position
             # Refresh
-            self._window.refresh()
+            self.window.refresh()
         return None
 
     """
@@ -68,15 +79,15 @@ class Element(object):
     """
 
     def print_message_center(self, message, y0, attributes = curses.A_NORMAL):
-        if self._window != None:
-            y_max, x_max = self._window.getmaxyx()
+        if self.window != None:
+            y_max, x_max = self.window.getmaxyx()
             lenght = len( message )
             indent = x_max - lenght
             indent = (int)(indent / 2)
             y0_int = (int)(y0)
 
-            self.set_cursor(self._window, indent, y0_int)
-            self._window.addstr(message, attributes)
+            self.set_cursor(indent, y0_int)
+            self.window.addstr(message, attributes)
         return None
 
     """
@@ -86,20 +97,20 @@ class Element(object):
     """
 
     def print_message_slow(self, message, x0 = -1, y0 = -1, inter_delay = 100, attributes = curses.A_NORMAL):
-        if self._window != None:
+        if self.window != None:
             if x0 > -1 and y0 > -1:
                 # Set cursor position
-                self._window.move(y0, x0)
+                self.window.move(y0, x0)
             for char in message:
                 # Print
                 try:
-                    self._window.addch(char, attributes)
-                    self._window.refresh()
+                    self.window.addch(char, attributes)
+                    self.window.refresh()
                     curses.napms(inter_delay)
                 except curses.error:
                     pass    # Allow to print last position
             # Refresh
-            self._window.refresh()
+            self.window.refresh()
         return None
 
     """
@@ -109,11 +120,11 @@ class Element(object):
     """
 
     def fill_with_pattern(self, pattern):
-        if self._window != None:
-            y_max, x_max = self._window.getmaxyx()
+        if self.window != None:
+            y_max, x_max = self.window.getmaxyx()
             lenght = len( pattern )
             times = (int)(x_max * y_max / lenght)
-            self._window.move(0, 0)
+            self.window.move(0, 0)
             for i in range(0, times):
                 self.print_message(pattern)
         return None
@@ -125,10 +136,10 @@ class Element(object):
     """
 
     def change_color(self, color_character, color_background):
-        if self._window != None:
+        if self.window != None:
             curses.init_pair(7, color_character, color_background)
-            self._window.bkgd(curses.color_pair(7)) # Warning, color pair apply to all elements in curses, probably need a variable inside and change global this value!
-            self._window.refresh()
+            self.window.bkgd(curses.color_pair(7)) # Warning, color pair apply to all elements in curses, probably need a variable inside and change global this value!
+            self.window.refresh()
         return None
 
     """
@@ -142,7 +153,7 @@ class Element(object):
         #    self.set_cursor(window, x0, y0)
         #if print_text:
         #    self.print_message(window, "Press any key to continue.")
-        return self._window.getkey()
+        return self.window.getkey()
 
     """
     If input true, start taking keyboard events.
@@ -151,7 +162,7 @@ class Element(object):
     """
 
     def set_input_mode(self, input):
-        self._window.keypad(input)
+        self.window.keypad(input)
         return None
 
     """
@@ -166,7 +177,7 @@ class Element(object):
         #    self.set_cursor(window, x0, y0)
         #if print_text:
         #    self.print_message(window, "Press any key to continue.")
-        return self._window.getch()
+        return self.window.getch()
 
 
     def draw(self):

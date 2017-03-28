@@ -157,7 +157,7 @@ class Wpm(object):
 
     def get_window_size(self):
         if self._current_window != None:
-            height, width = self._current_window.getmaxyx()
+            height, width = self._current_window.window.getmaxyx()
         return width, height
 
     """

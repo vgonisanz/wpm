@@ -86,7 +86,6 @@ class Widget(object):
     :return: returns nothing
     """
     def run(self):
-        # Override me
         self._iterate_events()
         return None
 
