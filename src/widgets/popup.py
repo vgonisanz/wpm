@@ -15,7 +15,8 @@ class Popup(Widget):
         super(Popup, self).__init__(width, height, x0, y0) # Initialize variables in Element, Override height
 
         # Add textbox inside
-        textbox = TextBox(width - 1, height - 1, x0 + 1, y0 + 1)
+        textbox = TextBox(width - 1 , height - 1, x0 + 1, y0 + 1)
+        textbox.window.border()
         textbox_child = ChildElement("textbox", textbox)
         self.add_child(textbox_child)
 
@@ -37,7 +38,7 @@ class Popup(Widget):
 
     def set_message(self, message):
         child = self.get_child("textbox")
-        child.celement.set_text(message)
+        child.set_text(message)
         return None
 
     """
@@ -50,7 +51,7 @@ class Popup(Widget):
         child = None
         for member in self._children:
             if member.cid == child_id:
-                return member
+                return member.celement
         return child
 
     """
@@ -60,18 +61,19 @@ class Popup(Widget):
     """
 
     def draw(self):
+
         # Border
-        self._background.window.border()
+        self._background.clear()
+        #self._background.window.border()
+
         # Title
         if self._print_title:
             self._background.print_message_center(self._title, 0, curses.A_REVERSE)
         # Print message
-        child = self.get_child("textbox")
-        result = child.celement.print_message_center("HOOLA", 3, curses.A_NORMAL)
+        self._draw_children()   # Re-draw children if needed. Textbox by default.
+        #self._background.print_message_center(child.get_text(), 3, curses.A_NORMAL)
+        #result = child.print_message_center("HOOLA", 3, curses.A_NORMAL)
         #self._background.print_message_center(str(result), 3, curses.A_NORMAL)
-        #child.celement.window.refresh()
-        #self._draw_children()   # Re-draw children if needed. Textbox by default.
-        self._background.print_message_center(child.celement.get_text(), 3, curses.A_NORMAL)
         return None
 
     """
@@ -93,5 +95,7 @@ class Popup(Widget):
 
     def _draw_children(self):
         for child in self._children:
+            #child.celement.clear()
             child.celement.draw()
+            child.celement.window.refresh()
         return None

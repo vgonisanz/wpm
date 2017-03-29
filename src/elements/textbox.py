@@ -23,5 +23,5 @@ class TextBox(Element):
     """
 
     def draw(self):
-        self.print_message(self._text)
+        self.print_message(self._text, 2, 2, curses.A_NORMAL)
         return None
