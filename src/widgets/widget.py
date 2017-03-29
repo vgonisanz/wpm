@@ -18,6 +18,16 @@ class EventObject(object):
         self.action = action_input
         self.args = args_input
         return None
+
+class ChildElement(object):
+    cid = ""
+    celement = None
+
+    def __init__(self, child_id, child_element):
+        self.cid = child_id
+        self.celement = child_element
+        return None
+
 """
 Functionality
 """
@@ -25,7 +35,8 @@ class Widget(object):
 
     _end_condition = False
     _background = None
-    _events = []    # List with trigger and action
+    _events = []        # List with trigger and action
+    _children = []      # List with children elements
 
 
     def __init__(self, width, height, x0, y0):
@@ -51,6 +62,16 @@ class Widget(object):
                     else:
                         member.action()
         self._background.set_input_mode(False)
+        return None
+
+    """
+    Add a new children element.
+    :input element
+    :return: returns nothing
+    """
+
+    def add_child(self, element):
+        self._children.append(element)
         return None
 
     """
@@ -97,4 +118,14 @@ class Widget(object):
 
     def purge_events(self):
         self._events = []
+        return None
+
+    """
+    Remove all children added.
+
+    :return: returns nothing
+    """
+
+    def purge_children(self):
+        self._children = []
         return None

@@ -7,6 +7,7 @@ class Element(object):
     _height = None
     _x = None
     _y = None
+    attributes = curses.A_NORMAL
 
 
     def __init__(self, width, height, x0, y0):
@@ -88,7 +89,8 @@ class Element(object):
 
             self.set_cursor(indent, y0_int)
             self.window.addstr(message, attributes)
-        return None
+            return True
+        return False
 
     """
     Print a message with delay between character. It cannot be skipped.
