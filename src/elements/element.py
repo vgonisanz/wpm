@@ -8,6 +8,7 @@ class Element(object):
     _x = None
     _y = None
     attributes = curses.A_NORMAL
+    _manual_draw = False
 
 
     def __init__(self, width, height, x0, y0):
@@ -158,13 +159,23 @@ class Element(object):
         return self.window.getkey()
 
     """
+    If input true, draw call won't be processed. All draw in this widget must be done manually with self.window.
+
+    :return: returns None
+    """
+
+    def set_manual_draw(self, value):
+        self._manual_draw = value
+        return None
+
+    """
     If input true, start taking keyboard events.
 
     :return: returns None
     """
 
-    def set_input_mode(self, input):
-        self.window.keypad(input)
+    def set_input_mode(self, value):
+        self.window.keypad(value)
         return None
 
     """
@@ -183,5 +194,6 @@ class Element(object):
 
 
     def draw(self):
-        # Override me
+        # if not self._manual_draw:
+            # Override me
         return None

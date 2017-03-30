@@ -5,6 +5,7 @@ class TextBox(Element):
     _text = ""
     _cursor_x = 0
     _cursor_y = 0
+    _text_centered = False
 
     def __init__(self, width, height, x0, y0, text = ""):
         super(TextBox, self).__init__(width, height, x0, y0)
@@ -16,13 +17,8 @@ class TextBox(Element):
         self._cursor_y = y
         return None
 
-    def set_cursor_center(self):
-        y_max, x_max = self.window.getmaxyx()
-        lenght = len( self._text )
-        indent_x = (int)(x_max/2 - lenght/2)
-        indent_y = (int)(y_max/2) - 1
-
-        self.set_cursor(indent_x, indent_y)
+    def set_cursor_center(self, value):
+        self._text_centered = value
         return None
 
     def set_text(self, text):
@@ -39,5 +35,14 @@ class TextBox(Element):
     """
 
     def draw(self):
-        self.print_message(self._text, self._cursor_x, self._cursor_y, curses.A_NORMAL)
+        self.window.border()
+        if not self._manual_draw:
+            if self._text_centered:
+                y_max, x_max = self.window.getmaxyx()
+                lenght = len( self._text )
+                indent_x = (int)(x_max/2 - lenght/2)
+                indent_y = (int)(y_max/2) - 1
+                self.set_cursor(indent_x, indent_y)
+            self.print_message(self._text, self._cursor_x, self._cursor_y, self.attributes)
+        self.window.refresh()
         return None
