@@ -11,7 +11,7 @@ from popup import Popup
 # Configuration
 popup_width = 30
 popup_height = 10
-popup_message = "Pop-up say: press q to quit"
+popup_message = "q to quit"
 
 # Variables
 wpm = None
@@ -37,7 +37,7 @@ def create_popup():
     popup = Popup(popup_width, popup_height, popup_x0, popup_y0, True)
     popup_background = popup.get_background()
 
-    popup.set_message(popup_message)
+    popup.set_message(popup_message, True)
     popup.run()
     return None
 

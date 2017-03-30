@@ -220,7 +220,7 @@ class CursesManager(object):
         if self._current_window != None:
             self.rwait(1)
             if x0 > -1 and y0 > -1:
-                self.set_cursor(x0, y0)
+                self.set_window_cursor(x0, y0)
             if print_text:
                 self.print_message("\n Press any key to continue.")
             return self._current_window.getkey()

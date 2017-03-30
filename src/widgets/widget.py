@@ -41,7 +41,7 @@ class Widget(object):
 
     def __init__(self, width, height, x0, y0):
         self._background = Element(width, height, x0, y0)
-        #self._background.change_color(curses.COLOR_BLACK, curses.COLOR_WHITE) # Test
+        self._background.change_color(curses.COLOR_BLACK, curses.COLOR_WHITE) # Test
         return None
 
     """

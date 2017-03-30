@@ -24,7 +24,7 @@ class Element(object):
     :return: returns None
     """
 
-    def set_cursor(self, x0, y0):
+    def set_window_cursor(self, x0, y0):
         if self.window != None:
             self.window.move(y0, x0)
         return None
@@ -87,7 +87,7 @@ class Element(object):
             indent = (int)(indent / 2)
             y0_int = (int)(y0)
 
-            self.set_cursor(indent, y0_int)
+            self.set_window_cursor(indent, y0_int)
             self.window.addstr(message, attributes)
             return True
         return False

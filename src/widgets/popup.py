@@ -15,8 +15,8 @@ class Popup(Widget):
         super(Popup, self).__init__(width, height, x0, y0) # Initialize variables in Element, Override height
 
         # Add textbox inside
-        textbox = TextBox(width - 1 , height - 1, x0 + 1, y0 + 1)
-        textbox.window.border()
+        textbox = TextBox(width - 2 , height - 2, x0 + 1, y0 + 1)
+        #textbox.window.border()    # test draw
         textbox_child = ChildElement("textbox", textbox)
         self.add_child(textbox_child)
 
@@ -36,9 +36,11 @@ class Popup(Widget):
     return: None
     """
 
-    def set_message(self, message):
+    def set_message(self, message, centered = False):
         child = self.get_child("textbox")
         child.set_text(message)
+        if centered:
+            child.set_cursor_center()
         return None
 
     """
@@ -63,8 +65,10 @@ class Popup(Widget):
     def draw(self):
 
         # Border
-        self._background.clear()
-        #self._background.window.border()
+        self._background.clear()    # todo remove?
+        self._background.window.border()
+        self._background.window.refresh()
+        #
 
         # Title
         if self._print_title:
