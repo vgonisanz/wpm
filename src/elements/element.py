@@ -7,7 +7,7 @@ class Element(object):
     _height = None
     _x = None
     _y = None
-    attributes = curses.A_NORMAL
+    #attributes = curses.A_NORMAL # Change all attibutes param or use a general? TODO
     _manual_draw = False
 
 

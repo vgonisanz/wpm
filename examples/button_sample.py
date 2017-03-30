@@ -20,7 +20,7 @@ button_y0 = 2
 # Variables
 wpm = None
 background = None
-button = None
+button_normal = None
 button_inactive = None
 button_focus = None
 
@@ -33,7 +33,7 @@ def initialize():
     return None
 
 def draw_buttons():
-    global button
+    global button_normal
     global button_inactive
     global button_focus
 
@@ -41,8 +41,8 @@ def draw_buttons():
 
     background.print_message("This is a %s button" % button_message, button_x0, current_y)
     current_y += 1
-    button = Button(button_message, button_width, button_x0, current_y)
-    button.draw()
+    button_normal = Button(button_message, button_width, button_x0, current_y)
+    button_normal.draw()
 
     current_y += 2
     background.print_message("This is a %s button" % button_message_inactive, button_x0, current_y)
@@ -69,14 +69,14 @@ def change_palette():
 def clean_and_update_normal_button():
     background.clear()
     background.print_message("Now we clean and redraw normal button", button_x0, button_y0)
-    button.draw()
+    button_normal.draw()
     background.waitforkey()
     return None
 
 def main(stdscr):
     initialize()
     draw_buttons()
-    #change_palette()
+    #change_palette() #Todo check colors crossplatform
     clean_and_update_normal_button()
 
     #

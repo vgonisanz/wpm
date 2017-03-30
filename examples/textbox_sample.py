@@ -56,7 +56,7 @@ def draw_more_textbox():
     background.clear()
     background.print_message("There are 2 more textbox:", textbox_x0, textbox_y0)
     current_x = textbox_x0 + 2
-    current_y = textbox_y0 + 3
+    current_y = textbox_y0 + 1
 
     textbox = TextBox(textbox_width, textbox_height, current_x, current_y)
     textbox.set_text("This text is useless")
@@ -64,8 +64,8 @@ def draw_more_textbox():
     textbox.window.border()
     textbox.draw()  # Do nothing
 
-    current_x += 2
-    current_y += 2
+    current_x += 5
+    current_y += 5
 
     textbox2 = TextBox(textbox_width, textbox_height, current_x, current_y)
     textbox2.set_text(textbox_inside_message)

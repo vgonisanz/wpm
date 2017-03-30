@@ -63,7 +63,7 @@ class Wpm(object):
             window.addstr("\n  Terminal has %s pairs of colors" % curses.COLOR_PAIRS)
         window.addstr("\n  Number of lines: %s (y size) " % curses.LINES)
         window.addstr("\n  Number of cols: %s (x size)" % curses.COLS)
-
+        window.addstr("\n  Terminal output speed: %s" % curses.baudrate())
         window.border()
         window.getkey()
         curses.endwin()

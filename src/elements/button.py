@@ -11,12 +11,12 @@ class ButtonState(Enum):
 
 class Button(Element):
     _title = ""
+    _state = ButtonState.normal
 
-    
+
     def __init__(self, text, width, x0, y0):
         super(Button, self).__init__(width, 1, x0, y0) # Initialize variables in Element, Override height
         self._text = text[:self._width-2]
-        self._state = ButtonState.normal
         return None
 
     """
@@ -24,7 +24,7 @@ class Button(Element):
 
     return: True always
     """
-    
+
     def set_active(self, active):
         if active:
             self._state = ButtonState.normal
@@ -37,7 +37,7 @@ class Button(Element):
 
     return: True always
     """
-    
+
     def set_focus(self):
         success = True
         if self._state == ButtonState.inactive:
@@ -51,26 +51,29 @@ class Button(Element):
 
     return: None
     """
-    
+
     def draw(self):
+
         # Put text cropped and centered
         len_text = len(self._text)
         start_position = 1
         if len_text > 0:
             start_position = int( ( self._width - len_text) / 2)
 
-        attributes = curses.A_NORMAL
+        attributes = curses.A_DIM
 
         # Calculate attributes
         if self._state == ButtonState.pushed:
-            attributes = curses.A_REVERSE
+            attributes = curses.A_BLINK
         elif self._state == ButtonState.focused:
-            attributes = curses.A_UNDERLINE
+            attributes = curses.A_REVERSE
         elif self._state == ButtonState.inactive:
-            attributes = curses.A_DIM
+            attributes = curses.A_UNDERLINE
 
         # Print it
-        self.print_message(">", 0, 0)
+        self.window.clear() # Need clear before redraw
+        self.window.bkgd(attributes)
+        self.print_message(">", 0, 0, attributes)
         self.print_message(self._text, start_position, 0, attributes)
-        self.print_message("<", self._width - 1, 0)
+        self.print_message("<", self._width - 1, 0, attributes)
         return None
