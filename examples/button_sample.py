@@ -12,6 +12,7 @@ from button import Button
 button_message = "Normal"
 button_message_inactive = "Inactive"
 button_message_focus = "Focus"
+button_message_pushed = "Pushed"
 
 button_width = 10
 button_x0 = 1
@@ -23,6 +24,7 @@ background = None
 button_normal = None
 button_inactive = None
 button_focus = None
+button_pushed = None
 
 def initialize():
     global wpm
@@ -36,6 +38,7 @@ def draw_buttons():
     global button_normal
     global button_inactive
     global button_focus
+    global button_pushed
 
     current_y = button_y0
 
@@ -57,6 +60,13 @@ def draw_buttons():
     button_focus = Button(button_message_focus, button_width, button_x0, current_y)
     button_focus.set_focus()
     button_focus.draw()
+
+    current_y += 2
+    background.print_message("This is a %s button" % button_message_pushed, button_x0, current_y)
+    current_y += 1
+    button_pushed = Button(button_message_pushed, button_width, button_x0, current_y)
+    button_pushed.push()
+    button_pushed.draw()
 
     background.waitforkey()
     return None

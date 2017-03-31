@@ -41,10 +41,18 @@ class Button(Element):
     def set_focus(self):
         success = True
         if self._state == ButtonState.inactive:
-            sucess = False
+            success = False
         else:
             self._state = ButtonState.focused
         return success
+
+    def push(self):
+        success = True
+        if not self._state == ButtonState.inactive:
+            self._state = ButtonState.pushed
+        else:
+            success = False
+        return None
 
     """
     Draw button in its position with its state
@@ -60,15 +68,15 @@ class Button(Element):
         if len_text > 0:
             start_position = int( ( self._width - len_text) / 2)
 
-        attributes = curses.A_DIM
+        attributes = curses.A_NORMAL
 
         # Calculate attributes
         if self._state == ButtonState.pushed:
-            attributes = curses.A_BLINK
-        elif self._state == ButtonState.focused:
             attributes = curses.A_REVERSE
-        elif self._state == ButtonState.inactive:
+        elif self._state == ButtonState.focused:
             attributes = curses.A_UNDERLINE
+        elif self._state == ButtonState.inactive:
+            attributes = curses.A_DIM
 
         # Print it
         self.window.clear() # Need clear before redraw

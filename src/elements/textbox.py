@@ -35,7 +35,7 @@ class TextBox(Element):
     """
 
     def draw(self):
-        self.window.border()
+        #self.window.border()
         if not self._manual_draw:
             if self._text_centered:
                 y_max, x_max = self.window.getmaxyx()
@@ -43,6 +43,6 @@ class TextBox(Element):
                 indent_x = (int)(x_max/2 - lenght/2)
                 indent_y = (int)(y_max/2) - 1
                 self.set_cursor(indent_x, indent_y)
-            self.print_message(self._text, self._cursor_x, self._cursor_y, self.attributes)
+            self.print_message(self._text, self._cursor_x, self._cursor_y, curses.A_NORMAL)
         self.window.refresh()
         return None
