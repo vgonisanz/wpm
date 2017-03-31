@@ -12,12 +12,22 @@ class ButtonState(Enum):
 class Button(Element):
     _title = ""
     _state = ButtonState.normal
-
+    _on_push_callback = None
 
     def __init__(self, text, width, x0, y0):
         super(Button, self).__init__(width, 1, x0, y0) # Initialize variables in Element, Override height
         self._text = text[:self._width-2]
         return None
+
+    """
+    Set a callback to call when button is pushed
+
+    return: True always
+    """
+
+    def set_on_push_callback(self, callback):
+        self._on_push_callback = callback
+        return True
 
     """
     Force to ser normal or inactive a button
@@ -41,10 +51,29 @@ class Button(Element):
     def set_focus(self):
         success = True
         if self._state == ButtonState.inactive:
-            sucess = False
+            success = False
         else:
             self._state = ButtonState.focused
         return success
+
+    """
+    Push button
+
+    return: True always
+    """
+
+    def push(self, ms = 300):
+        success = True
+        if not self._state == ButtonState.inactive:
+            self._state = ButtonState.pushed
+            self.draw()
+            curses.napms(ms)
+            self._state = ButtonState.normal
+            self.draw()
+            self._on_push_callback()
+        else:
+            success = False
+        return None
 
     """
     Draw button in its position with its state
@@ -60,15 +89,15 @@ class Button(Element):
         if len_text > 0:
             start_position = int( ( self._width - len_text) / 2)
 
-        attributes = curses.A_DIM
+        attributes = curses.A_NORMAL
 
         # Calculate attributes
         if self._state == ButtonState.pushed:
-            attributes = curses.A_BLINK
-        elif self._state == ButtonState.focused:
             attributes = curses.A_REVERSE
-        elif self._state == ButtonState.inactive:
+        elif self._state == ButtonState.focused:
             attributes = curses.A_UNDERLINE
+        elif self._state == ButtonState.inactive:
+            attributes = curses.A_DIM
 
         # Print it
         self.window.clear() # Need clear before redraw

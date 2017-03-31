@@ -40,7 +40,7 @@ class Popup(Widget):
         child = self.get_child("textbox")
         child.set_text(message)
         if centered:
-            child.set_cursor_center()
+            child.set_cursor_center(True)
         return None
 
     """

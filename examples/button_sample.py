@@ -12,6 +12,7 @@ from button import Button
 button_message = "Normal"
 button_message_inactive = "Inactive"
 button_message_focus = "Focus"
+button_message_pushed = "Pushed"
 
 button_width = 10
 button_x0 = 1
@@ -23,6 +24,7 @@ background = None
 button_normal = None
 button_inactive = None
 button_focus = None
+button_pushed = None
 
 def initialize():
     global wpm
@@ -30,6 +32,10 @@ def initialize():
 
     wpm = Wpm()
     background = wpm.get_background()   # Get main window to print
+    return None
+
+def callback_clean_screen():
+    background.clear()
     return None
 
 def draw_buttons():
@@ -61,6 +67,23 @@ def draw_buttons():
     background.waitforkey()
     return None
 
+def draw_push_button():
+    global button_pushed
+
+    background.clear()
+
+    current_y = button_y0
+
+    background.print_message("This is a %s button in 3... 2.... 1....." % button_message_pushed, button_x0, current_y)
+    current_y += 1
+    button_pushed = Button(button_message_pushed, button_width, button_x0, current_y)
+    button_pushed.set_on_push_callback(callback_clean_screen)
+    button_pushed.draw()
+    wpm.msleep(3000)
+    button_pushed.push()
+    background.waitforkey()
+    return None
+
 def change_palette():
     button_focus.change_color(curses.COLOR_GREEN, curses.COLOR_BLACK)
     background.waitforkey()
@@ -76,10 +99,9 @@ def clean_and_update_normal_button():
 def main(stdscr):
     initialize()
     draw_buttons()
+    draw_push_button()
     #change_palette() #Todo check colors crossplatform
-    clean_and_update_normal_button()
-
-    #
+    #clean_and_update_normal_button()
     return None
 
 if __name__ == "__main__":
