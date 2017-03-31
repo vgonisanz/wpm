@@ -12,12 +12,22 @@ class ButtonState(Enum):
 class Button(Element):
     _title = ""
     _state = ButtonState.normal
-
+    _on_push_callback = None
 
     def __init__(self, text, width, x0, y0):
         super(Button, self).__init__(width, 1, x0, y0) # Initialize variables in Element, Override height
         self._text = text[:self._width-2]
         return None
+
+    """
+    Set a callback to call when button is pushed
+
+    return: True always
+    """
+
+    def set_on_push_callback(self, callback):
+        self._on_push_callback = callback
+        return True
 
     """
     Force to ser normal or inactive a button
@@ -46,10 +56,21 @@ class Button(Element):
             self._state = ButtonState.focused
         return success
 
-    def push(self):
+    """
+    Push button
+
+    return: True always
+    """
+
+    def push(self, ms = 300):
         success = True
         if not self._state == ButtonState.inactive:
             self._state = ButtonState.pushed
+            self.draw()
+            curses.napms(ms)
+            self._state = ButtonState.normal
+            self.draw()
+            self._on_push_callback()
         else:
             success = False
         return None
