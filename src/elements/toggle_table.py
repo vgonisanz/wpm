@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import curses   # TODO remove for my colors or color pairs.
 from element import Element
 

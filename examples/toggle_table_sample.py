@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import sys, os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src/elements'))
@@ -48,7 +49,7 @@ def draw_random_toggletable():
     background.waitforkey()
     return None
 
-def draw_random_toggletable():
+def run_toggletable_widget():
 
     return None
 
@@ -56,7 +57,7 @@ def main(stdscr):
     initialize()
     draw_toggletable()
     draw_random_toggletable()
-    toggletable_widget()
+    run_toggletable_widget()
     return None
 
 if __name__ == "__main__":
