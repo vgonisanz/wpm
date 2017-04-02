@@ -20,6 +20,16 @@ class Element(object):
         return None
 
     """
+    Check if point x, y is inside.
+
+    :return: returns False if not.
+    """
+    def is_inside(self, x, y):
+        if x < 0 or self._width <= x or y < 0 or self._height <= y:
+            return False
+        else:
+            return True
+    """
     Set cursor at position.
 
     :return: returns None
@@ -52,6 +62,26 @@ class Element(object):
         if self.window != None:
             self.window.move(y0, 0)
             self.window.clrtoeol()
+        return None
+
+    """
+    Print a character. Choose a position. This affect to cursor.
+
+    :return: returns nothing
+    """
+
+    def print_character(self, character, x0 = -1, y0 = -1, attributes = curses.A_NORMAL):
+        if self.window != None:
+            if x0 > -1 and y0 > -1:
+                # Set cursor position
+                self.window.move(y0, x0)
+            # Print
+            try:
+                self.window.addch(character, attributes)
+            except curses.error:
+                pass    # Allow to print last position
+            # Refresh
+            self.window.refresh()
         return None
 
     """
