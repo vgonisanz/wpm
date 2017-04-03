@@ -42,6 +42,7 @@ class ToggleTable(Element):
         inside = self.is_inside(x, y)
         if inside:
             self._table[x, y] = 1
+            self.print_character(self._character, x-1, y-1)
         return inside
 
     """

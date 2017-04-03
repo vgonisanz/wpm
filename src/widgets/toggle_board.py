@@ -99,12 +99,12 @@ class ToggleBoard(Widget):
 
     def callback_set(self):
         self._toggle_table.set(self.xpos, self.ypos)
-        self._toggle_table.draw()
+        #self._toggle_table.draw()
         return None
 
     def callback_toggle(self):
         self._toggle_table.toggle(self.xpos, self.ypos)
-        self._toggle_table.draw()
+        #self._toggle_table.draw()
         return None
 
     """
