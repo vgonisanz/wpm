@@ -19,22 +19,6 @@ widget_y0 = 2
 widget = None
 widget_background = None
 
-def callback_event_print(message):
-    widget_background.print_message(message)
-    return None
-
-def callback_clear():
-    widget_background.clear()
-    return None
-
-def callback_sum(a, b):
-    widget_background.print_message("a + b = %s\n" % str(a + b) )
-    return None
-
-def callback_quit():
-    widget.end_condition()
-    return None
-
 def initialize():
     global wpm
 
@@ -82,6 +66,22 @@ def change_widget_events():
     widget.add_event(event_quit)
 
     widget.run()
+    return None
+
+def callback_event_print(message):
+    widget_background.print_message(message)
+    return None
+
+def callback_clear():
+    widget_background.clear()
+    return None
+
+def callback_sum(a, b):
+    widget_background.print_message("a + b = %s\n" % str(a + b) )
+    return None
+
+def callback_quit():
+    widget.end_condition()
     return None
 
 def main(stdscr):

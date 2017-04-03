@@ -38,11 +38,17 @@ class Wpm(object):
         self.initializeScreen()
         return None
 
+    def __enter__(self):
+        return None
+
     # Catch any weird termination situations
     def __del__(self):
         self.restoreScreen()
         # Deactive control
         #self._base_window.keypad(True)
+        return None
+
+    def __exit__(self, exc_type, exc_value, traceback):
         return None
 
     """

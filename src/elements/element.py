@@ -35,10 +35,21 @@ class Element(object):
     :return: returns None
     """
 
-    def set_window_cursor(self, x0, y0):
+    def set_cursor_position(self, x0, y0):
         if self.window != None:
             self.window.move(y0, x0)
         return None
+
+    """
+    Get cursor current position.
+
+    :return: Current cursor position tuple (x, y)
+    """
+
+    def get_cursor_position(self):
+        if self.window != None:
+            y, x = self.window.getyx()
+        return x, y
 
     """
     Clear current window.
@@ -118,7 +129,7 @@ class Element(object):
             indent = (int)(indent / 2)
             y0_int = (int)(y0)
 
-            self.set_window_cursor(indent, y0_int)
+            self.set_cursor_position(indent, y0_int)
             self.window.addstr(message, attributes)
             return True
         return False
@@ -142,6 +153,35 @@ class Element(object):
                     curses.napms(inter_delay)
                 except curses.error:
                     pass    # Allow to print last position
+            # Refresh
+            self.window.refresh()
+        return None
+
+    """
+    Print border with elements.
+
+    :return: returns nothing
+    """
+
+    def print_border(self, type = 0):
+        if self.window != None:
+            # Set border
+            if type == 0:
+                self.window.border()
+            elif type == 1:
+                self.window.border(curses.ACS_CKBOARD, curses.ACS_CKBOARD, curses.ACS_CKBOARD, curses.ACS_CKBOARD, curses.ACS_BLOCK, curses.ACS_BLOCK, curses.ACS_BLOCK, curses.ACS_BLOCK)
+            elif type == 2:
+                self.window.border("|", "|", "-", "-", "x", "x", "x", "x")
+            else:
+                ls = "X"
+                rs = "X"
+                ts = "X"
+                bs = "X"
+                tl = "X"
+                tr = "X"
+                bl = "X"
+                br = "X"
+                self.window.border(ls, rs, ts, bs, tl, tr, bl, br)
             # Refresh
             self.window.refresh()
         return None
@@ -182,6 +222,7 @@ class Element(object):
     """
 
     def waitforkey(self, print_text = True, x0 = -1, y0 = -1):
+        # Print in window by default, check what need in a general way
         #if x0 > -1 and y0 > -1:
         #    self.set_cursor(window, x0, y0)
         #if print_text:

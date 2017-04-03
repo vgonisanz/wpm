@@ -65,25 +65,25 @@ class ToggleBoard(Widget):
     def callback_up(self):
         if self.ypos > 1:
             self.ypos -= 1
-            self._background.set_window_cursor(self.xpos, self.ypos)
+            self._background.set_cursor_position(self.xpos, self.ypos)
         return None
 
     def callback_down(self):
         if self.ypos < self._toggle_table._height:
             self.ypos += 1
-            self._background.set_window_cursor(self.xpos, self.ypos)
+            self._background.set_cursor_position(self.xpos, self.ypos)
         return None
 
     def callback_left(self):
         if self.xpos > 1:
             self.xpos -= 1
-            self._background.set_window_cursor(self.xpos, self.ypos)
+            self._background.set_cursor_position(self.xpos, self.ypos)
         return None
 
     def callback_right(self):
         if self.xpos < self._toggle_table._width:
             self.xpos += 1
-            self._background.set_window_cursor(self.xpos, self.ypos)
+            self._background.set_cursor_position(self.xpos, self.ypos)
         return None
 
     def callback_clear(self):
@@ -128,7 +128,7 @@ class ToggleBoard(Widget):
         self._draw_children()   # Re-draw children if needed. toggletable by default.
 
         # Restore cursor
-        self._background.set_window_cursor(self.xpos, self.ypos)
+        self._background.set_cursor_position(self.xpos, self.ypos)
         return None
 
     """
