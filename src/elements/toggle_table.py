@@ -55,10 +55,10 @@ class ToggleTable(Element):
             # If exist character in table, remove and empty character
             if (x, y) in self._table:
                 del self._table[x, y]
-                self.print_character(' ' , i + 1, j + 1)
+                self.print_character(' ' , x-1, y-1)
             else:
                 self._table[x, y] = 1
-                self.print_character(self._character, i + 1, j + 1)
+                self.print_character(self._character, x-1, y-1)
         return inside
 
     """
@@ -90,7 +90,7 @@ class ToggleTable(Element):
     """
     def draw(self):
         #self.window.addch(3, 3, self._character)
-        self.window.border()
+        #self.window.border()
         for i in range(0, self._width - 2):
             for j in range(0, self._height - 2):
                 if (i, j) in self._table:

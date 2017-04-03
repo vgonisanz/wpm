@@ -49,19 +49,6 @@ class Popup(Widget):
     return: None
     """
 
-    def get_child(self, child_id):
-        child = None
-        for member in self._children:
-            if member.cid == child_id:
-                return member.celement
-        return child
-
-    """
-    Re-draw element at current position
-
-    return: None
-    """
-
     def draw(self):
 
         # Border

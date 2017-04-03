@@ -94,6 +94,19 @@ class Widget(object):
         return None
 
     """
+    Get child by ID
+
+    return: None
+    """
+
+    def get_child(self, child_id):
+        child = None
+        for member in self._children:
+            if member.cid == child_id:
+                return member.celement
+        return child
+
+    """
     get background
 
     :return: returns nothing
@@ -128,4 +141,17 @@ class Widget(object):
 
     def purge_children(self):
         self._children = []
+        return None
+
+    """
+    This private method iterate children and draw them.
+
+    :return: returns nothing
+    """
+
+    def _draw_children(self):
+        for child in self._children:
+            #child.celement.clear()
+            child.celement.draw()
+            child.celement.window.refresh()
         return None
