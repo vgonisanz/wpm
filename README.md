@@ -7,6 +7,15 @@ wpm = Widget python manager
 
 ## Requeriments
 
+1. Install dependencies
+```
+pip install -r requirements.txt # None right now, numpy is not needed unless 3d
+```
+1. Install curses manually
+  * Go to this repository: http://www.lfd.uci.edu/~gohlke/pythonlibs/
+  * Download wheel file with your python version, in example: 'curses‑2.2‑cp36‑cp36m‑win_amd64.whl'
+  * Install it manually with: ```python -m pip install curses‑2.2‑cp36‑cp36m‑win_amd64.whl```
+
 ## Basic concepts
 
 ### Basic classes types

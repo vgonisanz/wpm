@@ -187,6 +187,31 @@ class Element(object):
         return None
 
     """
+    Print an array of characters with colors as a matrix with row size in a position (x0, y0) with a offset between values
+
+    :return: returns nothing
+    """
+
+    def print_sprite(self, sprite, x0 = 0, y0 = 0, attributes = curses.A_NORMAL):
+        if self.window != None:
+            current_col = 0
+            # Set attributes
+            self.window.attrset(attributes)
+            # Set cursor position
+            self.window.move(y0, x0)
+            for i in range(0, sprite.height):
+                for j in range(0, sprite.width):
+                    value = i * sprite.width + j
+                    color_id = sprite.colorpairs[value]
+                    self.window.addch(sprite.characters[value], curses.color_pair(color_id) )
+                current_col = current_col + 1
+                self.window.move(y0 + current_col, x0)
+            # Restore attributes
+            self.window.attroff(attributes)
+            self.window.refresh()
+        return None
+
+    """
     Print background with a pattern from (0, 0).
 
     :return: returns nothing
