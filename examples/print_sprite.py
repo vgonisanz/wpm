@@ -21,24 +21,38 @@ palmtree_colors = [ 1, 1, 1, 1, 1, 2, 2, 2,
                     1, 1, 1, 3, 3, 1, 1, 1]
 
 cactus_width = 3
+cactus_colors = [   2, 1, 2,
+                    2, 1, 2,
+                    2, 2, 2,
+                    1, 2, 1,
+                    1, 2, 1]
+
 cactus = [       " ", "·", " ",
                  " ", "·", " ",
                  " ", " ", " ",
                  " ", " ", " ",
                  " ", " ", " "]
 
-cactus_colors = [2, 1, 2,
-                 2, 1, 2,
-                 2, 2, 2,
-                 1, 2, 1,
-                 1, 2, 1]
+
+
+ascii_width = 3
+ascii_colors = [        4, 4, 4,
+                        4, 4, 4,
+                        4, 4, 4 ]
+ascii_characters = [    "a", "b", "c",
+                        65, 66, 67,        # ASCII values: A, B, C
+                        134, 135, 136    ] # Extended ASCII:  doesn't works.
+
+
 # Variables
 wpm = None
 background = None
 screen_width = 0
 screen_height = 0
+
 cactus_sprite = None
 palmtree_sprite = None
+ascii_sprite = None
 
 def initialize():
     global wpm
@@ -54,9 +68,10 @@ def initialize():
 def prepare_colors():
     # A terminal can change colors ids! use palettes.
     # Color pair ID, character, background
-    curses.init_pair(1, 0, 0) # -1 = default color
+    curses.init_pair(1, 0, 0)
     curses.init_pair(2, 10, 10) # Green shall be 10
     curses.init_pair(3, 14, 14) # Brown shall be 14
+    curses.init_pair(4, -1, -1) # -1 = default color
     #background.print_message("Total colors are: %d\n" % curses.COLORS )
     # How improve this code using wpm????
     #for i in range(0, curses.COLORS):
@@ -109,13 +124,22 @@ def print_palmtrees():
 
     return None
 
+def print_ascii():
+    global ascii_sprite
+
+    ascii_sprite = Sprite(ascii_width, ascii_colors, ascii_characters)
+    background.print_sprite(ascii_sprite, 30, 0)
+    return None
 
 
 def main(stdscr):
     initialize()
     prepare_colors()
+    
     print_cactus()
     print_palmtrees()
+    print_ascii()
+
     background.window.getch()
     return None
 
