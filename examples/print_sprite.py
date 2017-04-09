@@ -33,16 +33,23 @@ cactus = [       " ", "·", " ",
                  " ", " ", " ",
                  " ", " ", " "]
 
-
-
 ascii_width = 3
 ascii_colors = [        4, 4, 4,
                         4, 4, 4,
                         4, 4, 4 ]
 ascii_characters = [    "a", "b", "c",
-                        65, 66, 67,        # ASCII values: A, B, C
-                        134, 135, 136    ] # Extended ASCII:  doesn't works.
+                        65, 66, 67,         # ASCII values: A, B, C
+                        134, 135, 136    ]  # Extended ASCII:  doesn't works.
+ascii_offset = 2
 
+unicode_width = 3
+unicode_colors = [      4, 4, 4,
+                        4, 4, 4,
+                        4, 4, 4 ]
+unicode_characters = [      "\u00B6", "Ū", "Ž",         # Unicode values, you can print directly or with ID
+                            "Ā", "\u0488", "Ž",
+                            "Ā", "Ū", "\u0604",    ]    # Some characters can override other characters!
+unicode_offset = 1
 
 # Variables
 wpm = None
@@ -53,6 +60,7 @@ screen_height = 0
 cactus_sprite = None
 palmtree_sprite = None
 ascii_sprite = None
+unicode_sprite = None
 
 def initialize():
     global wpm
@@ -72,23 +80,6 @@ def prepare_colors():
     curses.init_pair(2, 10, 10) # Green shall be 10
     curses.init_pair(3, 14, 14) # Brown shall be 14
     curses.init_pair(4, -1, -1) # -1 = default color
-    #background.print_message("Total colors are: %d\n" % curses.COLORS )
-    # How improve this code using wpm????
-    #for i in range(0, curses.COLORS):
-    #    curses.init_pair(i + 1, i, -1)
-    #try:
-    #for i in range(0, curses.COLORS):
-    #    if i % 8 == 0:
-    #        background.window.addstr("\n")
-    #    background.window.addstr("%03d" % i, curses.color_pair(i))
-    #    background.window.addstr("-", curses.color_pair(1))
-    #except curses.ERR:
-        # End of screen reached
-    #    stdscr.addstr(curses.ERR)
-    #except:
-    #    print("Unexpected error:", sys.exc_info()[0])
-    #    pass
-    #background.window.getch()
     return None
 
 def print_cactus():
@@ -127,18 +118,28 @@ def print_palmtrees():
 def print_ascii():
     global ascii_sprite
 
+    xpos = cactus_width + palmtree_width * 2 + ascii_offset
     ascii_sprite = Sprite(ascii_width, ascii_colors, ascii_characters)
-    background.print_sprite(ascii_sprite, 30, 0)
+    background.print_sprite(ascii_sprite, xpos, 0)
     return None
 
+def print_unicode():
+    global unicode_sprite
+
+    xpos = cactus_width + palmtree_width * 2 + ascii_offset
+    ypos = ascii_sprite.height + unicode_offset
+    unicode_sprite = Sprite(unicode_width, unicode_colors, unicode_characters)
+    background.print_sprite(unicode_sprite, xpos, ypos)
+    return None
 
 def main(stdscr):
     initialize()
     prepare_colors()
-    
+
     print_cactus()
     print_palmtrees()
     print_ascii()
+    print_unicode()
 
     background.window.getch()
     return None

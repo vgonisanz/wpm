@@ -22,6 +22,7 @@ class Wpm(object):
     _base_window_height = 0
     _base_window_width = 0
     _current_window = None      # Current widget object to render. Last element in widget stack. Can be changed manually. Restore last element with restore_stack.
+    _encoding = None
 
     """
     Initialize class: Initialize CursesManager
@@ -30,9 +31,9 @@ class Wpm(object):
     def __init__(self, echo=False):
         print("Initializing widget python manager")
 
-        # Set UTF-8
+        # Set UTF-8, Unicode support
         locale.setlocale(locale.LC_ALL, '')
-        #code = locale.getpreferredencoding()
+        self._encoding = locale.getpreferredencoding()
 
         # Initialize screen
         self.initializeScreen()
@@ -70,6 +71,9 @@ class Wpm(object):
         window.addstr("\n  Number of lines: %s (y size) " % curses.LINES)
         window.addstr("\n  Number of cols: %s (x size)" % curses.COLS)
         window.addstr("\n  Terminal output speed: %s" % curses.baudrate())
+        window.addstr("\n  Local encoding format: %s" % locale.getpreferredencoding())
+        window.addstr("\n  System encoding format: %s" % sys.getdefaultencoding())
+        window.addstr("\n  File encoding format: %s" % sys.getfilesystemencoding())
         window.border()
         window.getkey()
         curses.endwin()
@@ -94,15 +98,15 @@ class Wpm(object):
         if curses.has_colors():
             curses.start_color()
             curses.use_default_colors()
-            curses.init_pair(1, curses.COLOR_BLUE, 0)
-            curses.init_pair(2, curses.COLOR_CYAN, 0)
-            curses.init_pair(3, curses.COLOR_GREEN, 0)
-            curses.init_pair(4, curses.COLOR_MAGENTA, 0)
-            curses.init_pair(5, curses.COLOR_RED, 0)
-            curses.init_pair(6, curses.COLOR_YELLOW, 0)
-            curses.init_pair(7, curses.COLOR_WHITE, 0)
+            #curses.init_pair(1, curses.COLOR_BLUE, 0)
+            #curses.init_pair(2, curses.COLOR_CYAN, 0)
+            #curses.init_pair(3, curses.COLOR_GREEN, 0)
+            #curses.init_pair(4, curses.COLOR_MAGENTA, 0)
+            #curses.init_pair(5, curses.COLOR_RED, 0)
+            #curses.init_pair(6, curses.COLOR_YELLOW, 0)
+            #curses.init_pair(7, curses.COLOR_WHITE, 0)
 
-        # Custom colors
+        # Custom colors/palettes
 
         # Active control
         #self._base_window.keypad(True)
