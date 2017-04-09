@@ -9,24 +9,37 @@ from wpm import Wpm
 from element import Element
 
 # Configuration
+element_width = 20
+element_height = 10
+element_x0 = 1
+element_y0 = 2
 
 # Variables
+wpm = None
+background = None
+element = None
 
-def main(stdscr):
+def initialice():
+    global wpm
+    global background
+
     wpm = Wpm()
     background = wpm.get_background()
+    return None
+
+def create_element():
+    global element
 
     # Create test element
-    element_width = 20
-    element_height = 10
-    element_x0 = 1
-    element_y0 = 2
-
     element = Element(element_width, element_height, element_x0, element_y0)
     element.change_color(curses.COLOR_RED, curses.COLOR_YELLOW)
 
     wpm.msleep(2000)
     background.waitforkey()
+    return None
+
+def main(stdscr):
+    initialice()
     return None
 
 if __name__ == "__main__":
