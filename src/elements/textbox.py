@@ -35,7 +35,7 @@ class TextBox(Element):
     """
 
     def draw(self):
-        #self.window.border()
+        #self.window.border() # Debug
         if not self._manual_draw:
             if self._text_centered:
                 y_max, x_max = self.window.getmaxyx()

@@ -215,33 +215,6 @@ class CursesManager(object):
         return None
 
     """
-    Print an array of characters as a matrix with row size in a position (x0, y0) with a offset between values
-
-    :return: returns nothing
-    """
-
-    def print_character_array(self, character_array, row_size, x0 = 0, y0 = 0, offset = 0, attributes = curses.A_NORMAL):
-        if self._current_window != None:
-            cols = int(len(character_array) / row_size)
-            current_col = 0
-            # Set attributes
-            self._current_window.attrset(attributes)
-            # Set cursor position
-            self._current_window.move(y0, x0)
-            for i in range(0, cols):
-                for j in range(0, row_size):
-                    value = i * row_size + j
-                    self._current_window.addch(character_array[value])
-                    for k in range(0, offset):
-                        self._current_window.addch(" ")
-                current_col = current_col + 1
-                self._current_window.move(y0 + current_col, x0)
-            # Restore attributes
-            self._current_window.attroff(attributes)
-            self._current_window.refresh()
-        return None
-
-    """
     Print book like.
 
     :return: returns nothing

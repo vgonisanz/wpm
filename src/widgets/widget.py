@@ -39,9 +39,10 @@ class Widget(object):
     _children = []      # List with children elements
 
 
-    def __init__(self, width, height, x0, y0):
+    def __init__(self, width, height, x0, y0, debug = False):
         self._background = Element(width, height, x0, y0)
-        self._background.change_color(curses.COLOR_BLACK, curses.COLOR_WHITE) # Test
+        if debug:
+            self._background.change_color(curses.COLOR_BLACK, curses.COLOR_WHITE) # Test
         return None
 
     """

@@ -19,7 +19,7 @@ wpm = None
 background = None
 element = None
 
-def initialice():
+def initialize():
     global wpm
     global background
 
@@ -39,7 +39,8 @@ def create_element():
     return None
 
 def main(stdscr):
-    initialice()
+    initialize()
+    create_element()
     return None
 
 if __name__ == "__main__":
