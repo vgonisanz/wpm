@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import sys, os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src/elements'))
@@ -27,11 +30,11 @@ cactus_colors = [   2, 1, 2,
                     1, 2, 1,
                     1, 2, 1]
 
-cactus = [       " ", "·", " ",
-                 " ", "·", " ",
-                 " ", " ", " ",
-                 " ", " ", " ",
-                 " ", " ", " "]
+cactus = [       32, 32, 32,
+                 32, " ", 32,
+                 32, 32, 32,
+                 32, 32, 32,
+                 32, 32, 32]
 
 ascii_width = 3
 ascii_colors = [        4, 4, 4,
@@ -48,8 +51,22 @@ unicode_colors = [      4, 4, 4,
                         4, 4, 4 ]
 unicode_characters = [      "\u00B6", "Ū", "Ž",         # Unicode values, you can print directly or with ID
                             "Ā", "\u0488", "Ž",
-                            "Ā", "Ū", "\u0604",    ]    # Some characters can override other characters!
+                            "Ā", "Ū", "\u16E5",    ]    # Some characters can override other characters!
 unicode_offset = 1
+
+car_width = 3
+car_colors = [          1, 1, 1,
+                        1, 1, 1,
+                        1, 1, 1,
+                        1, 1, 1,
+                        1, 1, 1 ]
+                        # Unicode box drawing
+car_characters = [          " ", "\u2533", " ",
+                            "\u2523", "\u2588", "\u252B",
+                            " ", "\u2588", " ",
+                            "\u255F", "\u2588", "\u2562",
+                            "\u250C", "\u2538", "\u2510"]
+car_offset = 1
 
 # Variables
 wpm = None
@@ -76,10 +93,18 @@ def initialize():
 def prepare_colors():
     # A terminal can change colors ids! use palettes.
     # Color pair ID, character, background
-    curses.init_pair(1, 0, 0)
-    curses.init_pair(2, 10, 10) # Green shall be 10
-    curses.init_pair(3, 14, 14) # Brown shall be 14
-    curses.init_pair(4, -1, -1) # -1 = default color
+    if curses.COLORS == 8:
+        curses.init_pair(1, 0, 0)
+        curses.init_pair(2, 10, 10) # Green shall be 10
+        curses.init_pair(3, 14, 14) # Brown shall be 14
+        curses.init_pair(4, -1, -1) # -1 = default color
+        curses.init_pair(5, 3, 0) # red over white expected
+    if curses.COLORS == 256:
+        curses.init_pair(1, 0, 0)
+        curses.init_pair(2, 10, 10) # Green expected
+        curses.init_pair(3, 209, 209) # Brown expected
+        curses.init_pair(4, -1, -1) # -1 = default color
+        curses.init_pair(5, 3, 2) # white over red expected
     return None
 
 def print_cactus():
@@ -132,6 +157,15 @@ def print_unicode():
     background.print_sprite(unicode_sprite, xpos, ypos)
     return None
 
+def print_car():
+    global car_sprite
+
+    xpos = cactus_width + palmtree_width * 2 + ascii_offset + unicode_offset
+    ypos = ascii_sprite.height + ascii_sprite.height + car_offset
+    car_sprite = Sprite(car_width, car_colors, car_characters)
+    background.print_sprite(car_sprite, xpos, ypos)
+    return None
+
 def main(stdscr):
     initialize()
     prepare_colors()
@@ -140,6 +174,7 @@ def main(stdscr):
     print_palmtrees()
     print_ascii()
     print_unicode()
+    print_car()
 
     background.window.getch()
     return None

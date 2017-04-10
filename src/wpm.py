@@ -98,6 +98,7 @@ class Wpm(object):
         if curses.has_colors():
             curses.start_color()
             curses.use_default_colors()
+            # Configure 8/256 colors depending bash *TODO*
             #curses.init_pair(1, curses.COLOR_BLUE, 0)
             #curses.init_pair(2, curses.COLOR_CYAN, 0)
             #curses.init_pair(3, curses.COLOR_GREEN, 0)

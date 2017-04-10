@@ -15,6 +15,14 @@ pip install -r requirements.txt # None right now, numpy is not needed unless 3d
   * Go to this repository: http://www.lfd.uci.edu/~gohlke/pythonlibs/
   * Download wheel file with your python version, in example: 'curses‑2.2‑cp36‑cp36m‑win_amd64.whl'
   * Install it manually with: ```python -m pip install curses‑2.2‑cp36‑cp36m‑win_amd64.whl```
+1. Install a compatible shell:
+  * Windows: git-bash or Cygwin works good.
+  * GNU/Linux, you can check your colors using ```tput colors```
+    * /bin/sh has 8 colors. No recommended.
+    * /usr/bin/bash has 256 colors. Recommended.
+    * xterm emulator works fine.
+    * If you use guake, only 8 colors with 256 terminal, try add to your .bashrc to: ```export TERM=xterm-256color```. If you have bug ```]777;notify;Command completed;``` add in another line: ```unset PROMPT_COMMAND``` too.
+  * MacOS: xterm-2 is nice.
 
 ## Basic concepts
 
