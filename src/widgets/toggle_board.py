@@ -65,25 +65,25 @@ class ToggleBoard(Widget):
     def callback_up(self):
         if self.ypos > 1:
             self.ypos -= 1
-            self._background.set_cursor_position(self.xpos, self.ypos)
+            self.background.set_cursor_position(self.xpos, self.ypos)
         return None
 
     def callback_down(self):
         if self.ypos < self._toggle_table._height:
             self.ypos += 1
-            self._background.set_cursor_position(self.xpos, self.ypos)
+            self.background.set_cursor_position(self.xpos, self.ypos)
         return None
 
     def callback_left(self):
         if self.xpos > 1:
             self.xpos -= 1
-            self._background.set_cursor_position(self.xpos, self.ypos)
+            self.background.set_cursor_position(self.xpos, self.ypos)
         return None
 
     def callback_right(self):
         if self.xpos < self._toggle_table._width:
             self.xpos += 1
-            self._background.set_cursor_position(self.xpos, self.ypos)
+            self.background.set_cursor_position(self.xpos, self.ypos)
         return None
 
     def callback_clear(self):
@@ -116,19 +116,19 @@ class ToggleBoard(Widget):
     def draw(self):
 
         # Border
-        self._background.clear()    # todo remove?
-        self._background.window.border()
-        self._background.window.refresh()
+        self.background.clear()    # todo remove?
+        self.background.window.border()
+        self.background.window.refresh()
         #
 
         # Title
         if self._print_title:
-            self._background.print_message_center(self._title, 0, curses.A_REVERSE)
+            self.background.print_message_center(self._title, 0, curses.A_REVERSE)
         # Print message
         self._draw_children()   # Re-draw children if needed. toggletable by default.
 
         # Restore cursor
-        self._background.set_cursor_position(self.xpos, self.ypos)
+        self.background.set_cursor_position(self.xpos, self.ypos)
         return None
 
     """

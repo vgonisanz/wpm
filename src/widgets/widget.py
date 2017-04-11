@@ -32,17 +32,17 @@ class ChildElement(object):
 Functionality
 """
 class Widget(object):
-
+    background = None   # Background element object with drawable window
     _end_condition = False
-    _background = None
     _events = []        # List with trigger and action
     _children = []      # List with children elements
+    #_help_pop_up       # Help popup with instructions using F1 *TODO*
 
 
     def __init__(self, width, height, x0, y0, debug = False):
-        self._background = Element(width, height, x0, y0)
+        self.background = Element(width, height, x0, y0)
         if debug:
-            self._background.change_color(curses.COLOR_BLACK, curses.COLOR_WHITE) # Test
+            self.background.change_color(curses.COLOR_BLACK, curses.COLOR_WHITE) # Test
         return None
 
     """
@@ -52,17 +52,17 @@ class Widget(object):
     """
 
     def _iterate_events(self):
-        self._background.set_input_mode(True)
+        self.background.set_input_mode(True)
         self._end_condition = False
         while not self._end_condition:
-            event = self._background.get_character()
+            event = self.background.get_character()
             for member in self._events:
                 if event == member.character:
                     if not member.args == None:
                         member.action(*member.args)
                     else:
                         member.action()
-        self._background.set_input_mode(False)
+        self.background.set_input_mode(False)
         return None
 
     """
@@ -113,7 +113,7 @@ class Widget(object):
     :return: returns nothing
     """
     def get_background(self):
-        return self._background
+        return self.background
 
     """
     This widget take the control of the UI.

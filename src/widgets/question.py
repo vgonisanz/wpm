@@ -81,9 +81,9 @@ class Question(Widget):
     def draw(self):
 
         # Border
-        self._background.clear()    # todo remove?
-        #self._background.window.border()
-        self._background.window.refresh()
+        self.background.clear()    # todo remove?
+        #self.background.window.border()
+        self.background.window.refresh()
 
         # Print message
         self._draw_children()   # Re-draw children if needed. Textbox by default.

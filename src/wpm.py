@@ -44,7 +44,7 @@ class Wpm(object):
 
     # Catch any weird termination situations
     def __del__(self):
-        self.restoreScreen()
+        #self.restoreScreen()
         # Deactive control
         #self._base_window.keypad(True)
         return None
