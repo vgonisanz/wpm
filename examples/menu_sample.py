@@ -55,7 +55,7 @@ def create_menu():
     option_4 = OptionStruct("Option quit", callback_quit)
 
     # Create test menu and run
-    menu = Menu(menu_width, menu_height, menu_x0, menu_y0, menu_title)
+    menu = Menu(menu_width, menu_height, menu_x0, menu_y0, menu_title, "Use arrows")
     menu.set_centered(menu_centered)
     menu.add_option(option_0)
     menu.add_option(option_1)
