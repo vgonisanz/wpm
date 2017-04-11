@@ -15,7 +15,7 @@ menu_height = 10
 menu_x0 = 5
 menu_y0 = 5
 menu_title = "This is your First Menu"
-#menu_options = [ "Option 0", "Option 1", "Option 2", "Option 3", "Option 4" ] # Change option list for object with callbacks
+menu_instructions = "Use arrows to move, ENTER to select, q to quit"
 menu_centered = True
 
 # Variables
@@ -55,7 +55,7 @@ def create_menu():
     option_4 = OptionStruct("Option quit", callback_quit)
 
     # Create test menu and run
-    menu = Menu(menu_width, menu_height, menu_x0, menu_y0, menu_title, "Use arrows")
+    menu = Menu(menu_width, menu_height, menu_x0, menu_y0, menu_title, menu_instructions)
     menu.set_centered(menu_centered)
     menu.add_option(option_0)
     menu.add_option(option_1)
