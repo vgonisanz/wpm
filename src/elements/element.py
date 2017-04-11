@@ -76,6 +76,126 @@ class Element(object):
         return None
 
     """
+    Reverse line y.
+
+    :return: returns None
+    """
+
+    def reverseln(self, y0, clear = False):
+        if self.window != None:
+            self.window.move(y0, 0)
+            if clear:
+                self.window.clrtoeol()
+            self.window.chgat(y0, 0, self._width, curses.A_REVERSE)
+        return None
+
+    """
+    Clear line y.
+
+    :return: returns None
+    """
+
+    def clearln(self, y0):
+        if self.window != None:
+            self.window.move(y0, 0)
+            self.window.clrtoeol()
+        return None
+
+    """
+    Clear line from (x, y) position.
+
+    :return: returns None
+    """
+
+    def clrtoeol(self, x0, y0):
+        if self.window != None:
+            self.window.move(y0, x0)
+            self.window.clrtoeol()
+        return None
+
+    """
+    Clear terminal from (x, y) position.
+
+    :return: returns None
+    """
+
+    def clrtobot(self, x0, y0):
+        if self.window != None:
+            self.window.move(y0, x0)
+            self.window.clrtobot()
+        return None
+
+    """
+    Print hline in (x, y) position.
+
+    :return: returns None
+    """
+
+    def hline(self, x0, y0):
+        if self.window != None:
+            self.window.move(y0, x0)
+            self.window.hline()
+        return None
+
+    """
+    Print hline in (x, y) position.
+
+    :return: returns None
+    """
+
+    def vline(self, x0, y0):
+        if self.window != None:
+            self.window.move(y0, x0)
+            self.window.vline()
+        return None
+
+    """
+    Clear terminal from (x, y) position.
+
+    :return: returns None
+    """
+
+    def flash(self):
+        curses.flash()
+        return None
+
+    """
+    Request insert next line, moving down data
+
+    :return: returns None
+    """
+
+    def insertln(self, y0):
+        if self.window != None:
+            self.window.move(y0, 0)
+            self.window.insertln()
+        return None
+
+    """
+    Request delete line at line y
+
+    :return: returns None
+    """
+
+    def deleteln(self, y0 = -1):
+        if self.window != None:
+            if y0 >= 0:
+                self.window.move(y0, 0)
+            self.window.deleteln()
+        return None
+
+    """
+    Request delete character at position x0, y0
+
+    :return: returns None
+    """
+
+    def delch(self, x0, y0):
+        if self.window != None:
+            self.window.delch(y0, x0)
+        return None
+
+    """
     Print a character. Choose a position. This affect to cursor.
 
     :return: returns nothing

@@ -1,6 +1,6 @@
 """
-EventObject is a Struct. It is added into a widget child with options using add_option.
-
+OptionStruct is a Struct. It is added into a widget child with options using add_option.
+A option shall be called manually. It is not like a event.
 It store:
     * Text: String with option text
     * Action: Callback to be call if character is pressed

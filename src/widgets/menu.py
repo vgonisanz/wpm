@@ -131,7 +131,6 @@ class Menu(Widget):
             self._option_selected = 0
         if self._option_selected >= len(self._options):
             self._option_selected = len(self._options) - 1
-
         if self._centered:
             self._redraw_center()
         else:

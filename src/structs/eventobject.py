@@ -1,6 +1,7 @@
 """
 EventObject is a Struct. It is added into a widget with add_event.
 It is automatically call with default event bucle into run directive.
+When you push a key, a event occur.
 It store:
     * Key: Character
     * Action: Callback to be call if character is pressed
