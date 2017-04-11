@@ -1,10 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import sys, os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'structs'))
 
 import curses   # TODO remove for my colors or color pairs.
 from widget import Widget
-from widget import EventObject
-from widget import ChildElement
+from eventobject import EventObject
+from childelement import ChildElement
+from optionstruct import OptionStruct
 
 """
 Simple menu widget. You can create nested menus with *TODO*
@@ -12,8 +15,7 @@ Usage: menu = MenuCM(width, height, x0, y0, title, options, instructions)
 """
 class Menu(Widget):
     _title = None
-    _options_size = 0
-    _options = []
+    _options = []            # List with children options
     _option_selected = 0
     _instructions = None
     _title_padding = 1
@@ -22,20 +24,20 @@ class Menu(Widget):
 
 
     """
-    Initialize MenuCM
+    Initialize Menu
     """
 
-    def __init__(self, width, height, x0, y0, title, options, instructions = "", title_padding = 1, instruction_padding = 1):
-        if len(options) <= 0:
-            return None
+    def __init__(self, width, height, x0, y0, title, instructions = "", title_padding = 1, instruction_padding = 1):
         super(Menu, self).__init__(width, height, x0, y0) # Initialize variables in Element, Override height
 
         self._title = title
-        self._option_size = len(options)
-        self._options = options
         self._instructions = instructions
         self._title_padding = title_padding
         self._instruction_padding = instruction_padding
+
+        # Quit event
+        event_quit = EventObject(ord('q'), self.callback_quit)
+        self.add_event(event_quit)
 
         # Create event enter with ENTER
         event_enter = EventObject(10, self.callback_enter) # Shall be curses.KEY_ENTER = 10
@@ -48,8 +50,18 @@ class Menu(Widget):
         self.add_event(event_down)
         return None
 
-    def callback_enter(self):
+    def callback_quit(self):
         self.end_condition()
+        return None
+
+    def callback_enter(self):
+        option = self._options[self._option_selected]
+        if not option.action == None:
+            if not option.args == None:
+                option.action(option.args)
+            else:
+                option.action()
+        self.draw()
         return None
 
     def callback_up(self):
@@ -63,7 +75,16 @@ class Menu(Widget):
         return None
 
     """
-    Option to set centered options
+    Add a new option. You must send a option structs.
+    :input action_object
+    :return: returns nothing
+    """
+    def add_option(self, option_struct):
+        self._options.append(option_struct)
+        return None
+
+    """
+    Set variable to set draw options centered
 
     :return: None
     """
@@ -104,10 +125,12 @@ class Menu(Widget):
     """
 
     def draw(self):
+        if len(self._options) == 0:
+            return -1
         if self._option_selected < 0:
             self._option_selected = 0
-        if self._option_selected >= self._option_size:
-            self._option_selected = self._option_size - 1
+        if self._option_selected >= len(self._options):
+            self._option_selected = len(self._options) - 1
 
         if self._centered:
             self._redraw_center()
@@ -120,9 +143,9 @@ class Menu(Widget):
         self.background.print_message(self._title, 0, 0, curses.A_UNDERLINE)
         for option in self._options:
             if self._option_selected == counter:
-                self.background.print_message(option, 0, counter + 0 + self._title_padding + 1, curses.A_REVERSE)
+                self.background.print_message(option.text, 0, counter + 0 + self._title_padding + 1, curses.A_REVERSE)
             else:
-                self.background.print_message_center(option, counter + 0 + self._title_padding + 1)
+                self.background.print_message_center(option.text, counter + 0 + self._title_padding + 1)
             counter = counter + 1
         self.background.print_message(self._instructions, 0, counter + 0 + self._title_padding + self._instruction_padding + 1)
         return None
@@ -132,9 +155,9 @@ class Menu(Widget):
         self.background.print_message_center(self._title, 0, curses.A_UNDERLINE)
         for option in self._options:
             if self._option_selected == counter:
-                self.background.print_message_center(option, counter + 0 + self._title_padding + 1, curses.A_REVERSE)
+                self.background.print_message_center(option.text, counter + 0 + self._title_padding + 1, curses.A_REVERSE)
             else:
-                self.background.print_message_center(option, counter + 0 + self._title_padding + 1)
+                self.background.print_message_center(option.text, counter + 0 + self._title_padding + 1)
             counter = counter + 1
         self.background.print_message(self._instructions, 0, counter + 0 + self._title_padding + self._instruction_padding + 1)
         return None
