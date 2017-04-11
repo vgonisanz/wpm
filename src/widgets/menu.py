@@ -10,7 +10,7 @@ from childelement import ChildElement
 from optionstruct import OptionStruct
 
 """
-Simple menu widget. You can create nested menus with *TODO*
+Simple menu widget.
 Usage: menu = MenuCM(width, height, x0, y0, title, options, instructions)
 """
 class Menu(Widget):

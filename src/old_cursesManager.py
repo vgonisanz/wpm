@@ -294,20 +294,13 @@ class CursesManager(object):
 
     """
     class SimpleUserInterfaceCM(object):
-        _window = None
-        _cm = None
-        _title = None
-        _options_size = 0
-        _options = []
-        _print_title = False
-        _secondary_window = None
-        _delimiter_line = 0
+
 
         """
         Initialize SimpleUserInterfaceCM
         """
 
-        def __init__(self, curses_manager, window, options, title, print_title):
+        def __init__(self, curses_manager, window, ):
             option_size = len(options)
             if option_size <= 0:
                 return None
@@ -336,7 +329,7 @@ class CursesManager(object):
             # Box secondary window
             self._secondary_window.border()
             # Calculate delimiter position
-            self._delimiter_line = y_max - option_size - 1
+            self._option_delimiter_line = y_max - option_size - 1
             return None
 
         """
@@ -355,7 +348,7 @@ class CursesManager(object):
                 col = index + 1
                 self._cm.print_message_at(option, 0, y_max - col)
             # Reverse separator
-            self._cm.reverseln(self._delimiter_line)
+            self._cm.reverseln(self._option_delimiter_line)
             return None
 
         """
@@ -376,8 +369,8 @@ class CursesManager(object):
 
         def print_command(self, message, x0 = 1):
             self._cm.set_current_window(self._window)
-            self._cm.reverseln(self._delimiter_line, True)
-            self._cm.print_message_at(message, x0, self._delimiter_line, curses.A_REVERSE)
+            self._cm.reverseln(self._option_delimiter_line, True)
+            self._cm.print_message_at(message, x0, self._option_delimiter_line, curses.A_REVERSE)
             self._cm.rwait(1)
             return None
 
@@ -396,8 +389,8 @@ class CursesManager(object):
         :return: Secondary window
         """
 
-        def get_delimiter_line(self):
-            return self._delimiter_line
+        def get_option_delimiter_line(self):
+            return self._option_delimiter_line
 
     """
     Template function.
