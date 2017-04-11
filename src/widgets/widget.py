@@ -1,32 +1,14 @@
 import sys, os
 sys.path.append(os.path.join(os.path.dirname(__file__), '.', 'elements'))
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'structs'))
 
 import curses               # Todo remove chaning own variables
 from curses import wrapper  # Use my own wrapper
 
 from wpm import Wpm
 from element import Element
-
-class EventObject(object):
-    character = None
-    action = None
-    args = []
-
-    def __init__(self, character_input, action_input, args_input = None):
-        # check type() is type
-        self.character = character_input
-        self.action = action_input
-        self.args = args_input
-        return None
-
-class ChildElement(object):
-    cid = ""
-    celement = None
-
-    def __init__(self, child_id, child_element):
-        self.cid = child_id
-        self.celement = child_element
-        return None
+from eventobject import EventObject
+from childelement import ChildElement
 
 """
 Functionality
@@ -57,7 +39,7 @@ class Widget(object):
         while not self._end_condition:
             event = self.background.get_character()
             for member in self._events:
-                if event == member.character:
+                if event == member.key:
                     if not member.args == None:
                         member.action(*member.args)
                     else:

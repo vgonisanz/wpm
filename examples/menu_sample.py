@@ -14,7 +14,7 @@ menu_height = 10
 menu_x0 = 5
 menu_y0 = 5
 menu_title = "This is your First Menu"
-menu_options = [ "Option 0", "Option 1", "Option 2", "Option 3", "Option 4" ]
+menu_options = [ "Option 0", "Option 1", "Option 2", "Option 3", "Option 4" ] # Change option list for object with callbacks
 menu_centered = True
 
 # Variables

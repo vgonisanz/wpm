@@ -311,17 +311,6 @@ class CursesManager(object):
         simpleui = self.SimpleUserInterfaceCM(self, window, options, title, print_title)
         return simpleui
 
-    """
-    Create menu.
-
-    :return: returns menu object
-    """
-
-    def create_menu(self, window, title, options, instructions):
-        menu = self.MenuCM(self, window, title, options, instructions)
-        return menu
-
-
 
     """
     Nested class to manager a simple UI for you.
