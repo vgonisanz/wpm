@@ -6,11 +6,13 @@ It store:
     * Key: Character
     * Action: Callback to be call if character is pressed
     * Args: Arguments for the callback
+    * Description: Small description to be printed if needed
 """
 class EventObject(object):
     key = None
     action = None
     args = []
+    description = ""
 
     def __init__(self, key_input, action_input, args_input = None):
         # check type() is type

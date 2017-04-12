@@ -16,7 +16,7 @@ menu_x0 = 5
 menu_y0 = 5
 menu_title = "This is your First Menu"
 menu_instructions = "Use arrows to move, ENTER to select, q to quit"
-menu_centered = True
+menu_centered = False
 
 # Variables
 wpm = None

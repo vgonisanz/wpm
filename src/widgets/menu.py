@@ -90,7 +90,7 @@ class Menu(Widget):
     """
 
     def set_centered(self, value):
-        self._centered = True
+        self._centered = value
         return None
 
     """
@@ -144,7 +144,7 @@ class Menu(Widget):
             if self._option_selected == counter:
                 self.background.print_message(option.text, 0, counter + 0 + self._title_padding + 1, curses.A_REVERSE)
             else:
-                self.background.print_message_center(option.text, counter + 0 + self._title_padding + 1)
+                self.background.print_message(option.text, 0, counter + 0 + self._title_padding + 1)
             counter = counter + 1
         self.background.print_message(self._instructions, 0, counter + 0 + self._title_padding + self._instruction_padding + 1)
         return None

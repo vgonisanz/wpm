@@ -8,12 +8,20 @@ from curses import wrapper  # Use my own wrapper
 from wpm import Wpm
 from interface import Interface
 from widget import EventObject
+from menu import Menu
+from optionstruct import OptionStruct
 
 # Configuration
 interface_title = "My first interface"
 interface_print_title = True
 
+menu_title = "Buy menu"
+menu_instructions = "Use arrows to move, enter to select"
+menu_x0_offset = 1
+menu_y0_offset = 1
+
 # Variables
+buy_menu = None
 interface = None
 interface_background = None
 
@@ -35,24 +43,45 @@ def create_interface():
     interface = Interface(interface_width, interface_height, interface_x0, interface_y0, interface_title, interface_print_title)
     interface_background = interface.get_background()
 
-    #widget_background.print_message("Push left, s, c, or q to quit.\n")
+    return None
 
-    #event_print = EventObject(curses.KEY_LEFT, callback_event_print, ["Left\n"])
-    #event_clear = EventObject(ord('c'), callback_clear)
-    #event_sum = EventObject(ord('s'), callback_sum, [ 4, 5 ])
-    #event_quit = EventObject(ord('q'), callback_quit)
+def create_menu_widget():
+    global buy_menu
 
-    #widget.add_event(event_print)
-    #widget.add_event(event_clear)
-    #widget.add_event(event_sum)
-    #widget.add_event(event_quit)
+    # Create options
+    option_2 = OptionStruct("Option 2, do nothing")
+    option_3 = OptionStruct("Option 3, me neither")
 
+    # Create test menu and run
+    menu_width, menu_height, menu_x0, menu_y0 = interface.get_secondary_widget_size()
+
+    buy_menu = Menu(menu_width, menu_height, menu_x0, menu_y0, menu_title, menu_instructions)
+    buy_menu.add_option(option_2)
+    buy_menu.add_option(option_3)
+
+    return None
+
+def add_menu_widget_to_interface():
+    event_run_buy = EventObject(ord('b'), callback_buy)
+    event_run_buy.description = "Press <b> to launch buy menu"
+    interface.add_event(event_run_buy)
+    return None
+
+def run_interface():
     interface.run()
+    return None
+
+def callback_buy():
+    option_index = buy_menu.run()
+    interface.print_command("Option selected: %d" % option_index)
     return None
 
 def main(stdscr):
     initialize()
     create_interface()
+    create_menu_widget()
+    add_menu_widget_to_interface()
+    run_interface()
     return None
 
 if __name__ == "__main__":

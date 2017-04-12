@@ -34,6 +34,7 @@ class Interface(Widget):
 
         # Quit event by default, you can purge it if you want.
         event_quit = EventObject(ord('q'), self.callback_quit)
+        event_quit.description = "Press <q> to quit"
         self.add_event(event_quit)
         return None
 
@@ -58,7 +59,7 @@ class Interface(Widget):
         self._secondary_widget_y0 = 1
         self._secondary_widget_width = self.background._width
         self._secondary_widget_height = self.background._height - len(self._events) - 2
-        if not print_title:
+        if not self._print_title:
             self._secondary_widget_y0 = 0
         return self._secondary_widget_width, self._secondary_widget_height, self._secondary_widget_x0, self._secondary_widget_y0
 
@@ -77,7 +78,7 @@ class Interface(Widget):
         #self.background.print_message("HIHIHI")
         #self.background.waitforkey()
         # Refresh menu
-        self.draw() 
+        self.draw()
         super(Interface, self).run()    # Widget autoiterate events
         return None
 
@@ -105,7 +106,7 @@ class Interface(Widget):
         col = 0
         for index,event in enumerate(self._events):
             col = index + 1
-            self.background.print_message(str(event.key), 0, self.background._height - col) # TODO change event.key for description
+            self.background.print_message(str(event.description), 0, self.background._height - col) # TODO change event.key for description
 
         # Reverse separator
         self.background.reverseln(self._event_delimiter_line)
