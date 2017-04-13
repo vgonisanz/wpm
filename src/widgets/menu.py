@@ -14,22 +14,23 @@ Simple menu widget.
 Usage: menu = MenuCM(width, height, x0, y0, title, options, instructions)
 """
 class Menu(Widget):
-    _title = None
-    _options = []            # List with children options
-    _option_selected = 0
-    _instructions = None
-    _title_padding = 1
-    _instruction_padding = 1
-    _centered = False           # If true menu options will be centered.
-
-
     """
     Initialize Menu
     """
 
     def __init__(self, width, height, x0, y0, title, instructions = "", title_padding = 1, instruction_padding = 1):
+        # Initialize all variables
+        _title = None
+        _options = []            # List with children options
+        _option_selected = 0
+        _instructions = None
+        _title_padding = 1
+        _instruction_padding = 1
+        _centered = False           # If true menu options will be centered.
+
         super(Menu, self).__init__(width, height, x0, y0) # Initialize variables in Element, Override height
 
+        # Assign
         self._title = title
         self._instructions = instructions
         self._title_padding = title_padding

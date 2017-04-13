@@ -6,14 +6,15 @@ from widget import ChildElement
 
 
 class ToggleBoard(Widget):
-    _title = " ToggleBoard "
-    _print_title = False
-    _toggle_table = None
-    xpos = 0
-    ypos = 0
-
-
     def __init__(self, width, height, x0, y0, print_title = False):
+        # Initialize all variables
+        self._title = " ToggleBoard "
+        self._print_title = False
+        self._toggle_table = None
+        self.xpos = 0
+        self.ypos = 0
+
+        # Assign
         self._print_title = print_title
         super(ToggleBoard, self).__init__(width, height, x0, y0) # Initialize variables in Element, Override height
 

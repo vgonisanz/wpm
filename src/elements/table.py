@@ -14,26 +14,28 @@ Y   v · · · (w, h)
 return: True if point is inside and is changed.
 """
 class Table(Element):
-    title = ""
-    width_data = 0
-    height_data = 0
-    x0 = 0
-    y0 = 0
-    cell_size = 0
-
-    width_table = 0
-    height_table = 0
-    _x_offset = 2   # y_axi and separation line
-    _y_offset = 3   # Title, separation line and x_axi
-    _default_value = " "
-    _data = [ [] ]
-
     """
     Initialize table element class. Always draw all elements with cell size
 
     return: True always
     """
     def __init__(self, width_data, height_data, x0, y0, cell_size = 1, default_value = " "):
+        # Initialize all variables
+        self.title = ""
+        self.width_data = 0
+        self.height_data = 0
+        self.x0 = 0
+        self.y0 = 0
+        self.cell_size = 0
+
+        self.width_table = 0
+        self.height_table = 0
+        self._x_offset = 2   # y_axi and separation line
+        self._y_offset = 3   # Title, separation line and x_axi
+        self._default_value = " "
+        self._data = [ [] ]
+
+        # Assign
         self.width_data = width_data
         self.height_data = height_data
         self.cell_size = cell_size

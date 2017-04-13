@@ -9,13 +9,18 @@ It store:
     * Description: Small description to be printed if needed
 """
 class EventObject(object):
-    key = None
-    action = None
-    args = []
-    description = ""
+
+
 
     def __init__(self, key_input, action_input, args_input = None):
-        # check type() is type
+        # check type() is type TODO
+        # Initialize all variables
+        self.description = ""
+        self.key = None
+        self.action = None
+        self.args = []
+
+        # Assign
         self.key = key_input
         self.action = action_input
         self.args = args_input

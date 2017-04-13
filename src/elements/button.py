@@ -10,11 +10,13 @@ class ButtonState(Enum):
     pushed = 3
 
 class Button(Element):
-    _title = ""
-    _state = ButtonState.normal
-    _on_push_callback = None
-
     def __init__(self, text, width, x0, y0):
+        # Initialize all variables
+        self._title = ""
+        self._state = ButtonState.normal
+        self._on_push_callback = None
+
+        # Assign
         super(Button, self).__init__(width, 1, x0, y0) # Initialize variables in Element, Override height
         self._text = text[:self._width-2]
         return None

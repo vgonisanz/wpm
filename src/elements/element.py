@@ -1,17 +1,17 @@
 import curses
 
 class Element(object):
-
-    window = None
-    _width = None
-    _height = None
-    _x = None
-    _y = None
-    #attributes = curses.A_NORMAL # Change all attibutes param or use a general? TODO
-    _manual_draw = False
-
-
     def __init__(self, width, height, x0, y0):
+        # Initialize all variables
+        self.window = None
+        self._width = None
+        self._height = None
+        self._x = None
+        self._y = None
+        #attributes = curses.A_NORMAL # Change all attibutes param or use a general? TODO
+        self._manual_draw = False
+
+        # Assign
         self._width = width
         self._height = height
         self._x = x0

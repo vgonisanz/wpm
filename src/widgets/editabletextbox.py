@@ -5,10 +5,11 @@ from widget import EventObject
 from widget import ChildElement
 
 class EditableTextBox(Widget):
-    _last_text = ""
-    _text_box = None
-
     def __init__(self, width, height, x0, y0):
+        # Initialize all variables
+        self._last_text = ""
+        self._text_box = None
+
         super(EditableTextBox, self).__init__(width, height, x0, y0) # Initialize variables in Element, Override height
 
         # Add dumb textbox inside
@@ -44,7 +45,7 @@ class EditableTextBox(Widget):
 
     def run(self):
         self.draw()
-        
+
         # Active cursor with echo in start position
         curses.echo()
         curses.curs_set(2)

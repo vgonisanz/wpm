@@ -14,21 +14,23 @@ Simple interface widget.
 Usage: ui = Interface(
 """
 class Interface(Widget):
-    logger = None
-    _title = ""
-    _print_title = False
-    _secondary_widget = None
-    _event_delimiter_line = 0
-    _secondary_widget_x0 = 0
-    _secondary_widget_y0 = 0
-    _secondary_widget_width = 0
-    _secondary_widget_height = 0
-
     """
     Initialize interface
     """
 
     def __init__(self, width, height, x0, y0, title, print_title):
+        # Initialize all variables
+        logger = None
+        _title = ""
+        _print_title = False
+        _secondary_widget = None
+        _event_delimiter_line = 0
+        _secondary_widget_x0 = 0
+        _secondary_widget_y0 = 0
+        _secondary_widget_width = 0
+        _secondary_widget_height = 0
+
+        # Assign
         self.logger = logging.getLogger("wpm")
         self._title = title
         self._print_title = print_title

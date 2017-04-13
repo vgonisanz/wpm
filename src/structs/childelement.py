@@ -9,10 +9,12 @@ It store:
     * Args: Arguments for the callback
 """
 class ChildElement(object):
-    cid = ""
-    celement = None
-
     def __init__(self, child_id, child_element):
+        # Initialize all variables
+        self.cid = ""
+        self.child_element = None
+        
+        # Assign
         self.cid = child_id
         self.celement = child_element
         return None

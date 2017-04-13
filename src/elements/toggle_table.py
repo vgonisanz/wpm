@@ -16,10 +16,12 @@ Y   v · · · (w, h)
 return: True if point is inside and is changed.
 """
 class ToggleTable(Element):
-    _character = "*"
-    _table = {}
-
     def __init__(self, width, height, x0, y0, character = "*"):
+        # Initialize all variables
+        _character = "*"
+        _table = {}
+
+        # Assign
         super(ToggleTable, self).__init__(width, height, x0, y0)
         self._character = character
         return None

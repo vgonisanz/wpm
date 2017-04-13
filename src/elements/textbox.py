@@ -2,12 +2,14 @@ import curses   # TODO remove for my colors or color pairs.
 from element import Element
 
 class TextBox(Element):
-    _text = ""
-    _cursor_x = 0
-    _cursor_y = 0
-    _text_centered = False
-
     def __init__(self, width, height, x0, y0, text = ""):
+        # Initialize all variables
+        self._text = ""
+        self._cursor_x = 0
+        self._cursor_y = 0
+        self._text_centered = False
+
+        # Assign
         super(TextBox, self).__init__(width, height, x0, y0)
         self._text = text
         return None

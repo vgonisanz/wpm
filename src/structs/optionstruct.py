@@ -7,12 +7,14 @@ It store:
     * Args: Arguments for the callback
 """
 class OptionStruct(object):
-    text = ""
-    action = None
-    args = []
-
     def __init__(self, text_input, action_input = None, args_input = None):
-        # check type() is type
+        # Initialize all variables
+        self.text = ""
+        self.action = None
+        self.args = []
+
+        # check type() is type TODO
+        # Assign
         self.text = text_input
         self.action = action_input
         self.args = args_input

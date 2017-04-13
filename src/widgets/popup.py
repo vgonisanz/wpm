@@ -6,11 +6,15 @@ from widget import ChildElement
 
 
 class Popup(Widget):
-    _title = " Popup "
-    _print_title = False
+
 
 
     def __init__(self, width, height, x0, y0, print_title = False):
+        # Initialize all variables
+        self._title = " Popup "
+        self._print_title = False
+
+        # Assign
         self._print_title = print_title
         super(Popup, self).__init__(width, height, x0, y0) # Initialize variables in Element, Override height
 
