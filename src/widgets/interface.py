@@ -57,8 +57,6 @@ class Interface(Widget):
         self._events.append(event_object)
         # Also calculate delimiter position updated!
         self._event_delimiter_line = self.background._height - len(self._events) - 1 # background was y_max TODO remove comment
-        for event in self._events:
-            self.logger.debug("Delimiter is %s" % event.description)
         return None
 
     def get_secondary_widget_size(self):
