@@ -22,7 +22,8 @@ def initialize():
     global wpm
     global background
 
-    wpm = Wpm()
+    wpm = Wpm(True)
+    wpm.logger.info("Starting %s" % os.path.basename(__file__))
     #background = wpm.get_background()
     return None
 

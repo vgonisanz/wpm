@@ -85,7 +85,8 @@ def initialize():
     global screen_width
     global screen_height
 
-    wpm = Wpm()
+    wpm = Wpm(True)
+    wpm.logger.info("Starting %s" % os.path.basename(__file__))
     screen_width, screen_height = wpm.get_window_size()
     background = wpm.get_background()
     return None

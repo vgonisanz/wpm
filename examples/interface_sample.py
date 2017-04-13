@@ -28,7 +28,8 @@ interface_background = None
 def initialize():
     global wpm
 
-    wpm = Wpm()
+    wpm = Wpm(True)
+    wpm.logger.info("Starting %s" % os.path.basename(__file__))
     return None
 
 def create_interface():

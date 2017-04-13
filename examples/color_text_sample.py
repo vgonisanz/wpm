@@ -13,7 +13,9 @@ from element import Element
 # Variables
 
 def main(stdscr):
-    wpm = Wpm()
+    # TODO rework
+    wpm = Wpm(True)
+    wpm.logger.info("Starting %s" % os.path.basename(__file__))
 
     # Configure iterations
     color_to_print = wpm.get_max_custom_colors()

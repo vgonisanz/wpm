@@ -37,15 +37,19 @@ class Menu(Widget):
 
         # Quit event
         event_quit = EventObject(ord('q'), self.callback_quit)
+        event_quit.description = "Press <q> to quit"
         self.add_event(event_quit)
 
         # Create event enter with ENTER
         event_enter = EventObject(10, self.callback_enter) # Shall be curses.KEY_ENTER = 10
+        event_enter.description = "Press <ENTER> to select"
         self.add_event(event_enter)
 
         # Add arrow controls
         event_up = EventObject(curses.KEY_UP, self.callback_up)
+        event_up.description = "Press <UP> to go up"
         event_down = EventObject(curses.KEY_DOWN, self.callback_down)
+        event_down.description = "Press <DOWN> to go down"
         self.add_event(event_up)
         self.add_event(event_down)
         return None

@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import sys, os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'structs'))
+import logging
 
 import curses   # TODO remove for my colors or color pairs.
 from widget import Widget
@@ -13,6 +14,7 @@ Simple interface widget.
 Usage: ui = Interface(
 """
 class Interface(Widget):
+    logger = None
     _title = ""
     _print_title = False
     _secondary_widget = None
@@ -27,6 +29,7 @@ class Interface(Widget):
     """
 
     def __init__(self, width, height, x0, y0, title, print_title):
+        self.logger = logging.getLogger("wpm")
         self._title = title
         self._print_title = print_title
 
@@ -48,10 +51,12 @@ class Interface(Widget):
     """
     def add_event(self, event_object):
         # Parent add to events
-        super(Interface, self).add_event(event_object)
-
+        #super(Interface, self).add_event(event_object)
+        self._events.append(event_object)
         # Also calculate delimiter position updated!
         self._event_delimiter_line = self.background._height - len(self._events) - 1 # background was y_max TODO remove comment
+        for event in self._events:
+            self.logger.debug("Delimiter is %s" % event.description)
         return None
 
     def get_secondary_widget_size(self):

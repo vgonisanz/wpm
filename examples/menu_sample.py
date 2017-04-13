@@ -16,7 +16,7 @@ menu_x0 = 5
 menu_y0 = 5
 menu_title = "This is your First Menu"
 menu_instructions = "Use arrows to move, ENTER to select, q to quit"
-menu_centered = False
+menu_centered = True
 
 # Variables
 wpm = None
@@ -41,7 +41,8 @@ def initialize():
     global wpm
     global background
 
-    wpm = Wpm()
+    wpm = Wpm(True)
+    wpm.logger.info("Starting %s" % os.path.basename(__file__))
     background = wpm.get_background()
     return None
 

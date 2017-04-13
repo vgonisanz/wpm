@@ -1,9 +1,9 @@
-import locale
-
 import sys, os
 sys.path.append(os.path.join(os.path.dirname(__file__), 'elements'))
 
 import curses
+import locale
+import logging
 
 from element import Element
 
@@ -24,12 +24,18 @@ class Wpm(object):
     _current_window = None      # Current widget object to render. Last element in widget stack. Can be changed manually. Restore last element with restore_stack.
     _encoding = None
 
+    _log_folder = "log"
+    _create_log = False
+    logger = None
+
     """
     Initialize class: Initialize CursesManager
     """
 
-    def __init__(self, echo=False):
-        print("Initializing widget python manager")
+    def __init__(self, create_log = False):
+        if create_log:
+            self.createLog()
+            self.logger.info('Initializing widget python manager')
 
         # Set UTF-8, Unicode support
         locale.setlocale(locale.LC_ALL, '')
@@ -79,6 +85,28 @@ class Wpm(object):
         curses.endwin()
         return None
 
+    def createLog(self):
+        self.logger = logging.getLogger(str(__name__))
+        self.logger.setLevel(logging.DEBUG)
+
+        # create output folder if no exist
+        if not os.path.exists(self._log_folder):
+            os.makedirs(self._log_folder)
+
+        # create a file handler
+        log_filename = self._log_folder + '/' + str(__name__) + '.log'
+        handler = logging.FileHandler(log_filename)
+        handler.setLevel(logging.DEBUG)
+
+        # create a logging format
+        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        handler.setFormatter(formatter)
+
+        # add the handlers to the logger
+        self.logger.addHandler(handler)
+
+        self._create_log = True
+        return None
     """
     Manage screen: Initialize terminal to be used appropitly
 

@@ -14,14 +14,16 @@ from childelement import ChildElement
 Functionality
 """
 class Widget(object):
-    background = None   # Background element object with drawable window
-    _end_condition = False
-    _events = []        # List with trigger and action
-    _children = []      # List with children elements
-    #_help_pop_up       # Help popup with instructions using F1 *TODO*
-
 
     def __init__(self, width, height, x0, y0, debug = False):
+        # Initialize all variables
+        self.background = None   # Background element object with drawable window
+        self._end_condition = False
+        self._events = []        # List with trigger and action
+        self._children = []      # List with children elements
+        #_help_pop_up       # Help popup with instructions using F1 *TODO*
+
+        # Assign
         self.background = Element(width, height, x0, y0)
         if debug:
             self.background.change_color(curses.COLOR_BLACK, curses.COLOR_WHITE) # Test
