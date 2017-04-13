@@ -99,7 +99,7 @@ class Wpm(object):
         handler.setLevel(logging.DEBUG)
 
         # create a logging format
-        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        formatter = logging.Formatter('[%(asctime)s]-[%(levelname)s]-[%(module)s]: %(message)s', "%H:%M:%S")
         handler.setFormatter(formatter)
 
         # add the handlers to the logger
