@@ -20,13 +20,13 @@ class Menu(Widget):
 
     def __init__(self, width, height, x0, y0, title, instructions = "", title_padding = 1, instruction_padding = 1):
         # Initialize all variables
-        _title = None
-        _options = []            # List with children options
-        _option_selected = 0
-        _instructions = None
-        _title_padding = 1
-        _instruction_padding = 1
-        _centered = False           # If true menu options will be centered.
+        self._title = None
+        self._options = []            # List with children options
+        self._option_selected = 0
+        self._instructions = None
+        self._title_padding = 1
+        self._instruction_padding = 1
+        self._centered = False           # If true menu options will be centered.
 
         super(Menu, self).__init__(width, height, x0, y0) # Initialize variables in Element, Override height
 
