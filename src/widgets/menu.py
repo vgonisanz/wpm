@@ -21,7 +21,6 @@ class Menu(Widget):
     def __init__(self, width, height, x0, y0, title, instructions = "", title_padding = 1, instruction_padding = 1):
         # Initialize all variables
         self._title = None
-        self._options = []            # List with children options
         self._option_selected = 0
         self._instructions = None
         self._title_padding = 1
@@ -77,15 +76,6 @@ class Menu(Widget):
     def callback_down(self):
         self._option_selected = self._option_selected + 1
         self.draw()
-        return None
-
-    """
-    Add a new option. You must send a option structs.
-    :input action_object
-    :return: returns nothing
-    """
-    def add_option(self, option_struct):
-        self._options.append(option_struct)
         return None
 
     """

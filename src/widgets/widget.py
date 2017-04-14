@@ -19,8 +19,9 @@ class Widget(object):
         # Initialize all variables
         self.background = None   # Background element object with drawable window
         self._end_condition = False
-        self._events = []        # List with trigger and action
-        self._children = []      # List with children elements
+        self._events = []        # List with trigger and action with key callback
+        self._options = []       # List with options to trigger and action if command
+        self._children = []      # List with drawable children elements
         #_help_pop_up       # Help popup with instructions using F1 *TODO*
 
         # Assign
@@ -69,6 +70,15 @@ class Widget(object):
         self._events.append(action_object)
         return None
 
+    """
+    Add a new option. You must send a option structs.
+    :input action_object
+    :return: returns nothing
+    """
+    def add_option(self, option_struct):
+        self._options.append(option_struct)
+        return None
+        
     """
     Set end condition true.
 
