@@ -6,7 +6,7 @@ import curses               # Todo remove chaning own variables
 from curses import wrapper  # Use my own wrapper
 
 from wpm import Wpm
-from interface import Interface
+from simpleinterface import SimpleInterface
 from widget import EventObject
 from menu import Menu
 from optionstruct import OptionStruct
@@ -21,9 +21,10 @@ menu_x0_offset = 1
 menu_y0_offset = 1
 
 # Variables
-buy_menu = None
 interface = None
 interface_background = None
+
+buy_menu = None
 
 def initialize():
     global wpm
@@ -41,7 +42,7 @@ def create_interface():
     interface_y0 = 0
     interface_width, interface_height = wpm.get_window_size()
 
-    interface = Interface(interface_width, interface_height, interface_x0, interface_y0, interface_title, interface_print_title)
+    interface = SimpleInterface(interface_width, interface_height, interface_x0, interface_y0, interface_title, interface_print_title)
     interface_background = interface.get_background()
 
     return None

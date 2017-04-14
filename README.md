@@ -80,9 +80,12 @@ A widget is an object with high level logic. All widget can contain one or more 
 
 # Software design
 
+Style [Index of Python Enhancement Proposals](https://www.python.org/dev/peps/)
+
 ## General
 
 wpm is using curses. But it shall transparent to the users. Users shall not parse exceptions while using wpm, but all problems shall be reported in a error file.
+CONTRIBUTING: Rebase pulls: git config --global pull.rebase true
 
 ## Output
 

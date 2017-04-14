@@ -13,9 +13,9 @@ from childelement import ChildElement
 Simple interface widget.
 Usage: ui = Interface(
 """
-class Interface(Widget):
+class SimpleInterface(Widget):
     """
-    Initialize interface
+    Initialize SimpleInterface
     """
 
     def __init__(self, width, height, x0, y0, title, print_title):
@@ -35,7 +35,7 @@ class Interface(Widget):
         self._title = title
         self._print_title = print_title
 
-        super(Interface, self).__init__(width, height, x0, y0) # Initialize variables in Element, Override height
+        super(SimpleInterface, self).__init__(width, height, x0, y0) # Initialize variables in Element, Override height
 
         # Quit event by default, you can purge it if you want.
         event_quit = EventObject(ord('q'), self.callback_quit)
@@ -53,7 +53,7 @@ class Interface(Widget):
     """
     def add_event(self, event_object):
         # Parent add to events
-        #super(Interface, self).add_event(event_object)
+        #super(SimpleInterface, self).add_event(event_object)
         self._events.append(event_object)
         # Also calculate delimiter position updated!
         self._event_delimiter_line = self.background._height - len(self._events) - 1 # background was y_max TODO remove comment
@@ -84,7 +84,7 @@ class Interface(Widget):
         #self.background.waitforkey()
         # Refresh menu
         self.draw()
-        super(Interface, self).run()    # Widget autoiterate events
+        super(SimpleInterface, self).run()    # Widget autoiterate events
         return None
 
     """
@@ -98,7 +98,7 @@ class Interface(Widget):
         return None
 
     """
-    Draw interface.
+    Draw SimpleInterface.
 
     :return: returns event selected
     """
@@ -123,4 +123,15 @@ class Interface(Widget):
         if self._print_title:
             self.background.print_message_center(self._title, 0)
             self.background.reverseln(0, False)
+        return None
+
+    """
+    Print command in reverse line
+
+    :return: None
+    """
+
+    def print_command(self, message, x0 = 1):
+        self.background.reverseln(self._event_delimiter_line, True)
+        self.background.print_message(message, x0, self._event_delimiter_line, curses.A_REVERSE)
         return None
