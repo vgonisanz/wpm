@@ -91,15 +91,18 @@ def run_interface():
     return None
 
 def callback_buy():
+    interface.clear_events()
     interface.print_command("Buy menu launched")
     option_index = buy_menu.run()
+    interface.draw_events()
     interface.print_command("Option selected: %d" % option_index)
     return None
 
 def callback_toggle_board():
+    interface.clear_events()
     interface.print_command("Toggle board launched")
-    wpm.set_cursor_mode(2)  # Show cursor move inside
     toggle_board.run()
+    interface.draw_events()
     interface.print_command("Toggle board end")
     return None
 

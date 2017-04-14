@@ -91,7 +91,6 @@ class ToggleBoard(Widget):
         curses.curs_set(0)  # Hide cursor
         self._toggle_table.erase()
         self._toggle_table.clear()
-        curses.curs_set(2)  # Show cursor
         return None
 
     def callback_randomize(self):
@@ -144,6 +143,9 @@ class ToggleBoard(Widget):
     """
 
     def run(self):
+        curses.curs_set(0)  # Hide cursor
         self.draw()
+        curses.curs_set(2)  # Show cursor
         super(ToggleBoard, self).run()    # Widget autoiterate events
+        curses.curs_set(0)  # Hide cursor
         return None

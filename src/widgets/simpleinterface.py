@@ -53,10 +53,10 @@ class SimpleInterface(Widget):
     """
     def add_event(self, event_object):
         # Parent add to events
-        #super(SimpleInterface, self).add_event(event_object)
-        self._events.append(event_object)
+        super(SimpleInterface, self).add_event(event_object)
+
         # Also calculate delimiter position updated!
-        self._event_delimiter_line = self.background._height - len(self._events) - 1 # background was y_max TODO remove comment
+        self._event_delimiter_line = self.background._height - len(self._events) - 1
         return None
 
     def get_secondary_widget_size(self):
@@ -97,6 +97,26 @@ class SimpleInterface(Widget):
         self.background.clear()
         return None
 
+    def clear_events(self):
+        col = 0
+        for index,event in enumerate(self._events):
+            col = index + 1
+            self.background.clearln(self.background._height - col)
+        return None
+
+    def draw_events(self):
+        # Print bottom options
+        col = 0
+        for index,event in enumerate(self._events):
+            col = index + 1
+            self.background.print_message(str(event.description), 0, self.background._height - col) # TODO change event.key for description
+
+        # Reverse separator
+        self.background.reverseln(self._event_delimiter_line)
+
+        #self.background.window.refresh()
+        return None
+
     """
     Draw SimpleInterface.
 
@@ -107,14 +127,7 @@ class SimpleInterface(Widget):
         if self._secondary_widget:
             self._secondary_widget.draw()
 
-        # Print bottom options
-        col = 0
-        for index,event in enumerate(self._events):
-            col = index + 1
-            self.background.print_message(str(event.description), 0, self.background._height - col) # TODO change event.key for description
-
-        # Reverse separator
-        self.background.reverseln(self._event_delimiter_line)
+        self.draw_events()
 
         # Box secondary window
         #self._secondary_widget.border()
