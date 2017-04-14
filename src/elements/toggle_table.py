@@ -18,8 +18,8 @@ return: True if point is inside and is changed.
 class ToggleTable(Element):
     def __init__(self, width, height, x0, y0, character = "*"):
         # Initialize all variables
-        _character = "*"
-        _table = {}
+        self._character = "*"
+        self._table = {}
 
         # Assign
         super(ToggleTable, self).__init__(width, height, x0, y0)

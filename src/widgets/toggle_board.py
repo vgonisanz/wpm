@@ -88,24 +88,31 @@ class ToggleBoard(Widget):
         return None
 
     def callback_clear(self):
+        curses.curs_set(0)  # Hide cursor
         self._toggle_table.erase()
-        self._toggle_table.draw()
         self._toggle_table.clear()
+        curses.curs_set(2)  # Show cursor
         return None
 
     def callback_randomize(self):
+        xpos_0 = self.xpos
+        ypos_0 = self.ypos
+        curses.curs_set(0)  # Hide cursor
         self._toggle_table.generate_random_table()
         self._toggle_table.draw()
+        curses.curs_set(2)  # Show cursor
+        # Restore cursor
+        self.background.set_cursor_position(xpos_0, ypos_0)
         return None
 
     def callback_set(self):
         self._toggle_table.set(self.xpos, self.ypos)
-        #self._toggle_table.draw()
+        self.background.set_cursor_position(self.xpos, self.ypos)   # Restore cursor
         return None
 
     def callback_toggle(self):
         self._toggle_table.toggle(self.xpos, self.ypos)
-        #self._toggle_table.draw()
+        self.background.set_cursor_position(self.xpos, self.ypos)   # Restore cursor
         return None
 
     """
@@ -127,9 +134,7 @@ class ToggleBoard(Widget):
             self.background.print_message_center(self._title, 0, curses.A_REVERSE)
         # Print message
         self._draw_children()   # Re-draw children if needed. toggletable by default.
-
-        # Restore cursor
-        self.background.set_cursor_position(self.xpos, self.ypos)
+        self.background.set_cursor_position(self.xpos, self.ypos)   # Restore cursor
         return None
 
     """

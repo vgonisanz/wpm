@@ -9,6 +9,7 @@ from wpm import Wpm
 from simpleinterface import SimpleInterface
 from widget import EventObject
 from menu import Menu
+from toggle_board import ToggleBoard
 from optionstruct import OptionStruct
 
 # Configuration
@@ -20,11 +21,14 @@ menu_instructions = "Use arrows to move, enter to select"
 menu_x0_offset = 1
 menu_y0_offset = 1
 
+tb_title = "Toggle board"
+
 # Variables
 interface = None
 interface_background = None
 
 buy_menu = None
+toggle_board = None
 
 def initialize():
     global wpm
@@ -61,13 +65,26 @@ def create_menu_widget():
     buy_menu.add_option(option_2)
     buy_menu.add_option(option_3)
 
-    return None
-
-def add_menu_widget_to_interface():
+    # Add key to interface
     event_run_buy = EventObject(ord('b'), callback_buy)
     event_run_buy.description = "Press <b> to launch buy menu"
     interface.add_event(event_run_buy)
     return None
+
+def create_toggleboard_widget():
+    global toggle_board
+
+    # Create test tt and run
+    tb_width, tb_height, tb_x0, tb_y0 = interface.get_secondary_widget_size()
+
+    toggle_board = ToggleBoard(tb_width, tb_height, tb_x0, tb_y0, tb_title)
+
+    # Add key to interface
+    event_toggle_board = EventObject(ord('t'), callback_toggle_board)
+    event_toggle_board.description = "Press <t> to launch toggle board"
+    interface.add_event(event_toggle_board)
+    return None
+
 
 def run_interface():
     interface.run()
@@ -78,11 +95,16 @@ def callback_buy():
     interface.print_command("Option selected: %d" % option_index)
     return None
 
+def callback_toggle_board():
+    toggle_board.run()
+    interface.print_command("Toggle board end")
+    return None
+
 def main(stdscr):
     initialize()
     create_interface()
     create_menu_widget()
-    add_menu_widget_to_interface()
+    create_toggleboard_widget()
     run_interface()
     return None
 
