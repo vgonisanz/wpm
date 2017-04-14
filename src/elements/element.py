@@ -368,10 +368,10 @@ class Element(object):
 
     def waitforkey(self, print_text = True, x0 = -1, y0 = -1):
         # Print in window by default, check what need in a general way
-        #if x0 > -1 and y0 > -1:
-        #    self.set_cursor(window, x0, y0)
-        #if print_text:
-        #    self.print_message(window, "Press any key to continue.")
+        if x0 > -1 and y0 > -1:
+            self.set_cursor_position(x0, y0)
+        if print_text:
+            self.print_message("\nPress any key to continue.")
         return self.window.getkey()
 
     """

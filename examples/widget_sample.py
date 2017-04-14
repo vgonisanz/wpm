@@ -10,7 +10,7 @@ from widget import Widget
 from widget import EventObject
 
 # Configuration
-widget_width = 30
+widget_width = 40
 widget_height = 20
 widget_x0 = 1
 widget_y0 = 2
@@ -34,7 +34,7 @@ def create_widget():
 
     widget = Widget(widget_width, widget_height, widget_x0, widget_y0)
     widget_background = widget.get_background()
-    widget_foreground = widget.get_screen()
+    widget_foreground = widget.get_foreground()
 
     # Print manually exterior border *TODO* change for print border in widget
     widget_background.window.border()
