@@ -60,10 +60,10 @@ class SimpleInterface(Widget):
         return None
 
     def get_secondary_widget_size(self):
-        self._secondary_widget_x0 = 0
+        self._secondary_widget_x0 = 1
         self._secondary_widget_y0 = 1
         self._secondary_widget_width = self.foreground._width
-        self._secondary_widget_height = self.foreground._height - len(self._events) - 4
+        self._secondary_widget_height = self.foreground._height
         if not self._print_title:
             self._secondary_widget_y0 = 0
         return self._secondary_widget_width, self._secondary_widget_height, self._secondary_widget_x0, self._secondary_widget_y0
@@ -80,8 +80,7 @@ class SimpleInterface(Widget):
 
     def run(self):
         self.foreground.clear()
-        #self.foreground.print_message("HIHIHI")
-        #self.foreground.waitforkey()
+
         # Refresh menu
         self.draw()
         super(SimpleInterface, self).run()    # Widget autoiterate events
@@ -105,6 +104,8 @@ class SimpleInterface(Widget):
         return None
 
     def draw_events(self):
+        self.foreground.clear()
+        
         # Print bottom options
         col = 0
         for index,event in enumerate(self._events):
@@ -124,18 +125,21 @@ class SimpleInterface(Widget):
     """
 
     def draw(self):
+        # Update background
+        if self._print_title:
+            self.background.print_message_center(self._title, 0)
+        self.background.reverseln(0, False)
+        self.background.reverseln(self.background._height - 1, False)
+        self.background.window.refresh()
+
+        # Update secondary widget
         if self._secondary_widget:
             self._secondary_widget.draw()
 
+        # Update foreground
+
         self.draw_events()
 
-        # Box secondary window
-        #self._secondary_widget.border()
-        #***
-        # Print title if needed
-        if self._print_title:
-            self.foreground.print_message_center(self._title, 0)
-            self.foreground.reverseln(0, False)
         return None
 
     """
