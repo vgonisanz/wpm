@@ -100,5 +100,5 @@ class ToggleTable(Element):
                     self.print_character(self._character, i, j)
                 else:
                     self.print_character(' ' , i, j)
-        self.window.refresh()
+        #self.window.refresh()
         return None

@@ -15,14 +15,21 @@ class ToggleBoard(Widget):
 
         # Assign
         self._print_title = print_title
-        super(ToggleBoard, self).__init__(width, height, x0, y0) # Initialize variables in Element, Override height
-
-        # Initialize cursor center
-        self.xpos = int(width/2)
-        self.ypos = int(height/2)
+        super(ToggleBoard, self).__init__(width, height, x0, y0, False) # No create foreground
 
         # Add toggletable as foreground, is not a child.
-        self.foreground = ToggleTable(width - 2 , height - 2, x0 + 1, y0 + 1)
+        toggle_width = width - 2
+        toggle_height = height - 2
+        toggle_x0 = x0 + 1
+        toggle_y0 = y0 + 1
+
+        self._toggle_table = ToggleTable(toggle_width, toggle_height, toggle_x0, toggle_y0)
+
+        #self.foreground = self._toggle_table.window
+
+        # Initialize cursor center
+        self.xpos = int(toggle_width/2)
+        self.ypos = int(toggle_height/2)
 
         # Create event quit with q
         event_quit = EventObject(ord('q'), self.callback_quit)
@@ -62,52 +69,52 @@ class ToggleBoard(Widget):
     def callback_up(self):
         if self.ypos > 0:
             self.ypos -= 1
-            self.foreground.set_cursor_position(self.xpos, self.ypos)
+            self._toggle_table.set_cursor_position(self.xpos, self.ypos)
         return None
 
     def callback_down(self):
-        if self.ypos < self.foreground._height - 1:
+        if self.ypos < self._toggle_table._height - 1:
             self.ypos += 1
-            self.foreground.set_cursor_position(self.xpos, self.ypos)
+            self._toggle_table.set_cursor_position(self.xpos, self.ypos)
         return None
 
     def callback_left(self):
         if self.xpos > 0:
             self.xpos -= 1
-            self.foreground.set_cursor_position(self.xpos, self.ypos)
+            self._toggle_table.set_cursor_position(self.xpos, self.ypos)
         return None
 
     def callback_right(self):
-        if self.xpos < self.foreground._width - 1:
+        if self.xpos < self._toggle_table._width - 1:
             self.xpos += 1
-            self.foreground.set_cursor_position(self.xpos, self.ypos)
+            self._toggle_table.set_cursor_position(self.xpos, self.ypos)
         return None
 
     def callback_clear(self):
-        curses.curs_set(0)  # Hide cursor
-        self.foreground.erase()
-        self.foreground.clear()
+        #curses.curs_set(0)  # Hide cursor
+        self._toggle_table.erase()
+        self._toggle_table.clear()
         return None
 
     def callback_randomize(self):
         xpos_0 = self.xpos
         ypos_0 = self.ypos
-        curses.curs_set(0)  # Hide cursor
-        self.foreground.generate_random_table()
-        self.foreground.draw()
-        curses.curs_set(2)  # Show cursor
+        #curses.curs_set(0)  # Hide cursor
+        self._toggle_table.generate_random_table()
+        self._toggle_table.draw()
+        #curses.curs_set(2)  # Show cursor
         # Restore cursor
-        self.foreground.set_cursor_position(xpos_0, ypos_0)
+        self.background.set_cursor_position(xpos_0, ypos_0)
         return None
 
     def callback_set(self):
-        self.foreground.set(self.xpos, self.ypos)
-        self.foreground.set_cursor_position(self.xpos, self.ypos)   # Restore cursor
+        self._toggle_table.set(self.xpos, self.ypos)
+        self._toggle_table.set_cursor_position(self.xpos, self.ypos)   # Restore cursor
         return None
 
     def callback_toggle(self):
-        self.foreground.toggle(self.xpos, self.ypos)
-        self.foreground.set_cursor_position(self.xpos, self.ypos)   # Restore cursor
+        self._toggle_table.toggle(self.xpos, self.ypos)
+        self._toggle_table.set_cursor_position(self.xpos, self.ypos)   # Restore cursor
         return None
 
     """
@@ -125,9 +132,8 @@ class ToggleBoard(Widget):
         self.background.window.refresh()
 
         # Update foreground
-        self.foreground.clear()
-        self.foreground.window.refresh()
-        self.foreground.set_cursor_position(self.xpos, self.ypos)   # Restore cursor
+        self._toggle_table.clear()
+        self._toggle_table.window.refresh()
         return None
 
     """
@@ -140,6 +146,7 @@ class ToggleBoard(Widget):
         curses.curs_set(0)  # Hide cursor
         self.draw()
         curses.curs_set(2)  # Show cursor
+        self._toggle_table.set_cursor_position(self.xpos, self.ypos)   # Restore cursor
         super(ToggleBoard, self).run()    # Widget autoiterate events
         curses.curs_set(0)  # Hide cursor
         return None

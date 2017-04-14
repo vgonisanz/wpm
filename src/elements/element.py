@@ -38,6 +38,7 @@ class Element(object):
     def set_cursor_position(self, x0, y0):
         if self.window != None:
             self.window.move(y0, x0)
+            self.window.refresh()
         return None
 
     """
