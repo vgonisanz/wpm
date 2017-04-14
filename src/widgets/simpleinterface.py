@@ -63,7 +63,7 @@ class SimpleInterface(Widget):
         self._secondary_widget_x0 = 0
         self._secondary_widget_y0 = 1
         self._secondary_widget_width = self.background._width
-        self._secondary_widget_height = self.background._height - len(self._events) - 3
+        self._secondary_widget_height = self.background._height - len(self._events) - 4
         if not self._print_title:
             self._secondary_widget_y0 = 0
         return self._secondary_widget_width, self._secondary_widget_height, self._secondary_widget_x0, self._secondary_widget_y0
