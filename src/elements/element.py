@@ -366,7 +366,7 @@ class Element(object):
     :return: returns None
     """
 
-    def waitforkey(self, print_text = True, x0 = -1, y0 = -1):
+    def waitforkey(self, print_text = False, x0 = -1, y0 = -1):
         # Print in window by default, check what need in a general way
         if x0 > -1 and y0 > -1:
             self.set_cursor_position(x0, y0)

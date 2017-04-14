@@ -65,7 +65,8 @@ def draw_buttons():
     button_focus.set_focus()
     button_focus.draw()
 
-    screen.waitforkey()
+    current_y += 2
+    screen.waitforkey(True, button_x0, current_y)
     return None
 
 def draw_push_button():
@@ -82,7 +83,9 @@ def draw_push_button():
     button_pushed.draw()
     wpm.msleep(3000)
     button_pushed.push()
-    screen.waitforkey()
+
+    current_y += 1
+    screen.waitforkey(button_x0, current_y)
     return None
 
 def change_palette():
@@ -94,7 +97,8 @@ def clean_and_update_normal_button():
     screen.clear()
     screen.print_message("Now we clean and redraw normal button", button_x0, button_y0)
     button_normal.draw()
-    screen.waitforkey()
+
+    screen.waitforkey(button_x0, button_y0 + 1)
     return None
 
 def main(stdscr):

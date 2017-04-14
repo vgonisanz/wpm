@@ -15,7 +15,7 @@ Functionality
 """
 class Widget(object):
 
-    def __init__(self, width, height, x0, y0, debug = False):
+    def __init__(self, width, height, x0, y0, create_foreground = True, debug = False):
         # Initialize all variables
         self.background = None          # background element object with drawable window including border
         self.foreground = None          # Foreground element object with drawable window without border
@@ -23,12 +23,14 @@ class Widget(object):
         self._events = []               # List with trigger and action with key callback
         self._options = []              # List with options to trigger and action if command
         self._children = []             # List with drawable children elements
+
         self._help_pop_up = None        # Help popup with instructions using F1
         self._show_help = False
 
         # Assign a drawable element
         self.background = Element(width, height, x0, y0)
-        self.foreground = Element(width - 2, height - 2, x0 + 1, y0 + 1) # Autocreate *TODO*
+        if create_foreground:
+            self.foreground = Element(width - 2, height - 2, x0 + 1, y0 + 1)
 
         # Create Help Popup
         help_width = int(width/2)
@@ -41,7 +43,8 @@ class Widget(object):
         self.add_event(event_help)
 
         if debug:
-            self.foreground.change_color(curses.COLOR_BLACK, curses.COLOR_WHITE) # Test
+            if create_foreground:
+                self.foreground.change_color(curses.COLOR_BLACK, curses.COLOR_WHITE) # Test
         return None
 
     """
@@ -51,17 +54,17 @@ class Widget(object):
     """
 
     def _iterate_events(self):
-        self.foreground.set_input_mode(True)
+        self.background.set_input_mode(True)
         self._end_condition = False
         while not self._end_condition:
-            event = self.foreground.get_character()
+            event = self.background.get_character()
             for member in self._events:
                 if event == member.key:
                     if not member.args == None:
                         member.action(*member.args)
                     else:
                         member.action()
-        self.foreground.set_input_mode(False)
+        self.background.set_input_mode(False)
         return None
 
     """

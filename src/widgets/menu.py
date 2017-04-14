@@ -126,10 +126,15 @@ class Menu(Widget):
             self._option_selected = 0
         if self._option_selected >= len(self._options):
             self._option_selected = len(self._options) - 1
+
+        self.background.clear()
+
         if self._centered:
             self._redraw_center()
         else:
             self._redraw_normal()
+            
+        self.foreground.window.refresh()
         return self._option_selected
 
     def _redraw_normal(self):
