@@ -7,8 +7,6 @@ from widget import ChildElement
 
 class Popup(Widget):
 
-
-
     def __init__(self, width, height, x0, y0, print_title = False):
         # Initialize all variables
         self._title = " Popup "
@@ -55,20 +53,16 @@ class Popup(Widget):
 
     def draw(self):
 
-        # Border
+        # Update background
         self.background.clear()    # todo remove?
         self.background.window.border()
-        self.background.window.refresh()
-        #
-
-        # Title
         if self._print_title:
             self.background.print_message_center(self._title, 0, curses.A_REVERSE)
-        # Print message
+        self.background.window.refresh()
+
+        # Update foreground
+        self.foreground.window.refresh()
         self._draw_children()   # Re-draw children if needed. Textbox by default.
-        #self.background.print_message_center(child.get_text(), 3, curses.A_NORMAL)
-        #result = child.print_message_center("HOOLA", 3, curses.A_NORMAL)
-        #self.background.print_message_center(str(result), 3, curses.A_NORMAL)
         return None
 
     """

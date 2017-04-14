@@ -16,16 +16,16 @@ element_y0 = 2
 
 # Variables
 wpm = None
-background = None
+screen = None
 element = None
 
 def initialize():
     global wpm
-    global background
+    global screen
 
     wpm = Wpm(True)
     wpm.logger.info("Starting %s" % os.path.basename(__file__))
-    background = wpm.get_background()
+    screen = wpm.get_screen()
     return None
 
 def create_element():
@@ -36,7 +36,7 @@ def create_element():
     element.change_color(curses.COLOR_RED, curses.COLOR_YELLOW)
 
     wpm.msleep(2000)
-    background.waitforkey()
+    screen.waitforkey()
     return None
 
 def main(stdscr):

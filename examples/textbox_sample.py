@@ -19,20 +19,20 @@ textbox_y0 = 2
 
 # Variables
 wpm = None
-background = None
+screen = None
 
 def initialize():
     global wpm
-    global background
+    global screen
 
     wpm = Wpm(True)
     wpm.logger.info("Starting %s" % os.path.basename(__file__))
-    background = wpm.get_background()   # Get main window to print
+    screen = wpm.get_screen()   # Get main window to print
     return None
 
 def draw_textbox():
 
-    background.print_message("There are 2 textbox:", textbox_x0, textbox_y0)
+    screen.print_message("There are 2 textbox:", textbox_x0, textbox_y0)
     current_x = textbox_x0 + 2
     current_y = textbox_y0 + 3
 
@@ -50,12 +50,12 @@ def draw_textbox():
     textbox2.window.border()
     textbox2.draw()
 
-    background.waitforkey()
+    screen.waitforkey()
     return None
 
 def draw_more_textbox():
-    background.clear()
-    background.print_message("There are 2 more textbox:", textbox_x0, textbox_y0)
+    screen.clear()
+    screen.print_message("There are 2 more textbox:", textbox_x0, textbox_y0)
     current_x = textbox_x0 + 2
     current_y = textbox_y0 + 1
 
@@ -74,7 +74,7 @@ def draw_more_textbox():
     textbox2.window.border()
     textbox2.draw()
 
-    background.waitforkey()
+    screen.waitforkey()
     return None
 
 def main(stdscr):

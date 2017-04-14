@@ -15,69 +15,69 @@ current_y = y0
 
 # Variables
 wpm = None
-background = None
+screen = None
 
 def initialize():
     global wpm
-    global background
+    global screen
 
     wpm = Wpm(True)
     wpm.logger.info("Starting %s" % os.path.basename(__file__))
-    background = wpm.get_background()   # Get main window to print
+    screen = wpm.get_screen()   # Get main window to print
     return None
 
 def print_message_initial():
-    background.print_message("In this sample we are going to print messages.", x0, current_y)
-    background.waitforkey(True)
+    screen.print_message("In this sample we are going to print messages.", x0, current_y)
+    screen.waitforkey(True)
     return None
 
 def print_message_attributes():
-    # Clear background
-    background.clear()
+    # Clear screen
+    screen.clear()
 
     # Different attributes message
     current_y = y0
-    background.print_message("You can change several text attribute:", x0, current_y)
+    screen.print_message("You can change several text attribute:", x0, current_y)
     current_y += 1
-    background.print_message("A_ALTCHARSET", x0, current_y, curses.A_ALTCHARSET)
+    screen.print_message("A_ALTCHARSET", x0, current_y, curses.A_ALTCHARSET)
     current_y += 1
-    background.print_message("A_BLINK", x0, current_y, curses.A_BLINK)
+    screen.print_message("A_BLINK", x0, current_y, curses.A_BLINK)
     current_y += 1
-    background.print_message("A_BOLD", x0, current_y, curses.A_BOLD)
+    screen.print_message("A_BOLD", x0, current_y, curses.A_BOLD)
     current_y += 1
-    background.print_message("A_DIM", x0, current_y, curses.A_DIM)
+    screen.print_message("A_DIM", x0, current_y, curses.A_DIM)
     current_y += 1
-    background.print_message("A_NORMAL", x0, current_y, curses.A_NORMAL)
+    screen.print_message("A_NORMAL", x0, current_y, curses.A_NORMAL)
     current_y += 1
-    background.print_message("A_REVERSE", x0, current_y, curses.A_REVERSE)
+    screen.print_message("A_REVERSE", x0, current_y, curses.A_REVERSE)
     current_y += 1
-    background.print_message("A_STANDOUT", x0, current_y, curses.A_STANDOUT)
+    screen.print_message("A_STANDOUT", x0, current_y, curses.A_STANDOUT)
     current_y += 1
-    background.print_message("A_UNDERLINE", x0, current_y, curses.A_UNDERLINE)
-    background.waitforkey(True)
+    screen.print_message("A_UNDERLINE", x0, current_y, curses.A_UNDERLINE)
+    screen.waitforkey(True)
     return None
 
 def print_message_slow():
-    background.clear()
+    screen.clear()
 
-    # Change color character and background
+    # Change color character and screen
     current_y = y0
-    background.print_message_slow("This message is slooooooow", x0, current_y, 500)
+    screen.print_message_slow("This message is slooooooow", x0, current_y, 500)
     current_y += 1
-    background.print_message_slow("and this just slow", x0, current_y, 50)
-    background.waitforkey(True)
-    background.clear()
+    screen.print_message_slow("and this just slow", x0, current_y, 50)
+    screen.waitforkey(True)
+    screen.clear()
     return None
 
 def print_change_color():
-    background.clear()
+    screen.clear()
 
-    # Change color character and background
+    # Change color character and screen
     current_y = y0
-    background.print_message("Last, You can change a concrete color from the pair palette, we change background color.", x0, current_y)
-    background.change_color(curses.COLOR_BLACK, curses.COLOR_WHITE) # Modify to use a palette!
-    background.waitforkey(True)
-    background.clear()
+    screen.print_message("Last, You can change a concrete color from the pair palette, we change screen color.", x0, current_y)
+    screen.change_color(curses.COLOR_BLACK, curses.COLOR_WHITE) # Modify to use a palette!
+    screen.waitforkey(True)
+    screen.clear()
     return None
 
 def main(stdscr):

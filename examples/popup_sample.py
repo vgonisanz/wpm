@@ -37,7 +37,7 @@ def create_popup():
     # Popup with title
     popup = Popup(popup_width, popup_height, popup_x0, popup_y0, True)
     popup_background = popup.get_background()
-
+    popup_background.print_border()
     popup.set_message(popup_message, True)
     popup.run()
     return None

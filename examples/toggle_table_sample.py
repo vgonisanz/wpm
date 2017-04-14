@@ -25,17 +25,18 @@ def initialize():
 
     wpm = Wpm(True)
     wpm.logger.info("Starting %s" % os.path.basename(__file__))
-    background = wpm.get_background()   # Get main window to print
+    background = wpm.get_screen()   # Get main window to print
     return None
 
 def draw_toggletable():
 
     background.print_message("This is a toggle table:")
     toggletable = ToggleTable(toggletable_width, toggletable_height, toggletable_x0, toggletable_y0)
-    toggletable.set(2, 2)
+    toggletable.set(0, 0)
     toggletable.set(2, 3)
     toggletable.set(2, 4)
     toggletable.draw()
+    #toggletable.print_border()
 
     background.waitforkey()
     return None

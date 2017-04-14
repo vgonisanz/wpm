@@ -16,7 +16,7 @@ toggleboard_message = "q to quit"
 # Variables
 wpm = None
 toggleboard = None
-toggleboard_background = None
+toggleboard_foreground = None
 
 def initialize():
     global wpm
@@ -27,7 +27,7 @@ def initialize():
 
 def create_toggleboard():
     global toggleboard
-    global toggleboard_background
+    global toggleboard_foreground
 
     # Calculate center of screen
     window_width, window_height = wpm.get_window_size()
@@ -36,7 +36,7 @@ def create_toggleboard():
 
     # toggleboard with title
     toggleboard = ToggleBoard(toggleboard_width, toggleboard_height, toggleboard_x0, toggleboard_y0, True)
-    toggleboard_background = toggleboard.get_background()
+    toggleboard_foreground = toggleboard.get_foreground()
 
     #toggleboard.set_message(toggleboard_message, True)
     wpm.set_cursor_mode(2)

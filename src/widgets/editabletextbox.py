@@ -33,7 +33,7 @@ class EditableTextBox(Widget):
 
     def draw(self):
         # Clean mayor frame to use child
-        self.background.clear()
+        self.foreground.clear()
         self._text_box.draw()
         return None
 

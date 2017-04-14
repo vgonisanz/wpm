@@ -18,7 +18,7 @@ To generate HTML documentation for this module issue the command:
 class Wpm(object):
     _screen = None              # Curses screen
     _widget_stack = []          # List with elements created. Internally is a stack.
-    _base_window = None        # First window create. Background.
+    _base_window = None        # First window create. foreground.
     _base_window_height = 0
     _base_window_width = 0
     _current_window = None      # Current widget object to render. Last element in widget stack. Can be changed manually. Restore last element with restore_stack.
@@ -188,12 +188,12 @@ class Wpm(object):
         return size
 
     """
-    Getters: Get background window
+    Getters: Get screen window
 
     :return: returns None
     """
 
-    def get_background(self):
+    def get_screen(self):
         return self._base_window
 
     """
@@ -250,13 +250,13 @@ class Wpm(object):
         return None
 
     """
-    Manage terminal color: Set a character color and background color.
+    Manage terminal color: Set a character color and screen color.
 
     :return: returns None
     """
 
-    def set_color(self, color_character, color_background):
-        curses.init_pair(7, color_character, color_background);
+    def set_color(self, color_character, color_foreground):
+        curses.init_pair(7, color_character, color_foreground);
         return None
 
     """

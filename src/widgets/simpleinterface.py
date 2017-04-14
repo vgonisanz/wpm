@@ -56,14 +56,14 @@ class SimpleInterface(Widget):
         super(SimpleInterface, self).add_event(event_object)
 
         # Also calculate delimiter position updated!
-        self._event_delimiter_line = self.background._height - len(self._events) - 1
+        self._event_delimiter_line = self.foreground._height - len(self._events) - 1
         return None
 
     def get_secondary_widget_size(self):
         self._secondary_widget_x0 = 0
         self._secondary_widget_y0 = 1
-        self._secondary_widget_width = self.background._width
-        self._secondary_widget_height = self.background._height - len(self._events) - 4
+        self._secondary_widget_width = self.foreground._width
+        self._secondary_widget_height = self.foreground._height - len(self._events) - 4
         if not self._print_title:
             self._secondary_widget_y0 = 0
         return self._secondary_widget_width, self._secondary_widget_height, self._secondary_widget_x0, self._secondary_widget_y0
@@ -79,9 +79,9 @@ class SimpleInterface(Widget):
     """
 
     def run(self):
-        self.background.clear()
-        #self.background.print_message("HIHIHI")
-        #self.background.waitforkey()
+        self.foreground.clear()
+        #self.foreground.print_message("HIHIHI")
+        #self.foreground.waitforkey()
         # Refresh menu
         self.draw()
         super(SimpleInterface, self).run()    # Widget autoiterate events
@@ -94,14 +94,14 @@ class SimpleInterface(Widget):
     """
 
     def clear(self):
-        self.background.clear()
+        self.foreground.clear()
         return None
 
     def clear_events(self):
         col = 0
         for index,event in enumerate(self._events):
             col = index + 1
-            self.background.clearln(self.background._height - col)
+            self.foreground.clearln(self.foreground._height - col)
         return None
 
     def draw_events(self):
@@ -109,12 +109,12 @@ class SimpleInterface(Widget):
         col = 0
         for index,event in enumerate(self._events):
             col = index + 1
-            self.background.print_message(str(event.description), 0, self.background._height - col) # TODO change event.key for description
+            self.foreground.print_message(str(event.description), 0, self.foreground._height - col) # TODO change event.key for description
 
         # Reverse separator
-        self.background.reverseln(self._event_delimiter_line)
+        self.foreground.reverseln(self._event_delimiter_line)
 
-        #self.background.window.refresh()
+        #self.foreground.window.refresh()
         return None
 
     """
@@ -134,8 +134,8 @@ class SimpleInterface(Widget):
         #***
         # Print title if needed
         if self._print_title:
-            self.background.print_message_center(self._title, 0)
-            self.background.reverseln(0, False)
+            self.foreground.print_message_center(self._title, 0)
+            self.foreground.reverseln(0, False)
         return None
 
     """
@@ -145,6 +145,6 @@ class SimpleInterface(Widget):
     """
 
     def print_command(self, message, x0 = 1):
-        self.background.reverseln(self._event_delimiter_line, True)
-        self.background.print_message(message, x0, self._event_delimiter_line, curses.A_REVERSE)
+        self.foreground.reverseln(self._event_delimiter_line, True)
+        self.foreground.print_message(message, x0, self._event_delimiter_line, curses.A_REVERSE)
         return None

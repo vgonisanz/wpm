@@ -29,17 +29,17 @@ table_custom_data = [   [ "1234", "abcd", "ABCD"],
 
 # Variables
 wpm = None
-background = None
+screen = None
 table = None
 table_custom = None
 
 def initialize():
     global wpm
-    global background
+    global screen
 
     wpm = Wpm(True)
     wpm.logger.info("Starting %s" % os.path.basename(__file__))
-    background = wpm.get_background()
+    screen = wpm.get_screen()
     return None
 
 def create_table():
@@ -54,7 +54,7 @@ def create_table():
 def create_table_custom():
     global table_custom
 
-    background.clear()
+    screen.clear()
     table_custom = Table(table_custom_width, table_custom_height, table_custom_x0, table_custom_y0, table_custom_cell_width)
     table_custom.set_title(table_custom_title)
     table_custom.set_data(table_custom_data)

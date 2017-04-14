@@ -22,18 +22,18 @@ class Menu(Widget):
         # Initialize all variables
         self._title = None
         self._option_selected = 0
-        self._instructions = None
+        #self._instructions = None
         self._title_padding = 1
-        self._instruction_padding = 1
+        #self._instruction_padding = 1
         self._centered = False           # If true menu options will be centered.
 
         super(Menu, self).__init__(width, height, x0, y0) # Initialize variables in Element, Override height
 
         # Assign
         self._title = title
-        self._instructions = instructions
+        #self._instructions = instructions
         self._title_padding = title_padding
-        self._instruction_padding = instruction_padding
+        #self._instruction_padding = instruction_padding
 
         # Quit event
         event_quit = EventObject(ord('q'), self.callback_quit)
@@ -95,7 +95,7 @@ class Menu(Widget):
     """
 
     def run(self):
-        self.background.clear()
+        self.foreground.clear()
         self._option_selected = 0
 
         # Refresh menu
@@ -110,7 +110,7 @@ class Menu(Widget):
     """
 
     def clear(self):
-        self.background.clear()
+        self.foreground.clear()
         return None
 
     """
@@ -134,24 +134,24 @@ class Menu(Widget):
 
     def _redraw_normal(self):
         counter = 0
-        self.background.print_message(self._title, 0, 0, curses.A_UNDERLINE)
+        self.foreground.print_message(self._title, 0, 0, curses.A_UNDERLINE)
         for option in self._options:
             if self._option_selected == counter:
-                self.background.print_message(option.text, 0, counter + 0 + self._title_padding + 1, curses.A_REVERSE)
+                self.foreground.print_message(option.text, 0, counter + 0 + self._title_padding + 1, curses.A_REVERSE)
             else:
-                self.background.print_message(option.text, 0, counter + 0 + self._title_padding + 1)
+                self.foreground.print_message(option.text, 0, counter + 0 + self._title_padding + 1)
             counter = counter + 1
-        self.background.print_message(self._instructions, 0, counter + 0 + self._title_padding + self._instruction_padding + 1)
+        #self.foreground.print_message(self._instructions, 0, counter + 0 + self._title_padding + self._instruction_padding + 1)
         return None
 
     def _redraw_center(self):
         counter = 0
-        self.background.print_message_center(self._title, 0, curses.A_UNDERLINE)
+        self.foreground.print_message_center(self._title, 0, curses.A_UNDERLINE)
         for option in self._options:
             if self._option_selected == counter:
-                self.background.print_message_center(option.text, counter + 0 + self._title_padding + 1, curses.A_REVERSE)
+                self.foreground.print_message_center(option.text, counter + 0 + self._title_padding + 1, curses.A_REVERSE)
             else:
-                self.background.print_message_center(option.text, counter + 0 + self._title_padding + 1)
+                self.foreground.print_message_center(option.text, counter + 0 + self._title_padding + 1)
             counter = counter + 1
-        self.background.print_message(self._instructions, 0, counter + 0 + self._title_padding + self._instruction_padding + 1)
+        #self.foreground.print_message(self._instructions, 0, counter + 0 + self._title_padding + self._instruction_padding)
         return None

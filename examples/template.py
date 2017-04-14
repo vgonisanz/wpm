@@ -14,21 +14,21 @@ position_y0 = 2
 
 # Variables
 wpm = None
-background = None
+screen = None
 
 def initialize():
     global wpm
-    global background
+    global screen
 
     wpm = Wpm(True)
     wpm.logger.info("Starting %s" % os.path.basename(__file__))
-    background = wpm.get_background()   # Get main window to print
+    screen = wpm.get_screen()   # Get main window to print
     return None
 
 def function1():
     # ...
     wpm.msleep(1)
-    background.waitforkey()
+    screen.waitforkey()
     return None
 
 def main(stdscr):

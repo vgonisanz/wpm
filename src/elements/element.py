@@ -332,7 +332,7 @@ class Element(object):
         return None
 
     """
-    Print background with a pattern from (0, 0).
+    Print foreground with a pattern from (0, 0).
 
     :return: returns nothing
     """
@@ -348,14 +348,14 @@ class Element(object):
         return None
 
     """
-    Print background with color.
+    Print foreground with color.
 
     :return: returns nothing
     """
 
-    def change_color(self, color_character, color_background):
+    def change_color(self, color_character, color_foreground):
         if self.window != None:
-            curses.init_pair(7, color_character, color_background)
+            curses.init_pair(7, color_character, color_foreground)
             self.window.bkgd(curses.color_pair(7)) # Warning, color pair apply to all elements in curses, probably need a variable inside and change global this value!
             self.window.refresh()
         return None

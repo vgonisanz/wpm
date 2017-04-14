@@ -21,20 +21,20 @@ question_text = "Do you like this example?"
 
 # Variables
 wpm = None
-background = None
+screen = None
 question = None
 
 def initialize():
     global wpm
-    global background
+    global screen
 
     wpm = Wpm(True)
     wpm.logger.info("Starting %s" % os.path.basename(__file__))
-    background = wpm.get_background()
+    screen = wpm.get_screen()
     return None
 
 def print_help():
-    background.print_message(help_message, help_x0, help_y0)
+    screen.print_message(help_message, help_x0, help_y0)
     return None
 
 def create_question():
@@ -48,9 +48,9 @@ def create_question():
 
 def write_last_answer():
     last_answer = question.get_answer()
-    background.clear()
-    background.print_message("Last answer: %s" % last_answer)
-    background.waitforkey()
+    screen.clear()
+    screen.print_message("Last answer: %s" % last_answer)
+    screen.waitforkey()
     return None
 
 def main(stdscr):

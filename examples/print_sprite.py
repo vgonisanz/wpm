@@ -70,7 +70,7 @@ car_offset = 1
 
 # Variables
 wpm = None
-background = None
+screen = None
 screen_width = 0
 screen_height = 0
 
@@ -81,19 +81,19 @@ unicode_sprite = None
 
 def initialize():
     global wpm
-    global background
+    global screen
     global screen_width
     global screen_height
 
     wpm = Wpm(True)
     wpm.logger.info("Starting %s" % os.path.basename(__file__))
     screen_width, screen_height = wpm.get_window_size()
-    background = wpm.get_background()
+    screen = wpm.get_screen()
     return None
 
 def prepare_colors():
     # A terminal can change colors ids! use palettes.
-    # Color pair ID, character, background
+    # Color pair ID, character, screen
     if curses.COLORS == 8:
         curses.init_pair(1, 0, 0)
         curses.init_pair(2, 10, 10) # Green shall be 10
@@ -119,14 +119,14 @@ def print_cactus():
     number_of_cactus = int(screen_height / (cactus_sprite.height + offset_y) )
     for i in range(0, number_of_cactus):
         y0 = i * (cactus_sprite.height + offset_y)
-        background.print_sprite(cactus_sprite, 0, y0)
+        screen.print_sprite(cactus_sprite, 0, y0)
     return None
 
 def print_palmtrees():
     global palmtree_sprite
 
     # This sprite create in constructor character array using as character ASCII 31 = ^_ as base.
-    # You cannot see it because it have the same color as the background
+    # You cannot see it because it have the same color as the screen
     palmtree_sprite = Sprite(palmtree_width, palmtree_colors, [], 31)
 
     # Add 1 offset to palmtree height
@@ -136,7 +136,7 @@ def print_palmtrees():
 
     for i in range(0, number_of_palmtree):
         y0 = i * (palmtree_sprite.height + offset_y)
-        background.print_sprite(palmtree_sprite, offset_x, y0)
+        screen.print_sprite(palmtree_sprite, offset_x, y0)
     # Print sides
 
     return None
@@ -146,7 +146,7 @@ def print_ascii():
 
     xpos = cactus_width + palmtree_width * 2 + ascii_offset
     ascii_sprite = Sprite(ascii_width, ascii_colors, ascii_characters)
-    background.print_sprite(ascii_sprite, xpos, 0)
+    screen.print_sprite(ascii_sprite, xpos, 0)
     return None
 
 def print_unicode():
@@ -155,7 +155,7 @@ def print_unicode():
     xpos = cactus_width + palmtree_width * 2 + ascii_offset
     ypos = ascii_sprite.height + unicode_offset
     unicode_sprite = Sprite(unicode_width, unicode_colors, unicode_characters)
-    background.print_sprite(unicode_sprite, xpos, ypos)
+    screen.print_sprite(unicode_sprite, xpos, ypos)
     return None
 
 def print_car():
@@ -164,7 +164,7 @@ def print_car():
     xpos = cactus_width + palmtree_width * 2 + ascii_offset + unicode_offset
     ypos = ascii_sprite.height + ascii_sprite.height + car_offset
     car_sprite = Sprite(car_width, car_colors, car_characters)
-    background.print_sprite(car_sprite, xpos, ypos)
+    screen.print_sprite(car_sprite, xpos, ypos)
     return None
 
 def main(stdscr):
@@ -177,7 +177,7 @@ def main(stdscr):
     print_unicode()
     print_car()
 
-    background.window.getch()
+    screen.window.getch()
     return None
 
 if __name__ == "__main__":

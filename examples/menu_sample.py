@@ -20,17 +20,17 @@ menu_centered = True
 
 # Variables
 wpm = None
-background = None
+screen = None
 menu = None
 
 def callback_hello():
-    background.print_message("Hello")
-    #background.waitforkey()
+    screen.print_message("Hello")
+    #screen.waitforkey()
     return None
 
 def callback_print(message):
-    background.print_message(message)
-    #background.waitforkey()
+    screen.print_message(message)
+    #screen.waitforkey()
     return None
 
 def callback_quit():
@@ -39,11 +39,11 @@ def callback_quit():
 
 def initialize():
     global wpm
-    global background
+    global screen
 
     wpm = Wpm(True)
     wpm.logger.info("Starting %s" % os.path.basename(__file__))
-    background = wpm.get_background()
+    screen = wpm.get_screen()
     return None
 
 def create_menu():
@@ -66,9 +66,9 @@ def create_menu():
 
     option_index = menu.run()
 
-    background.clear()
-    background.print_message("You choose option: %s" % option_index)
-    background.waitforkey()
+    screen.clear()
+    screen.print_message("You choose option: %s" % option_index)
+    screen.waitforkey()
     return None
 
 def main(stdscr):

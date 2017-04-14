@@ -17,17 +17,31 @@ class Widget(object):
 
     def __init__(self, width, height, x0, y0, debug = False):
         # Initialize all variables
-        self.background = None   # Background element object with drawable window
-        self._end_condition = False
-        self._events = []        # List with trigger and action with key callback
-        self._options = []       # List with options to trigger and action if command
-        self._children = []      # List with drawable children elements
-        #_help_pop_up       # Help popup with instructions using F1 *TODO*
+        self.background = None          # background element object with drawable window including border
+        self.foreground = None          # Foreground element object with drawable window without border
+        self._end_condition = False     # End bucle run checking events in _iterate_events function. Use end_condition function to set.
+        self._events = []               # List with trigger and action with key callback
+        self._options = []              # List with options to trigger and action if command
+        self._children = []             # List with drawable children elements
+        self._help_pop_up = None        # Help popup with instructions using F1
+        self._show_help = False
 
-        # Assign
+        # Assign a drawable element
         self.background = Element(width, height, x0, y0)
+        self.foreground = Element(width - 2, height - 2, x0 + 1, y0 + 1) # Autocreate *TODO*
+
+        # Create Help Popup
+        help_width = int(width/2)
+        help_height = int(height/2)
+        help_x0 = 1
+        help_y0 = 1
+        self._help_pop_up = Element(help_width, help_height, help_x0, help_y0)
+
+        event_help = EventObject(curses.KEY_F1, self.toggle_help)
+        self.add_event(event_help)
+
         if debug:
-            self.background.change_color(curses.COLOR_BLACK, curses.COLOR_WHITE) # Test
+            self.foreground.change_color(curses.COLOR_BLACK, curses.COLOR_WHITE) # Test
         return None
 
     """
@@ -37,17 +51,17 @@ class Widget(object):
     """
 
     def _iterate_events(self):
-        self.background.set_input_mode(True)
+        self.foreground.set_input_mode(True)
         self._end_condition = False
         while not self._end_condition:
-            event = self.background.get_character()
+            event = self.foreground.get_character()
             for member in self._events:
                 if event == member.key:
                     if not member.args == None:
                         member.action(*member.args)
                     else:
                         member.action()
-        self.background.set_input_mode(False)
+        self.foreground.set_input_mode(False)
         return None
 
     """
@@ -78,7 +92,7 @@ class Widget(object):
     def add_option(self, option_struct):
         self._options.append(option_struct)
         return None
-        
+
     """
     Set end condition true.
 
@@ -110,6 +124,14 @@ class Widget(object):
         return self.background
 
     """
+    get foreground
+
+    :return: returns nothing
+    """
+    def get_foreground(self):
+        return self.foreground
+
+    """
     This widget take the control of the UI.
 
     :return: returns nothing
@@ -136,6 +158,45 @@ class Widget(object):
 
     def purge_children(self):
         self._children = []
+        return None
+
+    """
+    Toggle help.
+
+    :return: returns nothing
+    """
+
+    def toggle_help(self):
+        if self._show_help:
+            self.hide_help()
+        else:
+            self.show_help()
+        self._show_help = not self._show_help
+        return None
+
+    """
+    Show help.
+
+    :return: returns nothing
+    """
+
+    def show_help(self):
+        self._show_help = True
+        self._help_pop_up.window.border()
+        self._help_pop_up.window.refresh()
+        return None
+
+    """
+    Hide help.
+
+    :return: returns nothing
+    """
+
+    def hide_help(self):
+        self._show_help = False
+        self._help_pop_up.clear()
+        self._help_pop_up.refresh()
+        self.draw()
         return None
 
     """

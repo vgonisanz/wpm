@@ -16,15 +16,15 @@ border_y0 = 2
 
 # Variables
 element = None
-element_background = None
+element_screen = None
 
 def initialize():
     global wpm
-    global background
+    global screen
 
     wpm = Wpm(True)
     wpm.logger.info("Starting %s" % os.path.basename(__file__))
-    #background = wpm.get_background()
+    #screen = wpm.get_screen()
     return None
 
 def create_element():

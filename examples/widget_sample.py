@@ -18,6 +18,7 @@ widget_y0 = 2
 # Variables
 widget = None
 widget_background = None
+widget_foreground = None
 
 def initialize():
     global wpm
@@ -29,11 +30,20 @@ def initialize():
 def create_widget():
     global widget
     global widget_background
+    global widget_foreground
 
     widget = Widget(widget_width, widget_height, widget_x0, widget_y0)
     widget_background = widget.get_background()
+    widget_foreground = widget.get_screen()
 
-    widget_background.print_message("Push left, s, c, or q to quit.\n")
+    # Print manually exterior border *TODO* change for print border in widget
+    widget_background.window.border()
+    widget_background.window.refresh()
+    #widget_background.waitforkey()
+    #widget_foreground.window.border()
+    #widget_foreground.waitforkey()
+
+    widget_foreground.print_message("Push left, s, c, or q to quit.\n")
 
     event_print = EventObject(curses.KEY_LEFT, callback_event_print, ["Left\n"])
     event_clear = EventObject(ord('c'), callback_clear)
@@ -51,8 +61,8 @@ def create_widget():
 def change_widget_events():
     widget.purge_events()
 
-    widget_background.clear()
-    widget_background.print_message("Push directions, or q to quit.\n")
+    widget_foreground.clear()
+    widget_foreground.print_message("Push directions, or q to quit.\n")
 
     event_print_left = EventObject(curses.KEY_LEFT, callback_event_print, ["Left\n"])
     event_print_right = EventObject(curses.KEY_RIGHT, callback_event_print, ["Right\n"])
@@ -70,15 +80,15 @@ def change_widget_events():
     return None
 
 def callback_event_print(message):
-    widget_background.print_message(message)
+    widget_foreground.print_message(message)
     return None
 
 def callback_clear():
-    widget_background.clear()
+    widget_foreground.clear()
     return None
 
 def callback_sum(a, b):
-    widget_background.print_message("a + b = %s\n" % str(a + b) )
+    widget_foreground.print_message("a + b = %s\n" % str(a + b) )
     return None
 
 def callback_quit():

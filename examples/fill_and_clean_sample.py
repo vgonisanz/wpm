@@ -15,35 +15,35 @@ pattern = "#==|==#"
 
 # Variables
 wpm = None
-background = None
+screen = None
 
 def initialize():
     global wpm
-    global background
+    global screen
 
     wpm = Wpm(True)
     wpm.logger.info("Starting %s" % os.path.basename(__file__))
-    background = wpm.get_background()   # Get main window to print
+    screen = wpm.get_screen()   # Get main window to print
     return None
 
 def fill_with_pattern():
-    background.fill_with_pattern(pattern)
+    screen.fill_with_pattern(pattern)
     wpm.msleep(1)
-    background.waitforkey()
+    screen.waitforkey()
     return None
 
 def clear_line_from():
-    background.print_message("Clear line from position: (%dx%d) " % (position_x0, position_y0), position_x0, position_y0)
+    screen.print_message("Clear line from position: (%dx%d) " % (position_x0, position_y0), position_x0, position_y0)
     # clrtoeol(4, 5)
     wpm.msleep(1)
-    background.waitforkey()
+    screen.waitforkey()
     return None
 
 def clear_until_bottom():
-    background.print_message("Clear to bottom from position: (%dx%d) " % (position_x0, position_y0), position_x0, position_y0)
+    screen.print_message("Clear to bottom from position: (%dx%d) " % (position_x0, position_y0), position_x0, position_y0)
     #cm.clrtobot(6, 7)
     wpm.msleep(1)
-    background.waitforkey()
+    screen.waitforkey()
     return None
 
 def main(stdscr):

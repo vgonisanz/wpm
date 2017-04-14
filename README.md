@@ -76,7 +76,7 @@ A button is a class with 4 states:
 
 A widget is an object with high level logic. All widget can contain one or more elements and a function to take control.
 
-* It can be draw calling draw method. This refresh all child elements. Update first background and then front elements.
+* It can be draw calling draw method. This refresh all child elements. Update first foreground and then front elements.
 
 # Software design
 

@@ -12,39 +12,39 @@ from element import Element
 
 # Variables
 wpm = None
-background = None
+screen = None
 def initialize():
     global wpm
-    global background
+    global screen
 
     wpm = Wpm(True)
     wpm.logger.info("Starting %s" % os.path.basename(__file__))
-    background = wpm.get_background()
+    screen = wpm.get_screen()
     return None
 
 def print_colors_1():
-    background.print_message("Total colors are: %d\n" % curses.COLORS )
+    screen.print_message("Total colors are: %d\n" % curses.COLORS )
     # How improve this code using wpm????
     for i in range(0, curses.COLORS):
         curses.init_pair(i + 1, i, -1)
     #try:
     for i in range(0, curses.COLORS):
         if i % 8 == 0:
-            background.window.addstr("\n")
-        background.window.addstr("%03d" % i, curses.color_pair(i))
-        background.window.addstr("-", curses.color_pair(1))
+            screen.window.addstr("\n")
+        screen.window.addstr("%03d" % i, curses.color_pair(i))
+        screen.window.addstr("-", curses.color_pair(1))
     #except curses.ERR:
         # End of screen reached
     #    stdscr.addstr(curses.ERR)
     #except:
     #    print("Unexpected error:", sys.exc_info()[0])
     #    pass
-    background.window.getch()
+    screen.window.getch()
     return None
 
 def print_colors_2():
-    background.clear()
-    background.print_message("You can change them:\n")
+    screen.clear()
+    screen.print_message("You can change them:\n")
 
     curses.init_pair(1, curses.COLOR_WHITE, -1)
     curses.init_pair(2, curses.COLOR_WHITE, curses.COLOR_BLACK)
@@ -59,16 +59,16 @@ def print_colors_2():
     #try:
     for i in range(0, curses.COLORS):
         if i % 8 == 0:
-            background.window.addstr("\n")
-        background.window.addstr("%03d" % i, curses.color_pair(i))
-        background.window.addstr("-", curses.color_pair(1))
+            screen.window.addstr("\n")
+        screen.window.addstr("%03d" % i, curses.color_pair(i))
+        screen.window.addstr("-", curses.color_pair(1))
     #except curses.ERR:
         # End of screen reached
     #    stdscr.addstr(curses.ERR)
     #except:
     #    print("Unexpected error:", sys.exc_info()[0])
     #    pass
-    background.window.getch()
+    screen.window.getch()
     return None
 
 def print_custom_colors():
@@ -76,11 +76,11 @@ def print_custom_colors():
         curses.init_color(2, 1000, 0, 0)
     except curses.ERR:
         # End of screen reached
-        background.window.addstr(curses.ERR)
+        screen.window.addstr(curses.ERR)
     except Exception as e:
         print("Unexpected error: %s" % e)
         pass
-    background.window.getch()
+    screen.window.getch()
     return None
 
 def main(stdscr):
