@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import curses   # TODO remove for my colors or color pairs.
 from widget import Widget
 from textbox import TextBox
@@ -6,7 +7,8 @@ from widget import ChildElement
 
 
 class Popup(Widget):
-
+    """Widget to open a window in front of the others. Remember store and restore that widget or element when call popup.run
+    """
     def __init__(self, width, height, x0, y0, quit_key = ord('q'), print_title = False):
         # Initialize all variables
         self._title = " Popup "
@@ -32,37 +34,27 @@ class Popup(Widget):
         self.end_condition()
         return None
 
-    """
-    Set popup title
-
-    return: None
-    """
-
     def set_title(self, title):
+        """Set popup title
+        return: None
+        """
         self._title = title
         return None
 
-    """
-    Set a message into textbox
-
-    return: None
-    """
-
     def set_message(self, message, centered = False):
+        """Set a message into textbox
+        return: None
+        """
         child = self.get_child("textbox")
         child.set_text(message)
         if centered:
             child.set_cursor_center(True)
         return None
 
-    """
-    Re-draw element at current position
-
-    return: None
-    """
-
     def draw(self):
-
+        """Re-draw element at current position
+        return: None
+        """
         # Update background
         self.background.clear()    # todo remove?
         self.background.window.border()
@@ -75,24 +67,18 @@ class Popup(Widget):
         self._draw_children()   # Re-draw children if needed. Textbox by default.
         return None
 
-    """
-    Run popup logic and autodraw
-
-    return: None
-    """
-
     def run(self):
+        """Run popup logic and autodraw
+        return: None
+        """
         self.draw()
         super(Popup, self).run()    # Widget autoiterate events
         return None
 
-    """
-    This private method iterate children and draw them.
-
-    :return: returns nothing
-    """
-
     def _draw_children(self):
+        """This private method iterate children and draw them.
+        :return: returns nothing
+        """
         for child in self._children:
             #child.celement.clear()
             child.celement.draw()

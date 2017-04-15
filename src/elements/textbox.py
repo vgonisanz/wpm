@@ -1,7 +1,10 @@
+# -*- coding: utf-8 -*-
 import curses   # TODO remove for my colors or color pairs.
 from element import Element
 
 class TextBox(Element):
+    """Element to store text only. Allow manual draw.
+    """
     def __init__(self, width, height, x0, y0, text = ""):
         # Initialize all variables
         self._text = ""
@@ -15,28 +18,33 @@ class TextBox(Element):
         return None
 
     def set_cursor(self, x, y):
+        """Set cursor index in start position when draw function print text.
+        """
         self._cursor_x = x
         self._cursor_y = y
         return None
 
     def set_cursor_center(self, value):
+        """Set variable to print in center in draw function
+        """
         self._text_centered = value
         return None
 
     def set_text(self, text):
+        """Set text to be written in draw function
+        """
         self._text = text
         return None
 
     def get_text(self):
+        """return text
+        """
         return self._text
 
-    """
-    Draw text if provided
-
-    return: None
-    """
-
     def draw(self):
+        """Draw text if provided
+        return: None
+        """
         #self.window.border() # Debug
         if not self._manual_draw:
             if self._text_centered:

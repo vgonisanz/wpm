@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import curses   # TODO remove for my colors or color pairs.
 from hwidget import HWidget
 from textbox import TextBox
@@ -6,6 +7,8 @@ from widget import ChildElement
 from editabletextbox import EditableTextBox
 
 class Question(HWidget):
+    """Widget with ask a question and get the answer
+    """
     def __init__(self, width, height, x0, y0):
         # Initialize all variables
         _question_height = 0
@@ -35,10 +38,16 @@ class Question(HWidget):
         return None
 
     def callback_quit(self):
+        """Callback to set true end condition and left run bucle.
+        :return: None
+        """
         self.end_condition()
         return None
 
     def set_menu_options(self):
+        """Purge events and add quit and run edit mode
+        :return: None
+        """
         self.purge_events()
 
         # Create event quit with q
@@ -50,42 +59,31 @@ class Question(HWidget):
         self.add_event(event_edit)
         return None
 
-    """
-    Run child editabletextbox until finish
-
-    return: None
-    """
     def run_edit_mode(self):
+        """Run child editabletextbox until finish
+        return: None
+        """
         self._answer_box.run()
         return None
 
-    """
-    Set text into question textbox
-
-    return: None
-    """
-
     def set_question_text(self, text, centered = False):
+        """Set text into question textbox
+        return: None
+        """
         child = self.get_child("question")
         child.set_text(text)
         return None
 
-    """
-    Get last answer
-
-    return: None
-    """
-
     def get_answer(self):
+        """Get last answer
+        return: None
+        """
         return self._answer_box.get_text()
-    """
-    Re-draw element at current position
-
-    return: None
-    """
 
     def draw(self):
-
+        """Re-draw element at current position
+        return: None
+        """
         # Border
         self.foreground.clear()    # todo remove?
         #self.foreground.window.border()
@@ -95,13 +93,10 @@ class Question(HWidget):
         self._draw_children()   # Re-draw children if needed. Textbox by default.
         return None
 
-    """
-    Run question logic and autodraw
-
-    return: None
-    """
-
     def run(self):
+        """Run question logic and autodraw
+        return: None
+        """
         self.draw()
         super(Question, self).run()    # Widget autoiterate events
         return None

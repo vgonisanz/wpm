@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import curses   # TODO remove for my colors or color pairs.
 from widget import Widget
 from toggle_table import ToggleTable
@@ -63,40 +64,61 @@ class ToggleBoard(Widget):
         return None
 
     def callback_quit(self):
+        """Callback to set true end condition and left run bucle.
+        :return: None
+        """
         self.end_condition()
         return None
 
     def callback_up(self):
+        """Callback to Go upper in element if in range
+        :return: None
+        """
         if self.ypos > 0:
             self.ypos -= 1
             self._toggle_table.set_cursor_position(self.xpos, self.ypos)
         return None
 
     def callback_down(self):
+        """Callback to Go lower in table element if in range
+        :return: None
+        """
         if self.ypos < self._toggle_table._height - 1:
             self.ypos += 1
             self._toggle_table.set_cursor_position(self.xpos, self.ypos)
         return None
 
     def callback_left(self):
+        """Callback to Go left in table element if in range
+        :return: None
+        """
         if self.xpos > 0:
             self.xpos -= 1
             self._toggle_table.set_cursor_position(self.xpos, self.ypos)
         return None
 
     def callback_right(self):
+        """Callback to Go right in table element if in range
+        :return: None
+        """
         if self.xpos < self._toggle_table._width - 1:
             self.xpos += 1
             self._toggle_table.set_cursor_position(self.xpos, self.ypos)
         return None
 
     def callback_clear(self):
+        """Callback to clear all characters in the table element
+        :return: None
+        """
         #curses.curs_set(0)  # Hide cursor
         self._toggle_table.erase()
         self._toggle_table.clear()
         return None
 
     def callback_randomize(self):
+        """Callback to assign or not randomily characters in the table element
+        :return: None
+        """
         xpos_0 = self.xpos
         ypos_0 = self.ypos
         #curses.curs_set(0)  # Hide cursor
@@ -108,22 +130,25 @@ class ToggleBoard(Widget):
         return None
 
     def callback_set(self):
+        """Callback to set a character in the current cursor position
+        :return: None
+        """
         self._toggle_table.set(self.xpos, self.ypos)
         self._toggle_table.set_cursor_position(self.xpos, self.ypos)   # Restore cursor
         return None
 
     def callback_toggle(self):
+        """Callback to toggle a character in the current cursor position
+        :return: None
+        """
         self._toggle_table.toggle(self.xpos, self.ypos)
         self._toggle_table.set_cursor_position(self.xpos, self.ypos)   # Restore cursor
         return None
 
-    """
-    Re-draw element at current position
-
-    return: None
-    """
-
     def draw(self):
+        """Re-draw element at current position
+        return: None
+        """
         # Update background
         self.background.clear()
         self.background.window.border()
@@ -136,13 +161,10 @@ class ToggleBoard(Widget):
         self._toggle_table.window.refresh()
         return None
 
-    """
-    Run ToggleBoard logic and autodraw
-
-    return: None
-    """
-
     def run(self):
+        """Run ToggleBoard logic and autodraw
+        return: None
+        """
         curses.curs_set(0)  # Hide cursor
         self.draw()
         curses.curs_set(2)  # Show cursor

@@ -1,35 +1,32 @@
+# -*- coding: utf-8 -*-
 import curses   # TODO remove for my colors or color pairs.
 from widget import Widget
 from widget import EventObject
 from popup import Popup
 
-"""
-Widget with help included
-"""
 class HWidget(Widget):
+    """Widget with help included
+    """
     def __init__(self, width, height, x0, y0):
         # Initialize
         self._help_pop_up = None
 
+        # Call father Widget to complete its functionality.
         super(HWidget, self).__init__(width, height, x0, y0) # Initialize variables in Element, Override height
         return None
 
-    """
-    Run question logic and autodraw
-
-    return: None
-    """
-
     def run(self):
+        """Run question logic and autodraw
+        return: None
+        """
         super(HWidget, self).run()    # Widget autoiterate events
         return None
 
-    """
-    Create help popup
-    :input action_object
-    :return: returns nothing
-    """
     def create_help(self, text):
+        """Create help popup
+        :input action_object
+        :return: returns nothing
+        """
         ratio = 0.8
         antiratio = 1 - ratio
         help_width = int(ratio * self.background._width)
@@ -45,15 +42,14 @@ class HWidget(Widget):
         self.add_event(event_help)
         return None
 
-    """
-    Show help.
-
-    :return: returns nothing
-    """
-
     def show_help(self):
+        """Show help.
+        :return: True if success
+        """
+        result = False
         if self._help_pop_up:
             self.store_widget()
             self._help_pop_up.run()
             self.restore_widget()
-        return None
+            result = True
+        return result

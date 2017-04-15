@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import sys, os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'structs'))
@@ -9,13 +8,9 @@ from eventobject import EventObject
 from childelement import ChildElement
 from optionstruct import OptionStruct
 
-"""
-Simple menu widget.
-Usage: menu = MenuCM(width, height, x0, y0, title, options, instructions)
-"""
 class Menu(Widget):
-    """
-    Initialize Menu
+    """Simple menu widget. When run ENTER accept a option, and arrow move through it.
+    Usage: menu = MenuCM(width, height, x0, y0, title, options, instructions)
     """
 
     def __init__(self, width, height, x0, y0, title, instructions = "", title_padding = 1, instruction_padding = 1):
@@ -55,10 +50,16 @@ class Menu(Widget):
         return None
 
     def callback_quit(self):
+        """Callback to set true end condition and left run bucle.
+        :return: None
+        """
         self.end_condition()
         return None
 
     def callback_enter(self):
+        """Callback to Accept an option and call to function pointer with arguments if exist.
+        :return: None
+        """
         option = self._options[self._option_selected]
         if not option.action == None:
             if not option.args == None:
@@ -69,32 +70,32 @@ class Menu(Widget):
         return None
 
     def callback_up(self):
+        """Callback to Go upper option if in range
+        :return: None
+        """
         self._option_selected = self._option_selected - 1
         self.draw()
         return None
 
     def callback_down(self):
+        """Callback to Go lower option if in range
+        :return: None
+        """
         self._option_selected = self._option_selected + 1
         self.draw()
         return None
 
-    """
-    Set variable to set draw options centered
-
-    :return: None
-    """
-
     def set_centered(self, value):
+        """Set variable to set draw options centered
+        :return: None
+        """
         self._centered = value
         return None
 
-    """
-    Print menu and wait response.
-
-    :return: returns -1 if enter with q or ESC, option id from [0, N-1] if ENTER
-    """
-
     def run(self):
+        """Print menu and wait response.
+        :return: returns -1 if enter with q or ESC, option id from [0, N-1] if ENTER
+        """
         self.foreground.clear()
         self._option_selected = 0
 
@@ -103,23 +104,17 @@ class Menu(Widget):
         super(Menu, self).run()    # Widget autoiterate events
         return self._option_selected
 
-    """
-    Clear menu window.
-
-    :return: None
-    """
-
     def clear(self):
+        """Clear menu window.
+        :return: None
+        """
         self.foreground.clear()
         return None
 
-    """
-    Draw menu options. Private, autoinvoked. Note: Is possible to optimize draw with only changed sections, maybe someday.
-
-    :return: returns option selected
-    """
-
     def draw(self):
+        """Draw menu options. Private, autoinvoked. Note: Is possible to optimize draw with only changed sections, maybe someday.
+        :return: returns option selected
+        """
         if len(self._options) == 0:
             return -1
         if self._option_selected < 0:
@@ -133,11 +128,13 @@ class Menu(Widget):
             self._redraw_center()
         else:
             self._redraw_normal()
-            
+
         self.foreground.window.refresh()
         return self._option_selected
 
     def _redraw_normal(self):
+        """Draw menu options in left side
+        """
         counter = 0
         self.foreground.print_message(self._title, 0, 0, curses.A_UNDERLINE)
         for option in self._options:
@@ -150,6 +147,8 @@ class Menu(Widget):
         return None
 
     def _redraw_center(self):
+        """Draw menu options centered
+        """
         counter = 0
         self.foreground.print_message_center(self._title, 0, curses.A_UNDERLINE)
         for option in self._options:

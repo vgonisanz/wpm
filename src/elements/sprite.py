@@ -1,9 +1,7 @@
+# -*- coding: utf-8 -*-
 class Sprite(object):
-    """
-    Initialize sprite class. If only provide width and colors, characters will be value at same_character. By default is a space
-    Use ASCII code as character.
-
-    return: True always
+    """Initialize sprite class. If only provide width and colors, characters will be value at same_character. By default is a space
+    Use ASCII (0 - 127) or unicode (\u0000 - \u9999) as character. Extended ASCII not allowed. *TODO* sample testing ranges.
     """
     def __init__(self, width, colorpair_array, character_array = [], same_character = " "):
         # Initialize all variables

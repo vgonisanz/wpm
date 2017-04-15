@@ -4,18 +4,15 @@ from element import Element
 
 import random
 
-"""
-Table
-
-[0,0]
-    --------> X
-    |       ·
-    |       ·
-Y   v · · · (w, h)
-
-return: True if point is inside and is changed.
-"""
 class ToggleTable(Element):
+    """ToggleTable: Table to set or toggle a character in cursor position with functions. Functionality at ToggleBoard class
+    Coordinates
+    [0,0]
+        --------> X
+        |   *   ·
+        |       ·
+    Y   v · · · (w, h)
+    """
     def __init__(self, width, height, x0, y0, character = "*"):
         # Initialize all variables
         self._character = "*"
@@ -26,33 +23,27 @@ class ToggleTable(Element):
         self._character = character
         return None
 
-    """
-    Change character to be used
-
-    return: True if point is inside and is changed.
-    """
     def set_character(self, character):
+        """Change character to be used when set or toggle.
+        return: True if point is inside and is changed.
+        """
         self._character = character
         return None
 
-    """
-    Set point provided into table. Next call draw will be shown.
-
-    return: True if point is inside and is changed.
-    """
     def set(self, x, y):
+        """Set point provided into table. Next call draw will be shown.
+        return: True if point is inside and is changed.
+        """
         inside = self.is_inside(x, y)
         if inside:
             self._table[x, y] = 1
             self.print_character(self._character, x, y)
         return inside
 
-    """
-    Change a character for a space or viceverse at the location provided
-
-    return: True if point is inside and is changed.
-    """
     def toggle(self, x, y):
+        """Change a character for a space or viceverse at the location provided
+        return: True if point is inside and is changed.
+        """
         inside = self.is_inside(x, y)
         if inside:
             # If exist character in table, remove and empty character
@@ -64,12 +55,10 @@ class ToggleTable(Element):
                 self.print_character(self._character, x, y)
         return inside
 
-    """
-    Generate a random table
-
-    return: None
-    """
     def generate_random_table(self):
+        """Generate a random table
+        return: None
+        """
         self._table = {}
         for i in range(0, self._width):
             for j in range(0, self._height):
@@ -77,21 +66,17 @@ class ToggleTable(Element):
                     self.set(i, j)
         return None
 
-    """
-    Erase table
-
-    return: None
-    """
     def erase(self):
+        """Erase table
+        return: None
+        """
         self.state = {}
         return None
 
-    """
-    Draw text if provided
-
-    return: None
-    """
     def draw(self):
+        """Draw text if provided
+        return: None
+        """
         #self.window.addch(3, 3, self._character)
         #self.window.border()
         for i in range(0, self._width - 2):

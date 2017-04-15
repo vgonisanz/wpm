@@ -1,7 +1,10 @@
+# -*- coding: utf-8 -*-
 import curses
 import logging
 
 class Element(object):
+    """Element is the base of all drawable windows. Implement basic function to easily draw them as you wants.
+    """
     def __init__(self, width, height, x0, y0):
         # Initialize all variables
         self.logger = None
@@ -29,70 +32,54 @@ class Element(object):
             self.logger.debug(e)
         return None
 
-    """
-    Check if point x, y is inside.
-
-    :return: returns False if not.
-    """
     def is_inside(self, x, y):
+        """Check if point x, y is inside.
+        :return: returns False if not.
+        """
         if x < 0 or self._width <= x or y < 0 or self._height <= y:
             return False
         else:
             return True
-    """
-    Set cursor at position.
-
-    :return: returns None
-    """
 
     def set_cursor_position(self, x0, y0):
+        """Set cursor at position in element window. Cursor is autorefreshed.
+        :return: returns None
+        """
         if self.window != None:
             self.window.move(y0, x0)
             self.window.refresh()
         return None
 
-    """
-    Get cursor current position.
-
-    :return: Current cursor position tuple (x, y)
-    """
-
     def get_cursor_position(self):
+        """Get cursor current position.
+        :return: Current cursor position tuple (x, y)
+        """
         if self.window != None:
             y, x = self.window.getyx()
         return x, y
 
-    """
-    Clear current window.
-
-    :return: returns nothing
-    """
-
     def clear(self):
+        """Clear and refresh element window.
+        :return: returns nothing
+        """
         if self.window != None:
             self.window.clear()
             self.window.refresh()
         return None
 
-    """
-    Clear line y.
-
-    :return: returns None
-    """
-
     def clearln(self, y0):
+        """Clear line y.
+        :return: returns None
+        """
         if self.window != None:
             self.window.move(y0, 0)
             self.window.clrtoeol()
         return None
 
-    """
-    Reverse line y.
-
-    :return: returns None
-    """
-
     def reverseln(self, y0, clear = False):
+        """Reverse line y.
+        :return: returns None
+        """
         if self.window != None:
             self.window.move(y0, 0)
             if clear:
@@ -100,119 +87,89 @@ class Element(object):
             self.window.chgat(y0, 0, self._width, curses.A_REVERSE)
         return None
 
-    """
-    Clear line y.
-
-    :return: returns None
-    """
-
     def clearln(self, y0):
+        """Clear line y.
+        :return: returns None
+        """
         if self.window != None:
             self.window.move(y0, 0)
             self.window.clrtoeol()
         return None
 
-    """
-    Clear line from (x, y) position.
-
-    :return: returns None
-    """
-
     def clrtoeol(self, x0, y0):
+        """Clear line from (x, y) position.
+        :return: returns None
+        """
         if self.window != None:
             self.window.move(y0, x0)
             self.window.clrtoeol()
         return None
 
-    """
-    Clear terminal from (x, y) position.
-
-    :return: returns None
-    """
-
     def clrtobot(self, x0, y0):
+        """Clear terminal from (x, y) position.
+        :return: returns None
+        """
         if self.window != None:
             self.window.move(y0, x0)
             self.window.clrtobot()
         return None
 
-    """
-    Print hline in (x, y) position.
-
-    :return: returns None
-    """
-
     def hline(self, x0, y0):
+        """Print hline in (x, y) position.
+        :return: returns None
+        """
         if self.window != None:
             self.window.move(y0, x0)
             self.window.hline()
         return None
 
-    """
-    Print hline in (x, y) position.
-
-    :return: returns None
-    """
-
     def vline(self, x0, y0):
+        """Print hline in (x, y) position.
+        :return: returns None
+        """
         if self.window != None:
             self.window.move(y0, x0)
             self.window.vline()
         return None
 
-    """
-    Clear terminal from (x, y) position.
-
-    :return: returns None
-    """
-
     def flash(self):
+        """Clear terminal from (x, y) position.
+        :return: returns None
+        """
         curses.flash()
         return None
 
-    """
-    Request insert next line, moving down data
-
-    :return: returns None
-    """
-
     def insertln(self, y0):
+        """Request insert next line, moving down data
+        :return: returns None
+        """
         if self.window != None:
             self.window.move(y0, 0)
             self.window.insertln()
         return None
 
-    """
-    Request delete line at line y
-
-    :return: returns None
-    """
-
     def deleteln(self, y0 = -1):
+        """Request delete line at line y
+        :return: returns None
+        """
         if self.window != None:
             if y0 >= 0:
                 self.window.move(y0, 0)
             self.window.deleteln()
         return None
 
-    """
-    Request delete character at position x0, y0
-
-    :return: returns None
-    """
-
     def delch(self, x0, y0):
+        """Request delete character at position x0, y0
+        :return: returns None
+        """
         if self.window != None:
             self.window.delch(y0, x0)
         return None
 
-    """
-    Print a character. Choose a position. This affect to cursor.
-
-    :return: returns nothing
-    """
-
     def print_character(self, character, x0 = -1, y0 = -1, attributes = curses.A_NORMAL):
+        """Print a character. Choose a position. This affect to cursor.
+        :return: returns nothing
+        """
         if self.window != None:
             if x0 > -1 and y0 > -1:
                 # Set cursor position
@@ -226,13 +183,10 @@ class Element(object):
             self.window.refresh()
         return None
 
-    """
-    Print a message string into its window. Choose a position. This affect to cursor.
-
-    :return: returns nothing
-    """
-
     def print_message(self, message, x0 = -1, y0 = -1, attributes = curses.A_NORMAL):
+        """Print a message string into its window. Choose a position. This affect to cursor.
+        :return: returns nothing
+        """
         if self.window != None:
             if x0 > -1 and y0 > -1:
                 # Set cursor position
@@ -246,13 +200,10 @@ class Element(object):
             self.window.refresh()
         return None
 
-    """
-    Print a message string into a window. Choose y position, x automatically in the center. This affect to cursor.
-
-    :return: returns nothing
-    """
-
     def print_message_center(self, message, y0, attributes = curses.A_NORMAL):
+        """Print a message string into a window. Choose y position, x automatically in the center. This affect to cursor.
+        :return: returns nothing
+        """
         if self.window != None:
             y_max, x_max = self.window.getmaxyx()
             lenght = len( message )
@@ -265,13 +216,10 @@ class Element(object):
             return True
         return False
 
-    """
-    Print a message with delay between character. It cannot be skipped.
-
-    :return: returns nothing
-    """
-
     def print_message_slow(self, message, x0 = -1, y0 = -1, inter_delay = 100, attributes = curses.A_NORMAL):
+        """Print a message with delay between character. It cannot be skipped.
+        :return: returns nothing
+        """
         if self.window != None:
             if x0 > -1 and y0 > -1:
                 # Set cursor position
@@ -288,13 +236,10 @@ class Element(object):
             self.window.refresh()
         return None
 
-    """
-    Print border with elements.
-
-    :return: returns nothing
-    """
-
     def print_border(self, type = 0):
+        """Print border with elements.
+        :return: returns nothing
+        """
         if self.window != None:
             # Set border
             if type == 0:
@@ -317,13 +262,10 @@ class Element(object):
             self.window.refresh()
         return None
 
-    """
-    Print an array of characters with colors as a matrix with row size in a position (x0, y0) with a offset between values
-
-    :return: returns nothing
-    """
-
     def print_sprite(self, sprite, x0 = 0, y0 = 0, attributes = curses.A_NORMAL):
+        """Print an array of characters with colors as a matrix with row size in a position (x0, y0) with a offset between values
+        :return: returns nothing
+        """
         if self.window != None:
             current_col = 0
             # Set attributes
@@ -342,13 +284,10 @@ class Element(object):
             self.window.refresh()
         return None
 
-    """
-    Print foreground with a pattern from (0, 0).
-
-    :return: returns nothing
-    """
-
     def fill_with_pattern(self, pattern):
+        """Print foreground with a pattern from (0, 0).
+        :return: returns nothing
+        """
         if self.window != None:
             y_max, x_max = self.window.getmaxyx()
             lenght = len( pattern )
@@ -358,26 +297,20 @@ class Element(object):
                 self.print_message(pattern)
         return None
 
-    """
-    Print foreground with color.
-
-    :return: returns nothing
-    """
-
     def change_color(self, color_character, color_foreground):
+        """Print foreground with color. *TODO* evaluate colors an change harcoded 7
+        :return: returns nothing
+        """
         if self.window != None:
             curses.init_pair(7, color_character, color_foreground)
             self.window.bkgd(curses.color_pair(7)) # Warning, color pair apply to all elements in curses, probably need a variable inside and change global this value!
             self.window.refresh()
         return None
 
-    """
-    Wait for key. TODO remove?
-
-    :return: returns None
-    """
-
     def waitforkey(self, print_text = False, x0 = -1, y0 = -1):
+        """Wait for key. TODO remove?
+        :return: returns None
+        """
         # Print in window by default, check what need in a general way
         if x0 > -1 and y0 > -1:
             self.set_cursor_position(x0, y0)
@@ -385,33 +318,24 @@ class Element(object):
             self.print_message("\nPress any key to continue.")
         return self.window.getkey()
 
-    """
-    If input true, draw call won't be processed. All draw in this widget must be done manually with self.window.
-
-    :return: returns None
-    """
-
     def set_manual_draw(self, value):
+        """If input true, draw call won't be processed. All draw in this widget must be done manually with self.window.
+        :return: returns None
+        """
         self._manual_draw = value
         return None
 
-    """
-    If input true, start taking keyboard events.
-
-    :return: returns None
-    """
-
     def set_input_mode(self, value):
+        """If input true, start taking keyboard events.
+        :return: returns None
+        """
         self.window.keypad(value)
         return None
 
-    """
-    Wait for a character. Need set input mode true
-
-    :return: returns None
-    """
-
     def get_character(self):
+        """Wait for a character. Need set input mode true
+        :return: returns None
+        """
         # Set always NO DELAY?
         #if x0 > -1 and y0 > -1:
         #    self.set_cursor(window, x0, y0)
@@ -419,8 +343,10 @@ class Element(object):
         #    self.print_message(window, "Press any key to continue.")
         return self.window.getch()
 
-
     def store_window(self):
+        """Store cursor position, and all characters contained in element window
+        :return: returns None
+        """
         # Save cursor
         self._cursor_y_copy, self._cursor_x_copy = self.window.getyx()
 
@@ -434,6 +360,9 @@ class Element(object):
         return None
 
     def restore_window(self):
+        """Restore cursor position, and all characters contained in element window
+        :return: returns None
+        """
         if self._window_copy:
             value = 0
 
@@ -455,6 +384,9 @@ class Element(object):
         return None
 
     def draw(self):
+        """draw function prototype
+        :return: returns None
+        """
         # if not self._manual_draw:
             # Override me
         return None

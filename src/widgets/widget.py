@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import sys, os
 sys.path.append(os.path.join(os.path.dirname(__file__), '.', 'elements'))
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'structs'))
@@ -12,11 +13,12 @@ from childelement import ChildElement
 
 #from popup import Popup
 
-"""
-Functionality
-"""
-class Widget(object):
 
+class Widget(object):
+    """Functionality to all group of elements. No draw functions here or in its children, just logic.
+    * Background: Element with ALL size, usually to print border and shadow propertly.
+    * Foreground: Element with inside background to print without border description.
+    """
     def __init__(self, width, height, x0, y0, create_foreground = True, debug = False):
         # Initialize all variables
         self.background = None          # background element object with drawable window including border
@@ -36,13 +38,10 @@ class Widget(object):
                 self.foreground.change_color(curses.COLOR_BLACK, curses.COLOR_WHITE) # Test
         return None
 
-    """
-    This private method iterate events while not end condition.
-
-    :return: returns nothing
-    """
-
     def _iterate_events(self):
+        """This private method iterate events while not end condition.
+        :return: returns nothing
+        """
         self.background.set_input_mode(True)
         self._end_condition = False
         while not self._end_condition:
@@ -56,126 +55,94 @@ class Widget(object):
         self.background.set_input_mode(False)
         return None
 
-    """
-    Add a new children element.
-    :input element
-    :return: returns nothing
-    """
-
-    def add_child(self, element):
-        self._children.append(element)
-        return None
-
-    """
-    Add a new event. You must send a action object.
-    :input action_object
-    :return: returns nothing
-    """
-
-    def add_event(self, action_object):
-        self._events.append(action_object)
-        return None
-
-    """
-    Add a new option. You must send a option structs.
-    :input action_object
-    :return: returns nothing
-    """
-    def add_option(self, option_struct):
-        self._options.append(option_struct)
-        return None
-
-    """
-    Set end condition true.
-
-    :return: returns nothing
-    """
-    def end_condition(self):
-        self._end_condition = True
-        return None
-
-    """
-    Get child by ID
-
-    return: None
-    """
-
-    def get_child(self, child_id):
-        child = None
-        for member in self._children:
-            if member.cid == child_id:
-                return member.celement
-        return child
-
-    """
-    get background
-
-    :return: returns nothing
-    """
-    def get_background(self):
-        return self.background
-
-    """
-    get foreground
-
-    :return: returns nothing
-    """
-    def get_foreground(self):
-        return self.foreground
-
-    """
-    Draw prototype, only border. Complete in children. TODO change for restore background.
-
-    :return: returns nothing
-    """
-    def draw(self):
-        self.background.print_border()
-        return None
-
-    """
-    This widget take the control of the UI.
-
-    :return: returns nothing
-    """
-    def run(self):
-        self._iterate_events()
-        return None
-
-    """
-    Remove all events added of predefined.
-
-    :return: returns nothing
-    """
-
-    def purge_events(self):
-        self._events = []
-        return None
-
-    """
-    Remove all children added.
-
-    :return: returns nothing
-    """
-
-    def purge_children(self):
-        self._children = []
-        return None
-
-
-    """
-    This private method iterate children and draw them.
-
-    :return: returns nothing
-    """
-
     def _draw_children(self):
+        """This private method iterate children and draw them.
+        :return: returns nothing
+        """
         for child in self._children:
             #child.celement.clear()
             child.celement.draw()
             child.celement.window.refresh()
         return None
 
+    def add_child(self, element):
+        """Add a new children element.
+        :input element
+        :return: returns nothing
+        """
+        self._children.append(element)
+        return None
+
+    def add_event(self, action_object):
+        """Add a new event. You must send a action object.
+        :input action_object
+        :return: returns nothing
+        """
+        self._events.append(action_object)
+        return None
+
+    def add_option(self, option_struct):
+        """Add a new option. You must send a option structs.
+        :input action_object
+        :return: returns nothing
+        """
+        self._options.append(option_struct)
+        return None
+
+    def end_condition(self):
+        """Set end condition true.
+        :return: returns nothing
+        """
+        self._end_condition = True
+        return None
+
+    def get_child(self, child_id):
+        """Get child by ID
+        return: None
+        """
+        child = None
+        for member in self._children:
+            if member.cid == child_id:
+                return member.celement
+        return child
+
+    def get_background(self):
+        """Get background
+        :return: returns nothing
+        """
+        return self.background
+
+    def get_foreground(self):
+        """Get foreground
+        :return: returns nothing
+        """
+        return self.foreground
+
+    def run(self):
+        """This widget take the control of the UI.
+        :return: returns nothing
+        """
+        self._iterate_events()
+        return None
+
+    def purge_events(self):
+        """Remove all events added of predefined.
+        :return: returns nothing
+        """
+        self._events = []
+        return None
+
+    def purge_children(self):
+        """Remove all children added.
+        :return: returns nothing
+        """
+        self._children = []
+        return None
+
     def store_widget(self):
+        """Store all elements, background, foreground and children.
+        :return: returns nothing
+        """
         self.background.store_window()
         self.foreground.store_window()
         for child in self._children:
@@ -183,6 +150,9 @@ class Widget(object):
         return None
 
     def restore_widget(self):
+        """Restore all elements, background, foreground and children.
+        :return: returns nothing
+        """
         self.background.restore_window()
         self.foreground.restore_window()
         for child in self._children:

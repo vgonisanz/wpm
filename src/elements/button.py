@@ -1,15 +1,20 @@
+# -*- coding: utf-8 -*-
 import curses   # TODO remove for my colors or color pairs.
 from element import Element
 
 from enum import Enum
 
 class ButtonState(Enum):
+    """Class to enumerate button states
+    """
     normal = 0
     inactive = 1
     focused = 2
     pushed = 3
 
 class Button(Element):
+    """Button is an element to be draw and with button states.
+    """
     def __init__(self, text, width, x0, y0):
         # Initialize all variables
         self._title = ""
@@ -21,36 +26,27 @@ class Button(Element):
         self._text = text[:self._width-2]
         return None
 
-    """
-    Set a callback to call when button is pushed
-
-    return: True always
-    """
-
     def set_on_push_callback(self, callback):
+        """Set a callback to call when button is pushed
+        return: True always
+        """
         self._on_push_callback = callback
         return True
 
-    """
-    Force to ser normal or inactive a button
-
-    return: True always
-    """
-
     def set_active(self, active):
+        """Force to ser normal or inactive a button
+        return: True always
+        """
         if active:
             self._state = ButtonState.normal
         else:
             self._state = ButtonState.inactive
         return True
 
-    """
-    Set button on focus mode if is not inactive
-
-    return: True always
-    """
-
     def set_focus(self):
+        """Set button on focus mode if is not inactive
+        return: True always
+        """
         success = True
         if self._state == ButtonState.inactive:
             success = False
@@ -58,13 +54,10 @@ class Button(Element):
             self._state = ButtonState.focused
         return success
 
-    """
-    Push button
-
-    return: True always
-    """
-
     def push(self, ms = 300):
+        """Push button
+        return: True always
+        """
         success = True
         if not self._state == ButtonState.inactive:
             self._state = ButtonState.pushed
@@ -77,14 +70,10 @@ class Button(Element):
             success = False
         return None
 
-    """
-    Draw button in its position with its state
-
-    return: None
-    """
-
     def draw(self):
-
+        """Draw button in its position with its state
+        return: None
+        """
         # Put text cropped and centered
         len_text = len(self._text)
         start_position = 1

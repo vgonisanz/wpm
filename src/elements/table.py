@@ -2,24 +2,19 @@
 import curses   # TODO remove for my colors or color pairs.
 from element import Element
 
-"""
-Table
-
-[0,0]
-    --------> X
-    |       ·
-    |       ·
-Y   v · · · (w, h)
-
-return: True if point is inside and is changed.
-"""
 class Table(Element):
-    """
-    Initialize table element class. Always draw all elements with cell size
-
-    return: True always
+    """Table: Group of data tabulated.
+    Diagram:
+    [0,0]
+        --------> X
+        |       ·
+        |       ·
+    Y   v · · · (w, h)
     """
     def __init__(self, width_data, height_data, x0, y0, cell_size = 1, default_value = " "):
+        """ Initialize table element class. Always draw all elements with cell size
+        return: None
+        """
         # Initialize all variables
         self.title = ""
         self.width_data = 0
@@ -48,42 +43,34 @@ class Table(Element):
         self._data = [[self._default_value for x in range(width_data)] for y in range(height_data)]
         return None
 
-    """
-    set a Title
-
-    return: None
-    """
     def set_title(self, title):
+        """Set a Title to be printed
+        return: None
+        """
         self.title = title[:self.width_table]
         return None
 
-    """
-    set a data
-
-    return: None
-    """
     def set_data(self, data):
+        """Set table data. Require (width_data x height_data) to be propertly drawn.
+        return: None
+        """
         self._data = data
         return None
 
-    """
-    Draw/Re-draw cell
-
-    return: None
-    """
     def draw_cell(self, i, j):
+        """Draw/Re-draw cell
+        return: None
+        """
         value = self._data[j][i][:self.cell_size] # Crop to max cell size
         xpos = self._x_offset + i * self.cell_size
         ypos = self._y_offset + j
         self.print_message(value, xpos, ypos)
         return None
 
-    """
-    Draw X-axi
-
-    return: None
-    """
     def draw_axi_x(self):
+        """Draw X-axi
+        return: None
+        """
         xpos_hline = self._x_offset - 1
         ypos_hline = self._y_offset - 1
 
@@ -97,12 +84,10 @@ class Table(Element):
         self.window.hline(ypos_hline, xpos_hline, "-", self.width_table)
         return None
 
-    """
-    Draw Y-axi
-
-    return: None
-    """
     def draw_axi_y(self):
+        """Draw Y-axi
+        return: None
+        """
         xpos_vline = self._x_offset - 1
         ypos_vline = self._y_offset - 1
 
@@ -117,14 +102,12 @@ class Table(Element):
         self.window.vline(ypos_vline, xpos_vline, "|", self.height_table)
         return None
 
-    """
-    Draw complete table
-
-    return: None
-    """
     def draw(self):
+        """Draw complete table
+        return: None
+        """
         # Print title
-        self.print_message(self.title, 0, 0)
+        self.print_message(self.title, 0, 0)    # TODO add option?
         #self.print_message_center(self.title, 0)
 
         # Vertical line ad x = 0, y = 1
