@@ -1,11 +1,11 @@
 import curses   # TODO remove for my colors or color pairs.
-from widget import Widget
+from hwidget import HWidget
 from textbox import TextBox
 from widget import EventObject
 from widget import ChildElement
 from editabletextbox import EditableTextBox
 
-class Question(Widget):
+class Question(HWidget):
     def __init__(self, width, height, x0, y0):
         # Initialize all variables
         _question_height = 0
@@ -14,7 +14,6 @@ class Question(Widget):
 
         # Assign
         super(Question, self).__init__(width, height, x0, y0) # Initialize variables in Element, Override height
-
         self._question_height = int(height/2)
         self._answer_height = int(height/2)
 
@@ -28,6 +27,11 @@ class Question(Widget):
         self._answer_box.draw()
 
         self.set_menu_options()
+        self.background.logger.debug("question.newwin with height: %d, width: %d, x0: %d, y0: %d" % (self.background._width, self.background._height, self.background._x, self.background._y))
+        help_message =  "Push e to edit question\n" + \
+                        "Push ENTER after write question\n" + \
+                        "Push q to quit\n"
+        self.create_help(help_message)
         return None
 
     def callback_quit(self):

@@ -174,3 +174,17 @@ class Widget(object):
             child.celement.draw()
             child.celement.window.refresh()
         return None
+
+    def store_widget(self):
+        self.background.store_window()
+        self.foreground.store_window()
+        for child in self._children:
+            child.celement.store_window()
+        return None
+
+    def restore_widget(self):
+        self.background.restore_window()
+        self.foreground.restore_window()
+        for child in self._children:
+            child.celement.restore_window()
+        return None

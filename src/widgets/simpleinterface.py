@@ -20,7 +20,6 @@ class SimpleInterface(Widget):
 
     def __init__(self, width, height, x0, y0, title, print_title):
         # Initialize all variables
-        self.logger = None
         self._title = ""
         self._print_title = False
         self._secondary_widget = None
@@ -31,7 +30,6 @@ class SimpleInterface(Widget):
         self._secondary_widget_height = 0
 
         # Assign
-        self.logger = logging.getLogger("wpm")
         self._title = title
         self._print_title = print_title
 
@@ -105,7 +103,7 @@ class SimpleInterface(Widget):
 
     def draw_events(self):
         self.foreground.clear()
-        
+
         # Print bottom options
         col = 0
         for index,event in enumerate(self._events):

@@ -30,7 +30,7 @@ class HWidget(Widget):
     :return: returns nothing
     """
     def create_help(self, text):
-        ratio = 8/10
+        ratio = 0.8
         antiratio = 1 - ratio
         help_width = int(ratio * self.background._width)
         help_height = int(ratio * self.background._height)
@@ -53,13 +53,7 @@ class HWidget(Widget):
 
     def show_help(self):
         if self._help_pop_up:
-            # Save screen
-            self.background.store_window()
-            self.foreground.store_window()
-
+            self.store_widget()
             self._help_pop_up.run()
-
-            # Redraw screen
-            self.background.restore_window()
-            self.foreground.restore_window()
+            self.restore_widget()
         return None

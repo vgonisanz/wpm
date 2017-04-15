@@ -1,8 +1,10 @@
 import curses
+import logging
 
 class Element(object):
     def __init__(self, width, height, x0, y0):
         # Initialize all variables
+        self.logger = None
         self.window = None
         self._width = None
         self._height = None
@@ -15,11 +17,16 @@ class Element(object):
         self._cursor_y_copy = 0     # Score Y cursor position when copy
 
         # Assign
+        self.logger = logging.getLogger("wpm")
         self._width = width
         self._height = height
         self._x = x0
         self._y = y0
-        self.window = curses.newwin(height, width, y0, x0)
+        try:
+            self.window = curses.newwin(height, width, y0, x0)
+        except Exception as e:
+            self.logger.debug("curses.newwin with height: %d, width: %d, x0: %d, y0: %d" % (height, width, y0, x0))
+            self.logger.debug(e)
         return None
 
     """
