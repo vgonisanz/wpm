@@ -136,7 +136,8 @@ class Element(object):
         """Clear terminal from (x, y) position.
         :return: returns None
         """
-        curses.flash()
+        if self.window != None:
+            curses.flash()
         return None
 
     def insertln(self, y0):
@@ -236,17 +237,17 @@ class Element(object):
             self.window.refresh()
         return None
 
-    def print_border(self, type = 0):
+    def print_border(self, border_type = 0):
         """Print border with elements.
         :return: returns nothing
         """
         if self.window != None:
             # Set border
-            if type == 0:
+            if border_type == 0:
                 self.window.border()
-            elif type == 1:
+            elif border_type == 1:
                 self.window.border(curses.ACS_CKBOARD, curses.ACS_CKBOARD, curses.ACS_CKBOARD, curses.ACS_CKBOARD, curses.ACS_BLOCK, curses.ACS_BLOCK, curses.ACS_BLOCK, curses.ACS_BLOCK)
-            elif type == 2:
+            elif border_type == 2:
                 self.window.border("|", "|", "-", "-", "x", "x", "x", "x")
             else:
                 ls = "X"
@@ -374,7 +375,7 @@ class Element(object):
                         character = self._window_copy[value]
                         self.window.addch(i, j, character)
                     except:
-                        pass
+                        self.logger.warning("addch at i: %d, j: %d" % (i, j))
                     value += 1
 
             # Restore pointer and refresh
@@ -387,6 +388,8 @@ class Element(object):
         """draw function prototype
         :return: returns None
         """
-        # if not self._manual_draw:
+        success = False
+        if not self._manual_draw:
             # Override me
-        return None
+            success = True
+        return success

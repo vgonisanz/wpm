@@ -3,7 +3,6 @@ import curses   # TODO remove for my colors or color pairs.
 from widget import Widget
 from textbox import TextBox
 from widget import EventObject
-from widget import ChildElement
 
 class EditableTextBox(Widget):
     """Widget to store text and edit it. Complementary to TextBox element.

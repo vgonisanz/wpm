@@ -8,11 +8,7 @@ from curses import wrapper  # Use my own wrapper
 
 from wpm import Wpm
 from element import Element
-from eventobject import EventObject
 from childelement import ChildElement
-
-#from popup import Popup
-
 
 class Widget(object):
     """Functionality to all group of elements. No draw functions here or in its children, just logic.

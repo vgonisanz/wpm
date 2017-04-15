@@ -2,7 +2,6 @@ import sys, os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src/widgets'))
 
-import curses               # Todo remove chaning own variables
 from curses import wrapper  # Use my own wrapper
 
 from wpm import Wpm

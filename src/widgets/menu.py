@@ -6,7 +6,6 @@ import curses   # TODO remove for my colors or color pairs.
 from widget import Widget
 from eventobject import EventObject
 from childelement import ChildElement
-from optionstruct import OptionStruct
 
 class Menu(Widget):
     """Simple menu widget. When run ENTER accept a option, and arrow move through it.

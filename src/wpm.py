@@ -214,7 +214,10 @@ class Wpm(object):
     """
 
     def get_max_custom_colors(self):
-        return curses.COLORS
+        num_colors = 0
+        if self._current_window != None:
+            num_colors = curses.COLORS
+        return num_colors
 
     """
     Getters: Get current color pair. Internally is stored into curses color pair 7. To set a color user set_color function.

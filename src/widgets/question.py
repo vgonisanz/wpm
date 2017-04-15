@@ -11,9 +11,9 @@ class Question(HWidget):
     """
     def __init__(self, width, height, x0, y0):
         # Initialize all variables
-        _question_height = 0
-        _answer_height = 0
-        _answer_box = None
+        self._question_height = 0
+        self._answer_height = 0
+        self._answer_box = None
 
         # Assign
         super(Question, self).__init__(width, height, x0, y0) # Initialize variables in Element, Override height
