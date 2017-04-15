@@ -10,7 +10,9 @@ class Element(object):
         self._y = None
         #attributes = curses.A_NORMAL # Change all attibutes param or use a general? TODO
         self._manual_draw = False
-        self._window_copy = None
+        self._window_copy = None    # Store list with window characters
+        self._cursor_x_copy = 0     # Score X cursor position when copy
+        self._cursor_y_copy = 0     # Score Y cursor position when copy
 
         # Assign
         self._width = width
@@ -412,6 +414,10 @@ class Element(object):
 
 
     def store_window(self):
+        # Save cursor
+        self._cursor_y_copy, self._cursor_x_copy = self.window.getyx()
+
+        # Save whole window
         self.window.move(0, 0)
         self._window_copy = []
         for i in range(0, self._height):
@@ -423,6 +429,8 @@ class Element(object):
     def restore_window(self):
         if self._window_copy:
             value = 0
+
+            # Restore whole window
             self.window.move(0, 0)
             for i in range(0, self._height):
                 for j in range(0, self._width):
@@ -432,7 +440,9 @@ class Element(object):
                     except:
                         pass
                     value += 1
-            self.window.move(0, 0)
+
+            # Restore pointer and refresh
+            self.window.move(self._cursor_y_copy, self._cursor_x_copy)
             self.window.refresh()
             self._window_copy = None
         return None
