@@ -10,6 +10,8 @@ from element import Element
 from eventobject import EventObject
 from childelement import ChildElement
 
+#from popup import Popup
+
 """
 Functionality
 """
@@ -24,23 +26,10 @@ class Widget(object):
         self._options = []              # List with options to trigger and action if command
         self._children = []             # List with drawable children elements
 
-        self._help_pop_up = None        # Help popup with instructions using F1
-        self._show_help = False
-
         # Assign a drawable element
         self.background = Element(width, height, x0, y0)
         if create_foreground:
             self.foreground = Element(width - 2, height - 2, x0 + 1, y0 + 1)
-
-        # Create Help Popup
-        help_width = int(width/2)
-        help_height = int(height/2)
-        help_x0 = 1
-        help_y0 = 1
-        self._help_pop_up = Element(help_width, help_height, help_x0, help_y0)
-
-        event_help = EventObject(curses.KEY_F1, self.toggle_help)
-        self.add_event(event_help)
 
         if debug:
             if create_foreground:
@@ -135,6 +124,14 @@ class Widget(object):
         return self.foreground
 
     """
+    Draw prototype, nothing to do here. Complete in children.
+
+    :return: returns nothing
+    """
+    def draw(self):
+        return None
+
+    """
     This widget take the control of the UI.
 
     :return: returns nothing
@@ -163,44 +160,6 @@ class Widget(object):
         self._children = []
         return None
 
-    """
-    Toggle help.
-
-    :return: returns nothing
-    """
-
-    def toggle_help(self):
-        if self._show_help:
-            self.hide_help()
-        else:
-            self.show_help()
-        self._show_help = not self._show_help
-        return None
-
-    """
-    Show help.
-
-    :return: returns nothing
-    """
-
-    def show_help(self):
-        self._show_help = True
-        self._help_pop_up.window.border()
-        self._help_pop_up.window.refresh()
-        return None
-
-    """
-    Hide help.
-
-    :return: returns nothing
-    """
-
-    def hide_help(self):
-        self._show_help = False
-        self._help_pop_up.clear()
-        self._help_pop_up.refresh()
-        self.draw()
-        return None
 
     """
     This private method iterate children and draw them.

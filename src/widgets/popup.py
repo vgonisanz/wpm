@@ -33,6 +33,16 @@ class Popup(Widget):
         return None
 
     """
+    Set popup title
+
+    return: None
+    """
+
+    def set_title(self, title):
+        self._title = title
+        return None
+
+    """
     Set a message into textbox
 
     return: None
