@@ -124,7 +124,7 @@ class Widget(object):
         return self.foreground
 
     """
-    Draw prototype, only border. Complete in children.
+    Draw prototype, only border. Complete in children. TODO change for restore background.
 
     :return: returns nothing
     """

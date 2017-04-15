@@ -30,10 +30,12 @@ class HWidget(Widget):
     :return: returns nothing
     """
     def create_help(self, text):
-        help_width = int(self.background._width*8/10)
-        help_height = int(self.background._height*8/10)
-        help_x0 = 1
-        help_y0 = 1
+        ratio = 8/10
+        antiratio = 1 - ratio
+        help_width = int(ratio * self.background._width)
+        help_height = int(ratio * self.background._height)
+        help_x0 = int(antiratio/2 * self.background._width)
+        help_y0 = int(antiratio/2 * self.background._height)
 
         self._help_pop_up = Popup(help_width, help_height, help_x0, help_y0, curses.KEY_F1)
         self._help_pop_up.set_title("Help")
@@ -50,10 +52,14 @@ class HWidget(Widget):
     """
 
     def show_help(self):
-        self._help_pop_up.run()
-        # Hide again
-        self._help_pop_up.background.window.clear()
-        self._help_pop_up.background.window.refresh()
-        # Redraw
-        self.draw()
+        if self._help_pop_up:
+            # Save screen
+            self.background.store_window()
+            self.foreground.store_window()
+
+            self._help_pop_up.run()
+
+            # Redraw screen
+            self.background.restore_window()
+            self.foreground.restore_window()
         return None

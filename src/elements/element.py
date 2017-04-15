@@ -10,6 +10,7 @@ class Element(object):
         self._y = None
         #attributes = curses.A_NORMAL # Change all attibutes param or use a general? TODO
         self._manual_draw = False
+        self._window_copy = None
 
         # Assign
         self._width = width
@@ -409,6 +410,32 @@ class Element(object):
         #    self.print_message(window, "Press any key to continue.")
         return self.window.getch()
 
+
+    def store_window(self):
+        self.window.move(0, 0)
+        self._window_copy = []
+        for i in range(0, self._height):
+            for j in range(0, self._width):
+                charactertype = self.window.inch(i, j)
+                self._window_copy.append(charactertype)
+        return None
+
+    def restore_window(self):
+        if self._window_copy:
+            value = 0
+            self.window.move(0, 0)
+            for i in range(0, self._height):
+                for j in range(0, self._width):
+                    try:
+                        character = self._window_copy[value]
+                        self.window.addch(i, j, character)
+                    except:
+                        pass
+                    value += 1
+            self.window.move(0, 0)
+            self.window.refresh()
+            self._window_copy = None
+        return None
 
     def draw(self):
         # if not self._manual_draw:
