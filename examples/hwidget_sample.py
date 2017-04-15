@@ -50,8 +50,6 @@ def create_widget():
                     "Push q to quit\n"
     widget.create_help(help_message)
 
-    widget_foreground.print_message("Press F1 to help.\n")
-
     event_print_left = EventObject(curses.KEY_LEFT, callback_event_print, ["Left\n"])
     event_print_right = EventObject(curses.KEY_RIGHT, callback_event_print, ["Right\n"])
     event_print_up = EventObject(curses.KEY_UP, callback_event_print, ["Up\n"])
@@ -66,6 +64,8 @@ def create_widget():
     widget.add_event(event_clear)
     widget.add_event(event_quit)
 
+    widget.draw()
+    widget_foreground.print_message("Press F1 to help.\n")
     widget.run()
     return None
 

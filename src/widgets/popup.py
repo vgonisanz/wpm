@@ -7,7 +7,7 @@ from widget import ChildElement
 
 class Popup(Widget):
 
-    def __init__(self, width, height, x0, y0, print_title = False):
+    def __init__(self, width, height, x0, y0, quit_key = ord('q'), print_title = False):
         # Initialize all variables
         self._title = " Popup "
         self._print_title = False
@@ -23,7 +23,7 @@ class Popup(Widget):
         self.add_child(textbox_child)
 
         # Create event quit with q
-        event_quit = EventObject(ord('q'), self.callback_quit)
+        event_quit = EventObject(quit_key, self.callback_quit)
         self.add_event(event_quit)
 
         return None

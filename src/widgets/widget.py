@@ -124,11 +124,12 @@ class Widget(object):
         return self.foreground
 
     """
-    Draw prototype, nothing to do here. Complete in children.
+    Draw prototype, only border. Complete in children.
 
     :return: returns nothing
     """
     def draw(self):
+        self.background.print_border()
         return None
 
     """
