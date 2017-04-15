@@ -16,6 +16,7 @@ widget_x0 = 1
 widget_y0 = 2
 
 # Variables
+wpm = None
 widget = None
 widget_background = None
 widget_foreground = None

@@ -78,6 +78,7 @@ cactus_sprite = None
 palmtree_sprite = None
 ascii_sprite = None
 unicode_sprite = None
+car_sprite = None
 
 def initialize():
     global wpm

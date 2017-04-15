@@ -6,7 +6,6 @@ import curses               # Todo remove chaning own variables
 from curses import wrapper  # Use my own wrapper
 
 from wpm import Wpm
-from element import Element
 
 # Configuration
 

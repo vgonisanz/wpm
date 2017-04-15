@@ -15,6 +15,7 @@ border_x0 = 1
 border_y0 = 2
 
 # Variables
+wpm = None
 element = None
 element_screen = None
 
