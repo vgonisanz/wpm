@@ -10,6 +10,9 @@ from wpm import Wpm
 from element import Element
 from childelement import ChildElement
 
+from optionstruct import OptionStruct
+from eventobject import EventObject
+
 class Widget(object):
     """Functionality to all group of elements. No draw functions here or in its children, just logic.
     * Background: Element with ALL size, usually to print border and shadow propertly.
@@ -103,7 +106,7 @@ class Widget(object):
         self.add_event(event)
         return None
 
-    def create_option(self, option_title, option_callback, option_args):
+    def create_option(self, option_title, option_callback = None, option_args = None):
         """Create a new option element from parameters and add it.
         :input action_object
         :return: returns nothing

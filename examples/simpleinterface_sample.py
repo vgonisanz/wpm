@@ -7,7 +7,6 @@ from curses import wrapper  # Use my own wrapper
 
 from wpm import Wpm
 from simpleinterface import SimpleInterface
-from widget import EventObject
 from menu import Menu
 from toggle_board import ToggleBoard
 from optionstruct import OptionStruct
@@ -55,19 +54,52 @@ def create_menu_widget():
     global buy_menu
 
     # Create options
+    main_menu_list = {}
+    main_menu_list['title'] = "Choose a weapon to buy"
+    main_menu_list['names'] = ["Pistols", "Shotguns", "SMG", "Rifles", "MachineGuns", "Primary ammo", "Secondary ammo", "Equipment"]
+
+    submenu_1_list = {}
+    submenu_1_list['title'] = "Choose a pistol"
+    submenu_1_list['names'] = ["USP .45ACP Tactical", "Glock 18C Select Fire", "Desert Eagle .50 AE", "SIG P228", "FN Five-Seven"]
+    submenu_1_list['prices'] = ["400$", "400$", "650$", "600$", "750$"]
+
+    submenu_2_list = {}
+    submenu_2_list['title'] = "Choose a shotgun"
+    submenu_2_list['names'] = ["M3 Super 90 Combat", "XM1014"]
+    submenu_2_list['prices'] = ["1700$", "3000$"]
+
+    submenu_3_list = {}
+    submenu_3_list['title'] = "Choose a sub machine gun"
+    submenu_3_list['names'] = ["MP5 Navy", "Streyr TMP", "FN P90", "MAC-10", "H&K UMP"]
+    submenu_3_list['prices'] = ["1500$", "1250$", "2350$", "1400$", "1700$"]
+
+    submenu_4_list = {}
+    submenu_4_list['title'] = "Choose a rifle"
+    submenu_4_list['names'] = ["AK47", "M4A1 Carbine/COLT", "SG552 Commando", "Steyr AUG", "Steyr Scout Sniper Rifle", "Artic Warfare Magnum", "SIG SG-550", "G3/SG1 Sniper Rifle"]
+    submenu_4_list['prices'] = ["2500$", "3100$", "3500$", "3500$", "2750$", "4750$", "4200$", "5000$"]
+
+    submenu_5_list = {}
+    submenu_5_list['title'] = "Choose a machineGun"
+    submenu_5_list['names'] = ["FN M249 PARA"]
+    submenu_5_list['prices'] = ["5750$"]
+
+    submenu_8_list = {}
+    submenu_8_list['title'] = "Choose a equipment"
+    submenu_8_list['names'] = ["Armor", "Armor|Helmet", "Flash", "Grenade", "Smoke", "Defuser", "NightVision", "Shield"]
+    submenu_8_list['prices'] = ["650$", "1000$", "200$", "300$", "300$", "200$", "1250$", "1000$"]
+
     option_2 = OptionStruct("Option 2, do nothing")
     option_3 = OptionStruct("Option 3, me neither")
 
     # Create test menu and run
     menu_width, menu_height, menu_x0, menu_y0 = interface.get_secondary_widget_size()
 
-    buy_menu = Menu(menu_width, menu_height, menu_x0, menu_y0, menu_title, menu_instructions)
-    buy_menu.add_option(option_2)
-    buy_menu.add_option(option_3)
+    buy_menu = Menu(menu_width, menu_height, menu_x0, menu_y0, main_menu_list['title'])
+    for submenu in main_menu_list['names']:
+        buy_menu.create_option(submenu)
 
     # Add key to interface
-    event_run_buy = EventObject(ord('b'), "Press <b> to launch buy menu", callback_buy)
-    interface.add_event(event_run_buy)
+    interface.create_event(ord('b'), "Press <b> to launch buy menu", callback_buy)
     return None
 
 def create_toggleboard_widget():
@@ -79,8 +111,7 @@ def create_toggleboard_widget():
     toggle_board = ToggleBoard(tb_width, tb_height, tb_x0, tb_y0, tb_title)
 
     # Add key to interface
-    event_toggle_board = EventObject(ord('t'), "Press <t> to launch toggle board", callback_toggle_board)
-    interface.add_event(event_toggle_board)
+    interface.create_event(ord('t'), "Press <t> to launch toggle board", callback_toggle_board)
     return None
 
 

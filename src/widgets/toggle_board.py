@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 import curses   # TODO remove for my colors or color pairs.
-from widget import Widget
+from hwidget import HWidget
 from toggle_table import ToggleTable
-from widget import EventObject
-from widget import ChildElement
+from eventobject import EventObject
 
 
-class ToggleBoard(Widget):
+class ToggleBoard(HWidget):
     def __init__(self, width, height, x0, y0, print_title = False):
         # Initialize all variables
         self._title = " ToggleBoard "
@@ -16,7 +15,7 @@ class ToggleBoard(Widget):
 
         # Assign
         self._print_title = print_title
-        super(ToggleBoard, self).__init__(width, height, x0, y0, False) # No create foreground
+        super(ToggleBoard, self).__init__(width, height, x0, y0) # No create foreground
 
         # Add toggletable as foreground, is not a child.
         toggle_width = width - 2
@@ -61,6 +60,14 @@ class ToggleBoard(Widget):
         self.add_event(event_down)
         self.add_event(event_left)
         self.add_event(event_right)
+
+        help_message = "Use arrows to move\n" + \
+                        "Use c to clear table\n" + \
+                        "Use r to generate random board\n" + \
+                        "Use s to set cursor position\n" + \
+                        "Use t to toggle cursor position\n" + \
+                        "Use q to quit."
+        self.create_help(help_message)
         return None
 
     def callback_quit(self):

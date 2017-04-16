@@ -22,7 +22,7 @@ class HWidget(Widget):
         super(HWidget, self).run()    # Widget autoiterate events
         return None
 
-    def create_help(self, text):
+    def create_help(self, text = "Help"):
         """Create help popup
         :input action_object
         :return: returns nothing
@@ -31,8 +31,8 @@ class HWidget(Widget):
         antiratio = 1 - ratio
         help_width = int(ratio * self.background._width)
         help_height = int(ratio * self.background._height)
-        help_x0 = int(antiratio/2 * self.background._width)
-        help_y0 = int(antiratio/2 * self.background._height)
+        help_x0 = int(antiratio/2 * self.background._width) + self.background._x
+        help_y0 = int(antiratio/2 * self.background._height) + self.background._y
 
         self._help_pop_up = Popup(help_width, help_height, help_x0, help_y0, curses.KEY_F1)
         self._help_pop_up.set_title("Help")
