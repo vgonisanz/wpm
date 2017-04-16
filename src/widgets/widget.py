@@ -85,6 +85,33 @@ class Widget(object):
         self._options.append(option_struct)
         return None
 
+    def create_child(self, child_id, child_element):
+        """Create a new children element from parameters and add it.
+        :input element
+        :return: returns nothing
+        """
+        child = ChildElement(child_id, child_element)
+        self.add_child(textbox_childchild)
+        return None
+
+    def create_event(self, key, description = "", action_input = None, args_input = None):
+        """Create a new event element from parameters and add it.
+        :input action_object
+        :return: returns nothing
+        """
+        event = EventObject(key, description, action_input, args_input)
+        self.add_event(event)
+        return None
+
+    def create_option(self, option_title, option_callback, option_args):
+        """Create a new option element from parameters and add it.
+        :input action_object
+        :return: returns nothing
+        """
+        option = OptionStruct(option_title, option_callback, option_args)
+        self.add_option(option)
+        return None
+
     def end_condition(self):
         """Set end condition true.
         :return: returns nothing

@@ -7,7 +7,7 @@ from curses import wrapper  # Use my own wrapper
 
 from wpm import Wpm
 from hwidget import HWidget
-from widget import EventObject
+from eventobject import EventObject
 
 # Configuration
 widget_width = 50
@@ -51,12 +51,12 @@ def create_widget():
                     "Push q to quit\n"
     widget.create_help(help_message)
 
-    event_print_left = EventObject(curses.KEY_LEFT, callback_event_print, ["Left\n"])
-    event_print_right = EventObject(curses.KEY_RIGHT, callback_event_print, ["Right\n"])
-    event_print_up = EventObject(curses.KEY_UP, callback_event_print, ["Up\n"])
-    event_print_down = EventObject(curses.KEY_DOWN, callback_event_print, ["Down\n"])
-    event_clear = EventObject(ord('c'), callback_clear)
-    event_quit = EventObject(ord('q'), callback_quit)
+    event_print_left = EventObject(curses.KEY_LEFT, "Push left key", callback_event_print, ["Left\n"])
+    event_print_right = EventObject(curses.KEY_RIGHT, "push right key", callback_event_print, ["Right\n"])
+    event_print_up = EventObject(curses.KEY_UP, "Push up key", callback_event_print, ["Up\n"])
+    event_print_down = EventObject(curses.KEY_DOWN, "Push down key", callback_event_print, ["Down\n"])
+    event_clear = EventObject(ord('c'), "Clear with c key", callback_clear)
+    event_quit = EventObject(ord('q'), "Quit with q key", callback_quit)
 
     widget.add_event(event_print_left)
     widget.add_event(event_print_right)

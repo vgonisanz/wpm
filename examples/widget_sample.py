@@ -41,10 +41,10 @@ def create_widget():
 
     widget_foreground.print_message("Push left, s, c, or q to quit.\n")
 
-    event_print = EventObject(curses.KEY_LEFT, callback_event_print, ["Left\n"])
-    event_clear = EventObject(ord('c'), callback_clear)
-    event_sum = EventObject(ord('s'), callback_sum, [ 4, 5 ])
-    event_quit = EventObject(ord('q'), callback_quit)
+    event_print = EventObject(curses.KEY_LEFT, "Press LEFT to write Left", callback_event_print, ["Left\n"])
+    event_clear = EventObject(ord('c'), "Press c to clear widget", callback_clear)
+    event_sum = EventObject(ord('s'), "Press s to sum 4 + 5", callback_sum, [ 4, 5 ])
+    event_quit = EventObject(ord('q'), "Press q to quit", callback_quit)
 
     widget.add_event(event_print)
     widget.add_event(event_clear)
@@ -60,11 +60,11 @@ def change_widget_events():
     widget_foreground.clear()
     widget_foreground.print_message("Push directions, or q to quit.\n")
 
-    event_print_left = EventObject(curses.KEY_LEFT, callback_event_print, ["Left\n"])
-    event_print_right = EventObject(curses.KEY_RIGHT, callback_event_print, ["Right\n"])
-    event_print_up = EventObject(curses.KEY_UP, callback_event_print, ["Up\n"])
-    event_print_down = EventObject(curses.KEY_DOWN, callback_event_print, ["Down\n"])
-    event_quit = EventObject(ord('q'), callback_quit)
+    event_print_left = EventObject(curses.KEY_LEFT, "Press LEFT to write Left", callback_event_print, ["Left\n"])
+    event_print_right = EventObject(curses.KEY_RIGHT, "Press RIGHT to write Right", callback_event_print, ["Right\n"])
+    event_print_up = EventObject(curses.KEY_UP, "Press UP to write Up", callback_event_print, ["Up\n"])
+    event_print_down = EventObject(curses.KEY_DOWN, "Press DOWN to write Down", callback_event_print, ["Down\n"])
+    event_quit = EventObject(ord('q'), "Press q to quit", callback_quit)
 
     widget.add_event(event_print_left)
     widget.add_event(event_print_right)

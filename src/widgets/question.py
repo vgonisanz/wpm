@@ -51,11 +51,11 @@ class Question(HWidget):
         self.purge_events()
 
         # Create event quit with q
-        event_quit = EventObject(ord('q'), self.callback_quit)
+        event_quit = EventObject(ord('q'), "Press q to quit", self.callback_quit)
         self.add_event(event_quit)
 
         # Create event edit answer with e
-        event_edit = EventObject(ord('e'), self.run_edit_mode)
+        event_edit = EventObject(ord('e'), "Press e to edit mode", self.run_edit_mode)
         self.add_event(event_edit)
         return None
 

@@ -33,30 +33,30 @@ class ToggleBoard(Widget):
         self.ypos = int(toggle_height/2)
 
         # Create event quit with q
-        event_quit = EventObject(ord('q'), self.callback_quit)
+        event_quit = EventObject(ord('q'), "Press q to quit", self.callback_quit)
         self.add_event(event_quit)
 
         # Create event clear with c
-        event_clear = EventObject(ord('c'), self.callback_clear)
+        event_clear = EventObject(ord('c'), "Press c to clear table", self.callback_clear)
         self.add_event(event_clear)
 
         # Create event random with r
-        event_random = EventObject(ord('r'), self.callback_randomize)
+        event_random = EventObject(ord('r'), "Press r to randomize", self.callback_randomize)
         self.add_event(event_random)
 
         # Create event set current value
-        event_set = EventObject(ord('s'), self.callback_set)
+        event_set = EventObject(ord('s'), "Press s to set cursor position", self.callback_set)
         self.add_event(event_set)
 
         # Create event toggle current value
-        event_toggle = EventObject(ord('t'), self.callback_toggle)
+        event_toggle = EventObject(ord('t'), "Press t to toggle cursor position", self.callback_toggle)
         self.add_event(event_toggle)
 
         # Add controls
-        event_up = EventObject(curses.KEY_UP, self.callback_up)
-        event_down = EventObject(curses.KEY_DOWN, self.callback_down)
-        event_left = EventObject(curses.KEY_LEFT, self.callback_left)
-        event_right = EventObject(curses.KEY_RIGHT, self.callback_right)
+        event_up = EventObject(curses.KEY_UP, "Press UP to move", self.callback_up)
+        event_down = EventObject(curses.KEY_DOWN, "Press DOWN to move", self.callback_down)
+        event_left = EventObject(curses.KEY_LEFT, "Press LEFT to move", self.callback_left)
+        event_right = EventObject(curses.KEY_RIGHT, "Press RIGHT to move", self.callback_right)
         self.add_event(event_up)
         self.add_event(event_down)
         self.add_event(event_left)

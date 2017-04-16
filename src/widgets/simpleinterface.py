@@ -31,8 +31,7 @@ class SimpleInterface(Widget):
         super(SimpleInterface, self).__init__(width, height, x0, y0) # Initialize variables in Element, Override height
 
         # Quit event by default, you can purge it if you want.
-        event_quit = EventObject(ord('q'), self.callback_quit)
-        event_quit.description = "Press <q> to quit"
+        event_quit = EventObject(ord('q'), "Press <q> to quit", self.callback_quit)
         self.add_event(event_quit)
         return None
 

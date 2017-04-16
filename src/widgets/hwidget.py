@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import curses   # TODO remove for my colors or color pairs.
 from widget import Widget
-from widget import EventObject
+from eventobject import EventObject
 from popup import Popup
 
 class HWidget(Widget):
@@ -38,7 +38,7 @@ class HWidget(Widget):
         self._help_pop_up.set_title("Help")
         self._help_pop_up.set_message(text)
 
-        event_help = EventObject(curses.KEY_F1, self.show_help)
+        event_help = EventObject(curses.KEY_F1, "Press F1 to show help", self.show_help)
         self.add_event(event_help)
         return None
 

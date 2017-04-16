@@ -30,20 +30,16 @@ class Menu(Widget):
         #self._instruction_padding = instruction_padding
 
         # Quit event
-        event_quit = EventObject(ord('q'), self.callback_quit)
-        event_quit.description = "Press <q> to quit"
+        event_quit = EventObject(ord('q'), "Press <q> to quit", self.callback_quit)
         self.add_event(event_quit)
 
         # Create event enter with ENTER
-        event_enter = EventObject(10, self.callback_enter) # Shall be curses.KEY_ENTER = 10
-        event_enter.description = "Press <ENTER> to select"
+        event_enter = EventObject(10, "Press <ENTER> to select", self.callback_enter) # Shall be curses.KEY_ENTER = 10
         self.add_event(event_enter)
 
         # Add arrow controls
-        event_up = EventObject(curses.KEY_UP, self.callback_up)
-        event_up.description = "Press <UP> to go up"
-        event_down = EventObject(curses.KEY_DOWN, self.callback_down)
-        event_down.description = "Press <DOWN> to go down"
+        event_up = EventObject(curses.KEY_UP, "Press <UP> to go up", self.callback_up)
+        event_down = EventObject(curses.KEY_DOWN, "Press <DOWN> to go down", self.callback_down)
         self.add_event(event_up)
         self.add_event(event_down)
         return None

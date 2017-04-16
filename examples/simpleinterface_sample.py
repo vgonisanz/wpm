@@ -66,8 +66,7 @@ def create_menu_widget():
     buy_menu.add_option(option_3)
 
     # Add key to interface
-    event_run_buy = EventObject(ord('b'), callback_buy)
-    event_run_buy.description = "Press <b> to launch buy menu"
+    event_run_buy = EventObject(ord('b'), "Press <b> to launch buy menu", callback_buy)
     interface.add_event(event_run_buy)
     return None
 
@@ -80,8 +79,7 @@ def create_toggleboard_widget():
     toggle_board = ToggleBoard(tb_width, tb_height, tb_x0, tb_y0, tb_title)
 
     # Add key to interface
-    event_toggle_board = EventObject(ord('t'), callback_toggle_board)
-    event_toggle_board.description = "Press <t> to launch toggle board"
+    event_toggle_board = EventObject(ord('t'), "Press <t> to launch toggle board", callback_toggle_board)
     interface.add_event(event_toggle_board)
     return None
 

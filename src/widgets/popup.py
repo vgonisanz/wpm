@@ -2,9 +2,8 @@
 import curses   # TODO remove for my colors or color pairs.
 from widget import Widget
 from textbox import TextBox
-from widget import EventObject
+from eventobject import EventObject
 from widget import ChildElement
-
 
 class Popup(Widget):
     """Widget to open a window in front of the others. Remember store and restore that widget or element when call popup.run
@@ -25,7 +24,8 @@ class Popup(Widget):
         self.add_child(textbox_child)
 
         # Create event quit with q
-        event_quit = EventObject(quit_key, self.callback_quit)
+        quit_description = "Press " + str(quit_key) + " to quit"
+        event_quit = EventObject(quit_key, quit_description, self.callback_quit)
         self.add_event(event_quit)
 
         return None
