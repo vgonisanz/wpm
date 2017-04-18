@@ -114,22 +114,22 @@ class Element(object):
             self.window.clrtobot()
         return None
 
-    def hline(self, x0, y0):
+    def hline(self, character, x0, y0, width):
         """Print hline in (x, y) position.
         :return: returns None
         """
         if self.window != None:
-            self.window.move(y0, x0)
-            self.window.hline()
+            for i in range(0, width):
+                self.print_character(character, x0 + i, y0)
         return None
 
-    def vline(self, x0, y0):
+    def vline(self, character, x0, y0, height):
         """Print hline in (x, y) position.
         :return: returns None
         """
         if self.window != None:
-            self.window.move(y0, x0)
-            self.window.vline()
+            for i in range(0, height):
+                self.print_character(character, x0, y0 + i)
         return None
 
     def flash(self):
@@ -248,6 +248,24 @@ class Element(object):
             elif border_type == 1:
                 self.window.border(curses.ACS_CKBOARD, curses.ACS_CKBOARD, curses.ACS_CKBOARD, curses.ACS_CKBOARD, curses.ACS_BLOCK, curses.ACS_BLOCK, curses.ACS_BLOCK, curses.ACS_BLOCK)
             elif border_type == 2:
+                self.window.border("|", "|", "-", "-", "x", "x", "x", "x")
+            elif border_type == 3:
+                # Corners   1  top  2
+                #           L       R
+                #           3   bot 4
+                x_bot = self._height - 1
+                y_right = self._width - 1
+                y_bot = self._height - 1
+                self.print_character("\u2554", 0, 0)
+                self.print_character("\u2557", y_right, 0)
+                self.print_character("\u255A", 0, x_bot)
+                self.print_character("\u255D", y_right, x_bot)
+
+                self.hline("\u2550", 1, 0, y_right - 1)  # Top
+                self.hline("\u2550", 1, x_bot, y_right - 1)  # bot
+                self.vline("\u2551", 0, 1, y_bot - 1)  # L
+                self.vline("\u2551", y_right, 1, y_bot - 1)  # R
+            elif border_type == 4:
                 self.window.border("|", "|", "-", "-", "x", "x", "x", "x")
             else:
                 ls = "X"

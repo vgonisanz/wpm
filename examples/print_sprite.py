@@ -97,8 +97,8 @@ def prepare_colors():
     # Color pair ID, character, screen
     if curses.COLORS == 8:
         curses.init_pair(1, 0, 0)
-        curses.init_pair(2, 10, 10) # Green shall be 10
-        curses.init_pair(3, 14, 14) # Brown shall be 14
+        curses.init_pair(2, 2, 2) # Green shall be 10
+        curses.init_pair(3, 3, 3) # Brown shall be 14
         curses.init_pair(4, -1, -1) # -1 = default color
         curses.init_pair(5, 3, 0) # red over white expected
     if curses.COLORS == 256:

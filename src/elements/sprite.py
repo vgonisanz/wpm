@@ -26,7 +26,7 @@ class Sprite(object):
     def is_valid():
         valid = False
         number_of_characters = len(self.characters)
-        #number_of_colors = len(self.colorpairs)
-        if self.number_of_characters == self.number_of_colors:
+        number_of_colors = len(self.colorpairs)
+        if number_of_characters == number_of_colors:
             valid = True
         return valid

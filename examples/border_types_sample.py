@@ -12,7 +12,7 @@ from element import Element
 border_width = 20
 border_height = 10
 border_x0 = 1
-border_y0 = 2
+border_y0 = 1
 
 # Variables
 wpm = None
@@ -42,10 +42,16 @@ def set_border(number):
 def main(stdscr):
     initialize()
     create_element()
+    #element.window.addch("\u2591")
+    #element.waitforkey()
+    set_border(3)
     set_border(0)
     set_border(1)
     set_border(2)
     set_border(3)
+    set_border(4)
+    set_border(5)
+    set_border(6)
 
 
     return None
