@@ -79,8 +79,8 @@ class ToggleTable(Element):
         """
         #self.window.addch(3, 3, self._character)
         #self.window.border()
-        for i in range(0, self._width - 2):
-            for j in range(0, self._height - 2):
+        for i in range(0, self._width):
+            for j in range(0, self._height):
                 if (i, j) in self._table:
                     self.print_character(self._character, i, j)
                 else:
