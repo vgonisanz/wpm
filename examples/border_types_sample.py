@@ -1,12 +1,14 @@
 import sys, os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src/elements'))
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src/structs'))
 
 import curses               # Todo remove chaning own variables
 from curses import wrapper  # Use my own wrapper
 
 from wpm import Wpm
 from element import Element
+from bordertypes import BorderTypes
 
 # Configuration
 border_width = 20
@@ -35,25 +37,18 @@ def create_element():
     return None
 
 def set_border(number):
-    element.print_border(number)
+    element.print_border_type(number)
     element.waitforkey()
     return None
 
 def main(stdscr):
     initialize()
     create_element()
-    #element.window.addch("\u2591")
-    #element.waitforkey()
-    set_border(3)
-    set_border(0)
-    set_border(1)
-    set_border(2)
-    set_border(3)
-    set_border(4)
-    set_border(5)
-    set_border(6)
-
-
+    set_border(BorderTypes.normal)
+    set_border(BorderTypes.simple)
+    set_border(BorderTypes.double)
+    set_border(BorderTypes.simplest)
+    set_border(BorderTypes.density)
     return None
 
 if __name__ == "__main__":

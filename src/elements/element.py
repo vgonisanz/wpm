@@ -1,6 +1,11 @@
 # -*- coding: utf-8 -*-
+import sys, os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'structs'))
+
 import curses
 import logging
+
+from bordertypes import BorderTypes
 
 class Element(object):
     """Element is the base of all drawable windows. Implement basic function to easily draw them as you wants.
@@ -237,49 +242,77 @@ class Element(object):
             self.window.refresh()
         return None
 
-    def print_border(self, border_type = 0):
+    def print_border_type(self, border_type = BorderTypes.normal):
         """Print border with elements.
+        tlc = Top left corner
+        trc = Top right corner
+        blc = Bot left corner
+        brc = Bot right corner
+        tl = Top line
+        bl = Bot line
+        ll = Left line
+        rl = Right line
         :return: returns nothing
         """
         if self.window != None:
             # Set border
-            if border_type == 0:
+            if border_type == BorderTypes.normal:
                 self.window.border()
-            elif border_type == 1:
+            elif border_type == BorderTypes.density:
                 self.window.border(curses.ACS_CKBOARD, curses.ACS_CKBOARD, curses.ACS_CKBOARD, curses.ACS_CKBOARD, curses.ACS_BLOCK, curses.ACS_BLOCK, curses.ACS_BLOCK, curses.ACS_BLOCK)
-            elif border_type == 2:
-                self.window.border("|", "|", "-", "-", "x", "x", "x", "x")
-            elif border_type == 3:
-                # Corners   1  top  2
-                #           L       R
-                #           3   bot 4
-                x_bot = self._height - 1
-                y_right = self._width - 1
-                y_bot = self._height - 1
-                self.print_character("\u2554", 0, 0)
-                self.print_character("\u2557", y_right, 0)
-                self.print_character("\u255A", 0, x_bot)
-                self.print_character("\u255D", y_right, x_bot)
+            elif border_type == BorderTypes.simplest:
+                self.window.border("|", "|", "-", "-", " ", " ", " ", " ")
+            elif border_type == BorderTypes.simple:
+                tlc = "·"
+                trc = "·"
+                blc = "·"
+                brc = "·"
+                tl = "-"
+                bl = "-"
+                ll = "|"
+                rl = "|"
+                self.print_border(tlc, trc, blc, brc, tl, bl, ll, rl)
+            elif border_type == BorderTypes.double:
+                tlc = "\u2554"
+                trc = "\u2557"
+                blc = "\u255A"
+                brc = "\u255D"
+                tl = "\u2550"
+                bl = "\u2550"
+                ll = "\u2551"
+                rl = "\u2551"
+                self.print_border(tlc, trc, blc, brc, tl, bl, ll, rl)
 
-                self.hline("\u2550", 1, 0, y_right - 1)  # Top
-                self.hline("\u2550", 1, x_bot, y_right - 1)  # bot
-                self.vline("\u2551", 0, 1, y_bot - 1)  # L
-                self.vline("\u2551", y_right, 1, y_bot - 1)  # R
-            elif border_type == 4:
-                self.window.border("|", "|", "-", "-", "x", "x", "x", "x")
-            else:
-                ls = "X"
-                rs = "X"
-                ts = "X"
-                bs = "X"
-                tl = "X"
-                tr = "X"
-                bl = "X"
-                br = "X"
-                self.window.border(ls, rs, ts, bs, tl, tr, bl, br)
             # Refresh
             self.window.refresh()
         return None
+
+    def print_border(self, tlc, trc, blc, brc, tl, bl, ll, rl):
+        """Print border using unicode character.
+        :return: returns nothing
+        """
+        # Corners   1  top  2
+        #           L       R
+        #           3   bot 4
+
+        # Custom parameters
+        x_left = 0
+        x_right = self._width - 1
+
+        y_top = 0
+        y_bot = self._height - 1
+
+        self.print_character(tlc, x_left, y_top)
+        self.print_character(trc, x_right, y_top)
+        self.print_character(blc, x_left, y_bot)
+        self.print_character(brc, x_right, y_bot)
+
+        self.hline(tl, x_left + 1, y_top, x_right - 1)    # Top
+        self.hline(bl, x_left + 1, y_bot, x_right - 1)    # Bot
+        self.vline(ll, x_left, 1, y_bot - 1)              # L
+        self.vline(rl, x_right, 1, y_bot - 1)             # R
+        return None
+
 
     def print_sprite(self, sprite, x0 = 0, y0 = 0, attributes = curses.A_NORMAL):
         """Print an array of characters with colors as a matrix with row size in a position (x0, y0) with a offset between values

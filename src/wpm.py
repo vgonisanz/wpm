@@ -50,9 +50,10 @@ class Wpm(object):
 
     # Catch any weird termination situations
     def __del__(self):
-        #self.restoreScreen()
         # Deactive control
         #self._base_window.keypad(True)
+
+        #self.restoreScreen()
         return None
 
     def __exit__(self, exc_type, exc_value, traceback):
@@ -115,6 +116,7 @@ class Wpm(object):
 
     def initializeScreen(self):
         self._screen = curses.initscr()
+        #curses.def_shell_mode()          # Save the current terminal mod
         self._base_window_height, self._base_window_width = self._screen.getmaxyx()
         self._base_window = Element(self._base_window_width, self._base_window_height, 0, 0)
         self.push_widget(self._base_window)
@@ -151,6 +153,8 @@ class Wpm(object):
         #curses.initscr()
         curses.nocbreak()
         curses.echo()
+        window
+        curses.reset_shell_mode()    # Restore the terminal to "program" mode
         curses.endwin()
         return None
 

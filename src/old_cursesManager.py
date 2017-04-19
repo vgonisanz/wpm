@@ -230,18 +230,18 @@ class CursesManager(object):
             self.clear()
             self.print_message_center(title, mid_y)
             self.print_message_at(author, q_x, q_y)
-            self.print_border()
+            self.print_border_type()
             self.waitforkey()
             # Read each page
             for page in pages:
                 self.clear()
                 self.print_message_at(page, 1,1)
-                self.print_border()
+                self.print_border_type()
                 self.waitforkey()
             # End
             self.clear()
             self.print_message_center("The end", y/2)
-            self.print_border()
+            self.print_border_type()
             self.waitforkey()
         return None
 

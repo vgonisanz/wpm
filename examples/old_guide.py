@@ -235,7 +235,7 @@ def step16(stdscr):
             # Extend info in second window
             cm.set_current_window(sec_win)
             cm.print_message_at(info_message_extended, 1, 5)
-            cm.print_border()
+            cm.print_border_type()
             cm.rwait(1)
             cm.set_current_window(stdscr)
 

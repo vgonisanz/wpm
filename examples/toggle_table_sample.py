@@ -35,7 +35,7 @@ def draw_toggletable():
     toggletable.set(2, 3)
     toggletable.set(2, 4)
     toggletable.draw()
-    #toggletable.print_border()
+    #toggletable.print_border_type()
 
     background.waitforkey()
     return None
