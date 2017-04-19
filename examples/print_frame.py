@@ -10,7 +10,7 @@ from curses import wrapper  # Use my own wrapper
 
 from wpm import Wpm
 from element import Element
-from sprite import Sprite
+from frame import Frame
 
 # Configuration
 palmtree_width = 8
@@ -74,11 +74,11 @@ screen = None
 screen_width = 0
 screen_height = 0
 
-cactus_sprite = None
-palmtree_sprite = None
-ascii_sprite = None
-unicode_sprite = None
-car_sprite = None
+cactus_frame = None
+palmtree_frame = None
+ascii_frame = None
+unicode_frame = None
+car_frame = None
 
 def initialize():
     global wpm
@@ -110,62 +110,62 @@ def prepare_colors():
     return None
 
 def print_cactus():
-    global cactus_sprite
+    global cactus_frame
 
-    # This sprite use all data provided in configuration variables.
-    cactus_sprite = Sprite(cactus_width, cactus_colors, cactus)
+    # This frame use all data provided in configuration variables.
+    cactus_frame = Frame(cactus_width, cactus_colors, cactus)
 
     # Add 1 offset to cactus height
     offset_y = 1
-    number_of_cactus = int(screen_height / (cactus_sprite.height + offset_y) )
+    number_of_cactus = int(screen_height / (cactus_frame.height + offset_y) )
     for i in range(0, number_of_cactus):
-        y0 = i * (cactus_sprite.height + offset_y)
-        screen.print_sprite(cactus_sprite, 0, y0)
+        y0 = i * (cactus_frame.height + offset_y)
+        screen.print_frame(cactus_frame, 0, y0)
     return None
 
 def print_palmtrees():
-    global palmtree_sprite
+    global palmtree_frame
 
-    # This sprite create in constructor character array using as character ASCII 31 = ^_ as base.
+    # This frame create in constructor character array using as character ASCII 31 = ^_ as base.
     # You cannot see it because it have the same color as the screen
-    palmtree_sprite = Sprite(palmtree_width, palmtree_colors, [], 31)
+    palmtree_frame = Frame(palmtree_width, palmtree_colors, [], 31)
 
     # Add 1 offset to palmtree height
-    offset_x = cactus_sprite.width + 1
+    offset_x = cactus_frame.width + 1
     offset_y = 1
-    number_of_palmtree = int(screen_height / (palmtree_sprite.height + offset_y) )
+    number_of_palmtree = int(screen_height / (palmtree_frame.height + offset_y) )
 
     for i in range(0, number_of_palmtree):
-        y0 = i * (palmtree_sprite.height + offset_y)
-        screen.print_sprite(palmtree_sprite, offset_x, y0)
+        y0 = i * (palmtree_frame.height + offset_y)
+        screen.print_frame(palmtree_frame, offset_x, y0)
     # Print sides
 
     return None
 
 def print_ascii():
-    global ascii_sprite
+    global ascii_frame
 
     xpos = cactus_width + palmtree_width * 2 + ascii_offset
-    ascii_sprite = Sprite(ascii_width, ascii_colors, ascii_characters)
-    screen.print_sprite(ascii_sprite, xpos, 0)
+    ascii_frame = Frame(ascii_width, ascii_colors, ascii_characters)
+    screen.print_frame(ascii_frame, xpos, 0)
     return None
 
 def print_unicode():
-    global unicode_sprite
+    global unicode_frame
 
     xpos = cactus_width + palmtree_width * 2 + ascii_offset
-    ypos = ascii_sprite.height + unicode_offset
-    unicode_sprite = Sprite(unicode_width, unicode_colors, unicode_characters)
-    screen.print_sprite(unicode_sprite, xpos, ypos)
+    ypos = ascii_frame.height + unicode_offset
+    unicode_frame = Frame(unicode_width, unicode_colors, unicode_characters)
+    screen.print_frame(unicode_frame, xpos, ypos)
     return None
 
 def print_car():
-    global car_sprite
+    global car_frame
 
     xpos = cactus_width + palmtree_width * 2 + ascii_offset + unicode_offset
-    ypos = ascii_sprite.height + ascii_sprite.height + car_offset
-    car_sprite = Sprite(car_width, car_colors, car_characters)
-    screen.print_sprite(car_sprite, xpos, ypos)
+    ypos = ascii_frame.height + ascii_frame.height + car_offset
+    car_frame = Frame(car_width, car_colors, car_characters)
+    screen.print_frame(car_frame, xpos, ypos)
     return None
 
 def main(stdscr):
