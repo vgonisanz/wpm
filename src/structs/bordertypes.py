@@ -8,4 +8,6 @@ class BorderTypes(Enum):
     double = 2
     simple = 3
     simplest = 4
+    rounded = 5
+    quadrant = 6
     density = 9

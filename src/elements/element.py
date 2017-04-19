@@ -11,7 +11,7 @@ class Element(object):
     """Element is the base of all drawable windows. Implement basic function to easily draw them as you wants.
     """
     def __init__(self, width, height, x0, y0):
-        # Initialize all variables
+        # Initialize all variabot_linees
         self.logger = None
         self.window = None
         self._width = None
@@ -244,14 +244,8 @@ class Element(object):
 
     def print_border_type(self, border_type = BorderTypes.normal):
         """Print border with elements.
-        tlc = Top left corner
-        trc = Top right corner
-        blc = Bot left corner
-        brc = Bot right corner
-        tl = Top line
-        bl = Bot line
-        ll = Left line
-        rl = Right line
+        # http://www.alanwood.net/unicode/box_drawing.html
+        # http://www.alanflavell.org.uk/unicode/unidata25.html
         :return: returns nothing
         """
         if self.window != None:
@@ -259,35 +253,54 @@ class Element(object):
             if border_type == BorderTypes.normal:
                 self.window.border()
             elif border_type == BorderTypes.density:
-                self.window.border(curses.ACS_CKBOARD, curses.ACS_CKBOARD, curses.ACS_CKBOARD, curses.ACS_CKBOARD, curses.ACS_BLOCK, curses.ACS_BLOCK, curses.ACS_BLOCK, curses.ACS_BLOCK)
+                self.window.border(curses.ACS_CKBOARD, curses.ACS_CKBOARD, curses.ACS_CKBOARD, curses.ACS_CKBOARD, curses.ACS_bot_lineOCK, curses.ACS_bot_lineOCK, curses.ACS_bot_lineOCK, curses.ACS_bot_lineOCK)
             elif border_type == BorderTypes.simplest:
                 self.window.border("|", "|", "-", "-", " ", " ", " ", " ")
             elif border_type == BorderTypes.simple:
-                tlc = "·"
-                trc = "·"
-                blc = "·"
-                brc = "·"
-                tl = "-"
-                bl = "-"
-                ll = "|"
-                rl = "|"
-                self.print_border(tlc, trc, blc, brc, tl, bl, ll, rl)
-            elif border_type == BorderTypes.double:
-                tlc = "\u2554"
-                trc = "\u2557"
-                blc = "\u255A"
-                brc = "\u255D"
-                tl = "\u2550"
-                bl = "\u2550"
-                ll = "\u2551"
-                rl = "\u2551"
-                self.print_border(tlc, trc, blc, brc, tl, bl, ll, rl)
-
+                top_left_corner = "·"
+                top_right_corner = "·"
+                bot_left_corner = "·"
+                bot_right_corner = "·"
+                top_line = "-"
+                bot_line = "-"
+                left_line = "|"
+                right_line = "|"
+                self.print_border(top_left_corner, top_right_corner, bot_left_corner, bot_right_corner, top_line, bot_line, left_line, right_line)
+            elif border_type == BorderTypes.doubot_linee:
+                top_left_corner = "\u2554"
+                top_right_corner = "\u2557"
+                bot_left_corner = "\u255A"
+                bot_right_corner = "\u255D"
+                top_line = "\u2550"
+                bot_line = "\u2550"
+                left_line = "\u2551"
+                right_line = "\u2551"
+                self.print_border(top_left_corner, top_right_corner, bot_left_corner, bot_right_corner, top_line, bot_line, left_line, right_line)
+            elif border_type == BorderTypes.rounded:
+                top_left_corner = "\u256D"
+                top_right_corner = "\u256E"
+                bot_left_corner = "\u2570"
+                bot_right_corner = "\u256F"
+                top_line = "\u2574"
+                bot_line = "\u2576"
+                left_line = "\u2575"
+                right_line = "\u2577"
+                self.print_border(top_left_corner, top_right_corner, bot_left_corner, bot_right_corner, top_line, bot_line, left_line, right_line)
+            elif border_type == BorderTypes.quadrant:
+                top_left_corner = "\u259B"
+                top_right_corner = "\u259C"
+                bot_left_corner = "\u2599"
+                bot_right_corner = "\u259F"
+                top_line = "\u2598"
+                bot_line = "\u2596"
+                left_line = "\u2598"
+                right_line = "\u2597"
+                self.print_border(top_left_corner, top_right_corner, bot_left_corner, bot_right_corner, top_line, bot_line, left_line, right_line)
             # Refresh
             self.window.refresh()
         return None
 
-    def print_border(self, tlc, trc, blc, brc, tl, bl, ll, rl):
+    def print_border(self, top_left_corner, top_right_corner, bot_left_corner, bot_right_corner, top_line, bot_line, left_line, right_line):
         """Print border using unicode character.
         :return: returns nothing
         """
@@ -302,15 +315,15 @@ class Element(object):
         y_top = 0
         y_bot = self._height - 1
 
-        self.print_character(tlc, x_left, y_top)
-        self.print_character(trc, x_right, y_top)
-        self.print_character(blc, x_left, y_bot)
-        self.print_character(brc, x_right, y_bot)
+        self.print_character(top_left_corner, x_left, y_top)
+        self.print_character(top_right_corner, x_right, y_top)
+        self.print_character(bot_left_corner, x_left, y_bot)
+        self.print_character(bot_right_corner, x_right, y_bot)
 
-        self.hline(tl, x_left + 1, y_top, x_right - 1)    # Top
-        self.hline(bl, x_left + 1, y_bot, x_right - 1)    # Bot
-        self.vline(ll, x_left, 1, y_bot - 1)              # L
-        self.vline(rl, x_right, 1, y_bot - 1)             # R
+        self.hline(top_line, x_left + 1, y_top, x_right - 1)    # Top
+        self.hline(bot_line, x_left + 1, y_bot, x_right - 1)    # Bot
+        self.vline(left_line, x_left, 1, y_bot - 1)              # L
+        self.vline(right_line, x_right, 1, y_bot - 1)             # R
         return None
 
 
@@ -355,7 +368,7 @@ class Element(object):
         """
         if self.window != None:
             curses.init_pair(7, color_character, color_foreground)
-            self.window.bkgd(curses.color_pair(7)) # Warning, color pair apply to all elements in curses, probably need a variable inside and change global this value!
+            self.window.bkgd(curses.color_pair(7)) # Warning, color pair apply to all elements in curses, probably need a variabot_linee inside and change global this value!
             self.window.refresh()
         return None
 

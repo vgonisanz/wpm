@@ -44,11 +44,13 @@ def set_border(number):
 def main(stdscr):
     initialize()
     create_element()
-    set_border(BorderTypes.normal)
-    set_border(BorderTypes.simple)
-    set_border(BorderTypes.double)
-    set_border(BorderTypes.simplest)
-    set_border(BorderTypes.density)
+    #set_border(BorderTypes.normal)
+    #set_border(BorderTypes.simple)
+    #set_border(BorderTypes.double)
+    #set_border(BorderTypes.simplest)
+    #set_border(BorderTypes.rounded)
+    set_border(BorderTypes.quadrant)
+    #set_border(BorderTypes.density)
     return None
 
 if __name__ == "__main__":
