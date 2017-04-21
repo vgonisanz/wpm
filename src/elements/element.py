@@ -196,7 +196,10 @@ class Element(object):
         if self.window != None:
             if x0 > -1 and y0 > -1:
                 # Set cursor position
-                self.window.move(y0, x0)
+                try:
+                    self.window.move(y0, x0)
+                except:
+                    self.logger.warning("Overflow position x = %d, y = %d" % (x0, y0))
             # Print
             try:
                 self.window.addstr(message, attributes)
