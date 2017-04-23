@@ -256,7 +256,7 @@ class Element(object):
             if border_type == BorderTypes.normal:
                 self.window.border()
             elif border_type == BorderTypes.density:
-                self.window.border(curses.ACS_CKBOARD, curses.ACS_CKBOARD, curses.ACS_CKBOARD, curses.ACS_CKBOARD, curses.ACS_bot_lineOCK, curses.ACS_bot_lineOCK, curses.ACS_bot_lineOCK, curses.ACS_bot_lineOCK)
+                self.window.border(curses.ACS_CKBOARD, curses.ACS_CKBOARD, curses.ACS_CKBOARD, curses.ACS_CKBOARD, curses.ACS_CKBOARD, curses.ACS_CKBOARD, curses.ACS_CKBOARD, curses.ACS_CKBOARD)
             elif border_type == BorderTypes.simplest:
                 self.window.border("|", "|", "-", "-", " ", " ", " ", " ")
             elif border_type == BorderTypes.simple:
@@ -269,7 +269,7 @@ class Element(object):
                 left_line = "|"
                 right_line = "|"
                 self.print_border(top_left_corner, top_right_corner, bot_left_corner, bot_right_corner, top_line, bot_line, left_line, right_line)
-            elif border_type == BorderTypes.doubot_linee:
+            elif border_type == BorderTypes.double:
                 top_left_corner = "\u2554"
                 top_right_corner = "\u2557"
                 bot_left_corner = "\u255A"
@@ -298,6 +298,36 @@ class Element(object):
                 bot_line = "\u2596"
                 left_line = "\u2598"
                 right_line = "\u2597"
+                self.print_border(top_left_corner, top_right_corner, bot_left_corner, bot_right_corner, top_line, bot_line, left_line, right_line)
+            elif border_type == BorderTypes.shade_light:
+                top_left_corner = "\u2591"
+                top_right_corner = "\u2591"
+                bot_left_corner = "\u2591"
+                bot_right_corner = "\u2591"
+                top_line = "\u2591"
+                bot_line = "\u2591"
+                left_line = "\u2591"
+                right_line = "\u2591"
+                self.print_border(top_left_corner, top_right_corner, bot_left_corner, bot_right_corner, top_line, bot_line, left_line, right_line)
+            elif border_type == BorderTypes.shade_medium:
+                top_left_corner = "\u2592"
+                top_right_corner = "\u2592"
+                bot_left_corner = "\u2592"
+                bot_right_corner = "\u2592"
+                top_line = "\u2592"
+                bot_line = "\u2592"
+                left_line = "\u2592"
+                right_line = "\u2592"
+                self.print_border(top_left_corner, top_right_corner, bot_left_corner, bot_right_corner, top_line, bot_line, left_line, right_line)
+            elif border_type == BorderTypes.shade_dark:
+                top_left_corner = "\u2593"
+                top_right_corner = "\u2593"
+                bot_left_corner = "\u2593"
+                bot_right_corner = "\u2593"
+                top_line = "\u2593"
+                bot_line = "\u2593"
+                left_line = "\u2593"
+                right_line = "\u2593"
                 self.print_border(top_left_corner, top_right_corner, bot_left_corner, bot_right_corner, top_line, bot_line, left_line, right_line)
             # Refresh
             self.window.refresh()

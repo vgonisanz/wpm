@@ -49,8 +49,11 @@ def main(stdscr):
     #set_border(BorderTypes.double)
     #set_border(BorderTypes.simplest)
     #set_border(BorderTypes.rounded)
-    set_border(BorderTypes.quadrant)
-    #set_border(BorderTypes.density)
+    #set_border(BorderTypes.quadrant)
+    set_border(BorderTypes.shade_light)
+    set_border(BorderTypes.shade_medium)
+    set_border(BorderTypes.shade_dark)
+    set_border(BorderTypes.density)
     return None
 
 if __name__ == "__main__":

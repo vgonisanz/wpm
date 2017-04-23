@@ -10,4 +10,7 @@ class BorderTypes(Enum):
     simplest = 4
     rounded = 5
     quadrant = 6
-    density = 9
+    shade_light = 7
+    shade_medium = 8
+    shade_dark = 9
+    density = 10
