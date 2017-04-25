@@ -53,7 +53,6 @@ def save_data(output_filename, real_color_id, width, height):
     print("Processing: %s" % output_filename)
     output_file = open(output_filename, "w")
     for i in range(0, height):
-        output_file.write("\nRow %d: " % i)
         for j in range(0, width):
             index = j + i * width
             data = real_color_id[index]
@@ -62,6 +61,7 @@ def save_data(output_filename, real_color_id, width, height):
                 output_file.write("%s" % data)
             else:
                 output_file.write("%s," % data)
+        output_file.write("\n")
     output_file.close()
     return None
 
