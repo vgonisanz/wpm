@@ -23,12 +23,6 @@ class Maze(HWidget):
         map_x_offset = 3    # Number of extra horizontal spaces
         map_y_offset = 1    # Number of extra vertical spaces
 
-        # Create help
-        help_message =  "Push r to generate another maze\n" + \
-                        "Push keys to move after write question\n" + \
-                        "Push q to quit\n"
-        self.create_help(help_message)
-
         self._maze_table = MazeTable(width, height, x0, y0, map_x_offset, map_y_offset)
         self._maze_table.generate_random_maze()
         self.create_child("mazetable", self._maze_table)    # Add it as child to auto-restore if needed
@@ -40,6 +34,12 @@ class Maze(HWidget):
         # Create event quit with r
         event_generate = EventObject(ord('r'), "Press r to generate a new maze", self.callback_generate_random_maze)
         self.add_event(event_generate)
+
+        # Create help
+        help_message =  "Push r to generate another maze\n" + \
+                        "Push keys to move after write question\n" + \
+                        "Push q to quit\n"
+        self.create_help(help_message)
         return None
 
     def callback_quit(self):
@@ -56,6 +56,19 @@ class Maze(HWidget):
         self._maze_table.generate_random_maze()
         self._maze_table.draw()
         return None
+
+    def show_help(self):
+        """Show help.
+        :return: True if success
+        """
+        result = False
+        if self._help_pop_up:
+            self.store_widget()
+            self._help_pop_up.run()
+            self.restore_widget()
+            self.draw() # *TODO* bug, draw must not be necessary, show help from hwidget must work but dont.
+            result = True
+        return result
 
     def draw(self):
         """Re-draw element at current position
