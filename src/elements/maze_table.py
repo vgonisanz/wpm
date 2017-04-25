@@ -144,5 +144,5 @@ class MazeTable(Element):
                 for offset in range(1, self._y_offset + 1):
                     self.print_character(tile_values[d * 10], x_pos, y_pos + offset)
 
-            #self.window.refresh()
+        self.window.refresh()
         return None

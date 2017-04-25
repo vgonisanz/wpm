@@ -23,14 +23,15 @@ class Maze(HWidget):
         map_x_offset = 3    # Number of extra horizontal spaces
         map_y_offset = 1    # Number of extra vertical spaces
 
-        self._maze_table = MazeTable(width, height, x0, y0, map_x_offset, map_y_offset)
-        self._maze_table.generate_random_maze()
-
         # Create help
         help_message =  "Push r to generate another maze\n" + \
                         "Push keys to move after write question\n" + \
                         "Push q to quit\n"
         self.create_help(help_message)
+
+        self._maze_table = MazeTable(width, height, x0, y0, map_x_offset, map_y_offset)
+        self._maze_table.generate_random_maze()
+        self.create_child("mazetable", self._maze_table)    # Add it as child to auto-restore if needed
 
         # Create event quit with q
         event_quit = EventObject(ord('q'), "Press q to quit", self.callback_quit)
@@ -66,7 +67,6 @@ class Maze(HWidget):
         #self.foreground.window.border()
         #self.background.window.refresh()
         #self.foreground.window.refresh()
-
 
         # Print children
         #self._draw_children()   # Re-draw children if needed. Textbox by default.

@@ -24,8 +24,7 @@ class ToggleBoard(HWidget):
         toggle_y0 = y0 + 1
 
         self._toggle_table = ToggleTable(toggle_width, toggle_height, toggle_x0, toggle_y0)
-
-        #self.foreground = self._toggle_table.window
+        self.create_child("toggletable", self._toggle_table)    # Add it as child to auto-restore if needed
 
         # Initialize cursor center
         self.xpos = int(toggle_width/2)

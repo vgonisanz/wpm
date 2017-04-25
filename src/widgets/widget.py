@@ -94,7 +94,7 @@ class Widget(object):
         :return: returns nothing
         """
         child = ChildElement(child_id, child_element)
-        self.add_child(textbox_childchild)
+        self.add_child(child)
         return None
 
     def create_event(self, key, description = "", action_input = None, args_input = None):
