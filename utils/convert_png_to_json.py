@@ -68,8 +68,6 @@ def process_png(width, height, real_pixels, metadata):
             pixel_list.append(data)
 
     # Create json from data
-    processed_data['width'] = width
-    processed_data['height'] = height
     processed_data['metadata'] = metadata
     processed_data['pixel_list'] = pixel_list
     json_data = json.dumps(processed_data)
