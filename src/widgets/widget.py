@@ -148,6 +148,7 @@ class Widget(object):
         """This widget take the control of the UI.
         :return: returns nothing
         """
+        self.background.logger.info("Run widget")
         self._iterate_events()
         return None
 

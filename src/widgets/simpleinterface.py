@@ -77,6 +77,7 @@ class SimpleInterface(Widget):
         """Print menu and wait response.
         :return: returns -1 if enter with q or ESC, event id from [0, N-1] if ENTER
         """
+        self.background.logger.info("Run simpleinterface")
         self.foreground.clear()
 
         # Refresh menu

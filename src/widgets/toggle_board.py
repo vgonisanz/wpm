@@ -171,6 +171,7 @@ class ToggleBoard(HWidget):
         """Run ToggleBoard logic and autodraw
         return: None
         """
+        self.background.logger.info("Run toggle board")
         curses.curs_set(0)  # Hide cursor
         self.draw()
         curses.curs_set(2)  # Show cursor

@@ -93,6 +93,7 @@ class Maze(HWidget):
         """Run question logic and autodraw
         return: None
         """
+        self.background.logger.info("Run maze")
         self.draw()
         super(Maze, self).run()    # Widget autoiterate events
         return None

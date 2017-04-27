@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 import curses   # TODO remove for my colors or color pairs.
 from widget import Widget
 from textbox import TextBox
@@ -37,6 +38,7 @@ class EditableTextBox(Widget):
         """Run question logic and autodraw
         return: None
         """
+        self.background.logger.info("Run editabletextbox")
         self.draw()
 
         # Active cursor with echo in start position *TODO* Check best site to do this.

@@ -51,7 +51,10 @@ class Element(object):
         :return: returns None
         """
         if self.window != None:
-            self.window.move(y0, x0)
+            try:
+                self.window.move(y0, x0)
+            except curses.error:
+                self.logger.warning("set_cursor_position cannot move to: %d, %d" % (x0, y0))
             self.window.refresh()
         return None
 
@@ -77,7 +80,7 @@ class Element(object):
         :return: returns None
         """
         if self.window != None:
-            self.window.move(y0, 0)
+            self.set_cursor_position(0, y0)
             self.window.clrtoeol()
         return None
 
@@ -86,7 +89,7 @@ class Element(object):
         :return: returns None
         """
         if self.window != None:
-            self.window.move(y0, 0)
+            self.set_cursor_position(0, y0)
             if clear:
                 self.window.clrtoeol()
             self.window.chgat(y0, 0, self._width, curses.A_REVERSE)
@@ -97,7 +100,7 @@ class Element(object):
         :return: returns None
         """
         if self.window != None:
-            self.window.move(y0, 0)
+            self.set_cursor_position(0, y0)
             self.window.clrtoeol()
         return None
 
@@ -106,7 +109,7 @@ class Element(object):
         :return: returns None
         """
         if self.window != None:
-            self.window.move(y0, x0)
+            self.set_cursor_position(x0, y0)
             self.window.clrtoeol()
         return None
 
@@ -115,7 +118,7 @@ class Element(object):
         :return: returns None
         """
         if self.window != None:
-            self.window.move(y0, x0)
+            sself.set_cursor_position(x0, y0)
             self.window.clrtobot()
         return None
 
@@ -150,7 +153,7 @@ class Element(object):
         :return: returns None
         """
         if self.window != None:
-            self.window.move(y0, 0)
+            self.set_cursor_position(0, y0)
             self.window.insertln()
         return None
 
@@ -160,7 +163,7 @@ class Element(object):
         """
         if self.window != None:
             if y0 >= 0:
-                self.window.move(y0, 0)
+                self.set_cursor_position(0, y0)
             self.window.deleteln()
         return None
 
@@ -179,12 +182,12 @@ class Element(object):
         if self.window != None:
             if x0 > -1 and y0 > -1:
                 # Set cursor position
-                self.window.move(y0, x0)
+                self.set_cursor_position(x0, y0)
             # Print
             try:
                 self.window.addch(character, attributes)
             except curses.error:
-                self.logger.warning
+                self.logger.warning("print_character cannot addch %s at: %d, %d" % (str(character), x0, y0))
             # Refresh
             self.window.refresh()
         return None
@@ -204,7 +207,7 @@ class Element(object):
             try:
                 self.window.addstr(message, attributes)
             except curses.error:
-                self.logger.warning("print_message cannot addstr")
+                self.logger.warning("print_message cannot addstr: %s" % message)
             # Refresh
             self.window.refresh()
         return None
@@ -232,7 +235,7 @@ class Element(object):
         if self.window != None:
             if x0 > -1 and y0 > -1:
                 # Set cursor position
-                self.window.move(y0, x0)
+                self.set_cursor_position(x0, y0)
             for char in message:
                 # Print
                 try:
@@ -369,7 +372,7 @@ class Element(object):
             # Set attributes
             self.window.attrset(attributes)
             # Set cursor position
-            self.window.move(y0, x0)
+            self.set_cursor_position(x0, y0)
             current_col = 0
             for i in range(0, frame.height):
                 for j in range(0, frame.width):
@@ -378,7 +381,7 @@ class Element(object):
                     for k in range(0, pixel_width):
                         self.window.addch(frame.characters[value], curses.color_pair(color_id) )
                 current_col = current_col + 1
-                self.window.move(y0 + current_col, x0)
+                self.set_cursor_position(x0, y0 + current_col)
             # Restore attributes
             self.window.attroff(attributes)
             self.window.refresh()
@@ -392,7 +395,7 @@ class Element(object):
             y_max, x_max = self.window.getmaxyx()
             lenght = len( pattern )
             times = (int)(x_max * y_max / lenght)
-            self.window.move(0, 0)
+            self.set_cursor_position(0, 0)
             for i in range(0, times):
                 self.print_message(pattern)
         return None
@@ -451,7 +454,7 @@ class Element(object):
         self._cursor_y_copy, self._cursor_x_copy = self.window.getyx()
 
         # Save whole window
-        self.window.move(0, 0)
+        self.set_cursor_position(0, 0)
         self._window_copy = []
         for i in range(0, self._height):
             for j in range(0, self._width):
@@ -467,7 +470,7 @@ class Element(object):
             value = 0
 
             # Restore whole window
-            self.window.move(0, 0)
+            self.set_cursor_position(0, 0)
             for i in range(0, self._height):
                 for j in range(0, self._width):
                     try:
@@ -478,7 +481,7 @@ class Element(object):
                     value += 1
 
             # Restore pointer and refresh
-            self.window.move(self._cursor_y_copy, self._cursor_x_copy)
+            self.set_cursor_position(self._cursor_x_copy, self._cursor_y_copy)
             self.window.refresh()
             self._window_copy = None
         return None

@@ -91,6 +91,7 @@ class Menu(Widget):
         """Print menu and wait response.
         :return: returns -1 if enter with q or ESC, option id from [0, N-1] if ENTER
         """
+        self.background.logger.info("Run menu")
         self.foreground.clear()
         self._option_selected = 0
 

@@ -85,6 +85,7 @@ class Question(HWidget):
         return: None
         """
         # Border
+        self.background.clear() 
         self.foreground.clear()    # todo remove?
         #self.foreground.window.border()
         self.foreground.window.refresh()
@@ -97,6 +98,7 @@ class Question(HWidget):
         """Run question logic and autodraw
         return: None
         """
+        self.background.logger.info("Run question")
         self.draw()
         super(Question, self).run()    # Widget autoiterate events
         return None

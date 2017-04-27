@@ -19,6 +19,7 @@ class HWidget(Widget):
         """Run question logic and autodraw
         return: None
         """
+        self.background.logger.info("Run hwidget")
         super(HWidget, self).run()    # Widget autoiterate events
         return None
 

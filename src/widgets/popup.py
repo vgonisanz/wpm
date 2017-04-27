@@ -71,6 +71,7 @@ class Popup(Widget):
         """Run popup logic and autodraw
         return: None
         """
+        self.background.logger.info("Run popup")
         self.draw()
         super(Popup, self).run()    # Widget autoiterate events
         return None
