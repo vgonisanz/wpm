@@ -184,7 +184,7 @@ class Element(object):
             try:
                 self.window.addch(character, attributes)
             except curses.error:
-                pass    # Allow to print last position
+                self.logger.warning
             # Refresh
             self.window.refresh()
         return None
@@ -204,7 +204,7 @@ class Element(object):
             try:
                 self.window.addstr(message, attributes)
             except curses.error:
-                pass    # Allow to print last position
+                self.logger.warning("print_message cannot addstr")
             # Refresh
             self.window.refresh()
         return None
@@ -240,7 +240,7 @@ class Element(object):
                     self.window.refresh()
                     curses.napms(inter_delay)
                 except curses.error:
-                    pass    # Allow to print last position
+                    self.logger.warning("print_message_slow cannot add ch")
             # Refresh
             self.window.refresh()
         return None
