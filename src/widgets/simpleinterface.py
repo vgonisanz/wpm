@@ -4,11 +4,11 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'structs'))
 import logging
 
 import curses   # TODO remove for my colors or color pairs.
-from widget import Widget
+from hwidget import HWidget
 from eventobject import EventObject
 from childelement import ChildElement
 
-class SimpleInterface(Widget):
+class SimpleInterface(HWidget):
     """Simple interface widget.
     Usage: ui = Interface(
     """
@@ -33,6 +33,10 @@ class SimpleInterface(Widget):
         # Quit event by default, you can purge it if you want.
         event_quit = EventObject(ord('q'), "Press <q> to quit", self.callback_quit)
         self.add_event(event_quit)
+
+        help_message = "Use options keys to use them\n" + \
+                        "Use q to quit."
+        self.create_help(help_message)
         return None
 
     def callback_quit(self):
