@@ -75,7 +75,7 @@ def print_mario():
     # Add 1 offset to mario height
     offset_y = 1
     number_of_mario = int(screen_height / (mario_frame.height + offset_y) )
-    screen.print_frame(mario_frame, 0, offset_y)
+    screen.print_frame(mario_frame, 1, 0, offset_y)
     return None
 
 def main(stdscr):
