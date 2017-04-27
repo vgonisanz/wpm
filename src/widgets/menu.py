@@ -3,11 +3,11 @@ import sys, os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'structs'))
 
 import curses   # TODO remove for my colors or color pairs.
-from widget import Widget
+from hwidget import HWidget
 from eventobject import EventObject
 from childelement import ChildElement
 
-class Menu(Widget):
+class Menu(HWidget):
     """Simple menu widget. When run ENTER accept a option, and arrow move through it.
     Usage: menu = MenuCM(width, height, x0, y0, title, options, instructions)
     """
@@ -42,6 +42,11 @@ class Menu(Widget):
         event_down = EventObject(curses.KEY_DOWN, "Press <DOWN> to go down", self.callback_down)
         self.add_event(event_up)
         self.add_event(event_down)
+
+        help_message = "Use arrows to move up and down\n" + \
+                        "Use ENTER to select an option\n" + \
+                        "Use q to quit."
+        self.create_help(help_message)
         return None
 
     def callback_quit(self):
