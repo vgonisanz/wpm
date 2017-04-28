@@ -13,8 +13,6 @@ class Menu(HWidget):
     """
 
     def __init__(self, width, height, x0, y0, title, instructions = "", title_padding = 1, instruction_padding = 1):
-        self.background.logger.info("Creating menu")
-
         # Initialize all variables
         self._title = None
         self._option_selected = 0
@@ -24,6 +22,7 @@ class Menu(HWidget):
         self._centered = False           # If true menu options will be centered.
 
         super(Menu, self).__init__(width, height, x0, y0) # Initialize variables in Element, Override height
+        self.background.logger.info("Creating menu")
 
         # Assign
         self._title = title

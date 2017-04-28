@@ -17,7 +17,7 @@ class ButtonGroup(object):
         """Append a new button.
         :return: returns nothing
         """
-        self._buttons.append(self._buttons)
+        self._buttons.append(button)
         return None
 
     def select_button(self, button_id):
@@ -30,7 +30,7 @@ class ButtonGroup(object):
             self._buttons[self._current_button].set_focus(False)
             self._current_button = button_id
             self._buttons[self._current_button].set_focus(True)
-            self._update_button_state()
+            self.update_button_state()
         return result
 
     def next_button(self):
@@ -38,7 +38,7 @@ class ButtonGroup(object):
         :return: result of the operation
         """
         next_id = self._current_button + 1
-        if next_id > len(self._buttons):
+        if next_id >= len(self._buttons):
             next_id = 0
         result = self.select_button(next_id)
         return result
@@ -72,8 +72,12 @@ class ButtonGroup(object):
         self._buttons = []
         return None
 
-    def _update_button_state(self):
-        """private method to redraw buttons
+    def push_current_button(self):
+        self._buttons[self._current_button].push()
+        return None
+        
+    def update_button_state(self):
+        """method to redraw buttons
         :return: returns nothing
         """
         for button in self._buttons:

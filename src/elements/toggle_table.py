@@ -14,14 +14,13 @@ class ToggleTable(Element):
     Y   v · · · (w, h)
     """
     def __init__(self, width, height, x0, y0, character = "*"):
-        self.background.logger.info("Creating toggletable")
-
-        # Initialize all variables
+                # Initialize all variables
         self._character = "*"
         self._table = {}
 
         # Assign
         super(ToggleTable, self).__init__(width, height, x0, y0)
+        self.logger.info("Creating toggletable")
         self._character = character
         return None
 

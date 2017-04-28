@@ -46,7 +46,7 @@ class Button(Element):
             self._state = ButtonState.inactive
         return True
 
-    def set_focus(self):
+    def set_focus(self, focus):
         """Set button on focus mode if is not inactive
         return: True always
         """
@@ -54,7 +54,10 @@ class Button(Element):
         if self._state == ButtonState.inactive:
             success = False
         else:
-            self._state = ButtonState.focused
+            if focus:
+                self._state = ButtonState.focused
+            else:
+                self._state = ButtonState.normal
         return success
 
     def push(self, ms = 300):
@@ -68,7 +71,8 @@ class Button(Element):
             curses.napms(ms)
             self._state = ButtonState.normal
             self.draw()
-            self._on_push_callback()
+            if self._on_push_callback:
+                self._on_push_callback()
         else:
             success = False
         return None

@@ -7,8 +7,6 @@ from eventobject import EventObject
 
 class ToggleBoard(HWidget):
     def __init__(self, width, height, x0, y0, print_title = False):
-        self.background.logger.info("Creating toggle board")
-
         # Initialize all variables
         self._title = " ToggleBoard "
         self._print_title = False
@@ -18,6 +16,7 @@ class ToggleBoard(HWidget):
         # Assign
         self._print_title = print_title
         super(ToggleBoard, self).__init__(width, height, x0, y0) # No create foreground
+        self.background.logger.info("Creating toggle board")
 
         # Add toggletable as foreground, is not a child.
         toggle_width = width - 2

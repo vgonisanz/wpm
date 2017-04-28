@@ -24,6 +24,14 @@ message_y0 = 1
 
 position_x0_button_1 = 1
 position_y0_button_1 = 2
+position_x0_button_2 = 1
+position_y0_button_2 = 3
+position_x0_button_3 = 1
+position_y0_button_3 = 4
+button_text_1 = "B1"
+button_text_2 = "B2"
+button_text_3 = "B3"
+button_width = 10
 
 # Variables
 wpm = None
@@ -49,13 +57,20 @@ def create_buttons():
     screen.print_message("Creating button group...")
     button_group = ButtonGroup()
 
-    button_text = "B1"
-    button_width = 10
-
     # Add textbox and button inside
-    ok_button = Button(button_text, button_width, position_x0_button_1, position_y0_button_1)
-    #ok_button.set_on_push_callback(self.callback_quit)
-    ok_button.draw()
+    button_1 = Button(button_text_1, button_width, position_x0_button_1, position_y0_button_1)
+    button_2 = Button(button_text_2, button_width, position_x0_button_2, position_y0_button_2)
+    button_3 = Button(button_text_3, button_width, position_x0_button_3, position_y0_button_3)
+
+    button_1.set_on_push_callback(callback_print_ok)
+
+    # Append
+    button_group.add_button(button_1)
+    button_group.add_button(button_2)
+    button_group.add_button(button_3)
+
+    # Draw
+    button_group.update_button_state()
 
     screen.waitforkey()
     return None
@@ -72,30 +87,49 @@ def create_widget_to_manage_buttons():
     event_left = EventObject(curses.KEY_LEFT, "Press LEFT to select previous", callback_previous)
     event_right = EventObject(curses.KEY_RIGHT, "Press RIGHT to select next", callback_next)
     event_up = EventObject(curses.KEY_UP, "Press UP to select middle", callback_select, [1] )
+    event_enter = EventObject(10, "Press <ENTER> to select", callback_enter) # Shall be curses.KEY_ENTER = 10
+    event_quit = EventObject(ord('q'), "Press <q> to quit", callback_quit)
 
     widget.add_event(event_left)
     widget.add_event(event_right)
     widget.add_event(event_up)
+    widget.add_event(event_quit)
+    widget.add_event(event_enter)
 
     widget.run()
     return None
 
 def callback_next():
     message = "Callback next pressed."
-    wpm.logger.info(message)
-    screen.clearln(message_y0)
-    screen.print_message(message, message_x0, message_y0)
+    callback_print(message)
+    button_group.next_button()
     return None
 
 def callback_previous():
     message = "Callback previous pressed."
-    wpm.logger.info(message)
-    screen.clearln(message_y0)
-    screen.print_message(message, message_x0, message_y0)
+    callback_print(message)
+    button_group.previous_button()
     return None
 
 def callback_select(number):
     message = "Callback select pressed."
+    callback_print(message)
+    button_group.select_button(number)
+    return None
+
+def callback_quit():
+    widget.end_condition()
+    return None
+
+def callback_enter():
+    button_group.push_current_button()
+    return None
+
+def callback_print_ok():
+    callback_print("Ok pushed.")
+    return None
+
+def callback_print(message):
     wpm.logger.info(message)
     screen.clearln(message_y0)
     screen.print_message(message, message_x0, message_y0)

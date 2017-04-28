@@ -14,8 +14,6 @@ class SimpleInterface(HWidget):
     """
 
     def __init__(self, width, height, x0, y0, title, print_title):
-        self.background.logger.info("Creating simpleinterface")
-
         # Initialize all variables
         self._title = ""
         self._print_title = False
@@ -31,6 +29,7 @@ class SimpleInterface(HWidget):
         self._print_title = print_title
 
         super(SimpleInterface, self).__init__(width, height, x0, y0) # Initialize variables in Element, Override height
+        self.background.logger.info("Creating simpleinterface")
 
         # Quit event by default, you can purge it if you want.
         event_quit = EventObject(ord('q'), "Press <q> to quit", self.callback_quit)

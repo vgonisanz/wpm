@@ -39,7 +39,7 @@ class HWidget(Widget):
         self._help_pop_up.set_title("Help")
         self._help_pop_up.set_message(text)
 
-        event_help = EventObject(curses.KEY_F1, "Press F1 to show help", self.show_help)
+        event_help = EventObject(curses.KEY_F1, "Press <F1> to show help", self.show_help)
         self.add_event(event_help)
         return None
 

@@ -66,7 +66,7 @@ def create_widget():
     widget.add_event(event_quit)
 
     #widget.draw()
-    widget_foreground.print_message("Press F1 to help.\n")
+    widget_foreground.print_message("Press <F1> to help.\n")
     widget.run()
     return None
 
