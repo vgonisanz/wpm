@@ -14,17 +14,17 @@ class MazeTable(Element):
     Y   v · · · (w, h)
     """
     def __init__(self, width, height, x0, y0, x_offset = 3, y_offset = 1):
-        self.background.logger.info("Creating mazetable")
-
         # Initialize all variables
         self._maze_map = [] # map[x][y]
         self._map_width = int(width / x_offset) + 1
         self._map_height = int(height / (1 + y_offset)) + 1
         self._x_offset = x_offset
         self._y_offset = y_offset
+        self._player_character = "*"
 
         # Assign
         super(MazeTable, self).__init__(width, height, x0, y0)
+        self.logger.info("Creating mazetable")
         return None
 
     def generate_random_maze(self):
@@ -147,4 +147,16 @@ class MazeTable(Element):
                     self.print_character(tile_values[d * 10], x_pos, y_pos + offset)
 
         self.window.refresh()
+        return None
+
+    def get_character_at(self, x0, y0):
+        character = self.window.inch(y0, x0)
+        return character
+
+    def draw_player(self, x0, y0):
+        self.print_character(self._player_character, x0, y0)
+        return None
+
+    def undraw_player(self, x0, y0):
+        self.print_character(" ", x0, y0)
         return None

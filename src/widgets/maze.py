@@ -14,13 +14,14 @@ class Maze(HWidget):
     """Widget with create a maze
     """
     def __init__(self, width, height, x0, y0):
-        self.background.logger.info("Creating maze")
-
         # Initialize all variables
         self._maze_table = None
+        self._player_position_x = 1
+        self._player_position_y = 1
 
         # Assign
         super(Maze, self).__init__(width, height, x0, y0) # Initialize variables in Element, Override height
+        self.background.logger.info("Creating maze")
 
         map_x_offset = 3    # Number of extra horizontal spaces
         map_y_offset = 1    # Number of extra vertical spaces
@@ -37,11 +38,27 @@ class Maze(HWidget):
         event_generate = EventObject(ord('r'), "Press r to generate a new maze", self.callback_generate_random_maze)
         self.add_event(event_generate)
 
+        # Add arrow controls
+        event_up = EventObject(curses.KEY_UP, "Press <UP> to go up", self.callback_up)
+        event_down = EventObject(curses.KEY_DOWN, "Press <DOWN> to go down", self.callback_down)
+        event_left = EventObject(curses.KEY_LEFT, "Press <LEFT> to go left", self.callback_left)
+        event_right = EventObject(curses.KEY_RIGHT, "Press <RIGHT> to go right", self.callback_right)
+        self.add_event(event_up)
+        self.add_event(event_down)
+        self.add_event(event_left)
+        self.add_event(event_right)
+
         # Create help
         help_message =  "Push r to generate another maze\n" + \
                         "Push keys to move after write question\n" + \
                         "Push q to quit\n"
         self.create_help(help_message)
+        return None
+
+    def set_player_position(self, x0, y0):
+        self._player_position_x = x0
+        self._player_position_y = y0
+        self._maze_table.draw_player(self._player_position_x, self._player_position_y)
         return None
 
     def callback_quit(self):
@@ -97,5 +114,54 @@ class Maze(HWidget):
         """
         self.background.logger.info("Run maze")
         self.draw()
+        self.set_player_position(1, 1)
         super(Maze, self).run()    # Widget autoiterate events
+        return None
+
+    def callback_down(self):
+        """Move y + 1 if no wall
+        return: None
+        """
+        previous_y = self._player_position_y + 1
+        character = self._maze_table.get_character_at(self._player_position_x, previous_y)
+        if character == ord(' '):
+            self._maze_table.undraw_player(self._player_position_x, self._player_position_y)
+            self._player_position_y = previous_y
+            self._maze_table.draw_player(self._player_position_x, self._player_position_y)
+        return None
+
+    def callback_up(self):
+        """Move y - 1 if no wall
+        return: None
+        """
+        previous_y = self._player_position_y - 1
+        character = self._maze_table.get_character_at(self._player_position_x, previous_y)
+        if character == ord(' '):
+            self._maze_table.undraw_player(self._player_position_x, self._player_position_y)
+            self._player_position_y = previous_y
+            self._maze_table.draw_player(self._player_position_x, self._player_position_y)
+        return None
+
+    def callback_left(self):
+        """Move x - 1 if no wall
+        return: None
+        """
+        previous_x = self._player_position_x - 1
+        character = self._maze_table.get_character_at(previous_x, self._player_position_y)
+        if character == ord(' '):
+            self._maze_table.undraw_player(self._player_position_x, self._player_position_y)
+            self._player_position_x = previous_x
+            self._maze_table.draw_player(self._player_position_x, self._player_position_y)
+        return None
+
+    def callback_right(self):
+        """Move x + 1 if no wall
+        return: None
+        """
+        next_x = self._player_position_x + 1
+        character = self._maze_table.get_character_at(next_x, self._player_position_y)
+        if character == ord(' '):
+            self._maze_table.undraw_player(self._player_position_x, self._player_position_y)
+            self._player_position_x = next_x
+            self._maze_table.draw_player(self._player_position_x, self._player_position_y)
         return None
