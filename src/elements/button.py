@@ -16,7 +16,6 @@ class Button(Element):
     """Button is an element to be draw and with button states.
     """
     def __init__(self, text, width, x0, y0):
-        self.background.logger.info("Creating button")
 
         # Initialize all variables
         self._title = ""
@@ -25,6 +24,8 @@ class Button(Element):
 
         # Assign
         super(Button, self).__init__(width, 1, x0, y0) # Initialize variables in Element, Override height
+        self.logger.info("Creating button")
+
         self._text = text[:self._width-2]
         return None
 

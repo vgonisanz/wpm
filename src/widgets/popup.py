@@ -9,8 +9,6 @@ class Popup(Widget):
     """Widget to open a window in front of the others. Remember store and restore that widget or element when call popup.run
     """
     def __init__(self, width, height, x0, y0, quit_key = ord('q'), print_title = False):
-        self.background.logger.info("Creating popup")
-
         # Initialize all variables
         self._title = " Popup "
         self._print_title = False
@@ -18,12 +16,13 @@ class Popup(Widget):
         # Assign
         self._print_title = print_title
         super(Popup, self).__init__(width, height, x0, y0) # Initialize variables in Element, Override height
+        self.background.logger.info("Creating popup")
 
         # Add textbox inside
         textbox = TextBox(width - 2 , height - 2, x0 + 1, y0 + 1)
+        self.create_child("textbox", textbox)
         #textbox.window.border()    # test draw
-        textbox_child = ChildElement("textbox", textbox)
-        self.add_child(textbox_child)
+
 
         # Create event quit with q
         quit_description = "Press " + str(quit_key) + " to quit"
@@ -76,14 +75,4 @@ class Popup(Widget):
         self.background.logger.info("Run popup")
         self.draw()
         super(Popup, self).run()    # Widget autoiterate events
-        return None
-
-    def _draw_children(self):
-        """This private method iterate children and draw them.
-        :return: returns nothing
-        """
-        for child in self._children:
-            #child.celement.clear()
-            child.celement.draw()
-            child.celement.window.refresh()
         return None

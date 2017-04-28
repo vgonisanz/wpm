@@ -6,8 +6,6 @@ class TextBox(Element):
     """Element to store text only. Allow manual draw.
     """
     def __init__(self, width, height, x0, y0, text = ""):
-        self.background.logger.info("Creating textbox")
-
         # Initialize all variables
         self._text = ""
         self._cursor_x = 0
@@ -16,6 +14,7 @@ class TextBox(Element):
 
         # Assign
         super(TextBox, self).__init__(width, height, x0, y0)
+        self.logger.info("Creating textbox")
         self._text = text
         return None
 
