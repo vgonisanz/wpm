@@ -7,6 +7,8 @@ from eventobject import EventObject
 
 class ToggleBoard(HWidget):
     def __init__(self, width, height, x0, y0, print_title = False):
+        self.background.logger.info("Creating toggle board")
+
         # Initialize all variables
         self._title = " ToggleBoard "
         self._print_title = False

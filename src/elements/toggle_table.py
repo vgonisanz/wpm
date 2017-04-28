@@ -14,6 +14,8 @@ class ToggleTable(Element):
     Y   v · · · (w, h)
     """
     def __init__(self, width, height, x0, y0, character = "*"):
+        self.background.logger.info("Creating toggletable")
+
         # Initialize all variables
         self._character = "*"
         self._table = {}

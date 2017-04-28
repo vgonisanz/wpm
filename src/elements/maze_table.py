@@ -14,6 +14,8 @@ class MazeTable(Element):
     Y   v · · · (w, h)
     """
     def __init__(self, width, height, x0, y0, x_offset = 3, y_offset = 1):
+        self.background.logger.info("Creating mazetable")
+
         # Initialize all variables
         self._maze_map = [] # map[x][y]
         self._map_width = int(width / x_offset) + 1

@@ -43,17 +43,18 @@ def initialize():
 def prepare_colors():
     # A terminal can change colors ids! use palettes.
     # Color pair ID, character, screen
+    wpm.logger.info("Using %d colors" % curses.COLORS)
     if curses.COLORS == 8:
         curses.init_pair(1, -1, -1)  # Background: -1 is default.
         curses.init_pair(2, 3, 3) # Hair: Brown shall be 14 orange shall be 219
         curses.init_pair(3, 4, 4) # Skin: Pink
-        curses.init_pair(4, 2, 2) # Clothes: Red shall be 2
+        curses.init_pair(4, 9, 9) # Clothes: Red shall be 2
         #curses.init_pair(5, 95, 95) # Test: ...
     if curses.COLORS == 256:
         curses.init_pair(1, -1, -1)  # Background: -1 is default.
         curses.init_pair(2, 95, 95) # Hair: Brown shall be 14 orange shall be 219
         curses.init_pair(3, 218, 218) # Skin: Pink
-        curses.init_pair(4, 2, 2) # Clothes: Red shall be 2
+        curses.init_pair(4, 9, 9) # Clothes: Red shall be 9
         #curses.init_pair(5, 95, 95) # Test: ...
     return None
 

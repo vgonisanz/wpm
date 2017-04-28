@@ -25,6 +25,9 @@ def initialize():
 def print_colors_1():
     screen.print_message("Total colors are: %d\n" % curses.COLORS )
     # How improve this code using wpm????
+    curses.start_color()
+    curses.use_default_colors()
+    
     for i in range(0, curses.COLORS):
         curses.init_pair(i + 1, i, -1)
     #try:
@@ -73,7 +76,8 @@ def print_colors_2():
 
 def print_custom_colors():
     try:
-        curses.init_color(2, 1000, 0, 0)
+        curses.init_color(5, 1000, 0, 0)
+        screen.window.addstr("Custom color red", curses.color_pair(5))
     except curses.ERR:
         # End of screen reached
         screen.window.addstr(curses.ERR)

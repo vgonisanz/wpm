@@ -9,6 +9,7 @@ class EditableTextBox(Widget):
     """Widget to store text and edit it. Complementary to TextBox element.
     """
     def __init__(self, width, height, x0, y0):
+        self.background.logger.info("Creating editabletextbox")
         # Initialize all variables
         self._last_text = ""
         self._text_box = None

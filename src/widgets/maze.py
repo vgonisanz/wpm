@@ -14,6 +14,8 @@ class Maze(HWidget):
     """Widget with create a maze
     """
     def __init__(self, width, height, x0, y0):
+        self.background.logger.info("Creating maze")
+
         # Initialize all variables
         self._maze_table = None
 

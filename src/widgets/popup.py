@@ -9,6 +9,8 @@ class Popup(Widget):
     """Widget to open a window in front of the others. Remember store and restore that widget or element when call popup.run
     """
     def __init__(self, width, height, x0, y0, quit_key = ord('q'), print_title = False):
+        self.background.logger.info("Creating popup")
+
         # Initialize all variables
         self._title = " Popup "
         self._print_title = False

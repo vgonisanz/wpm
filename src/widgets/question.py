@@ -10,6 +10,8 @@ class Question(HWidget):
     """Widget with ask a question and get the answer
     """
     def __init__(self, width, height, x0, y0):
+        self.background.logger.info("Creating question")
+
         # Initialize all variables
         self._question_height = 0
         self._answer_height = 0
@@ -85,7 +87,7 @@ class Question(HWidget):
         return: None
         """
         # Border
-        self.background.clear() 
+        self.background.clear()
         self.foreground.clear()    # todo remove?
         #self.foreground.window.border()
         self.foreground.window.refresh()

@@ -38,6 +38,7 @@ class Wpm(object):
             self.logger.info('Initializing widget python manager')
 
         # Set UTF-8, Unicode support
+        self.logger.info('Getting local...')
         locale.setlocale(locale.LC_ALL, '')
         self._encoding = locale.getpreferredencoding()
 
@@ -115,6 +116,7 @@ class Wpm(object):
     """
 
     def initializeScreen(self):
+        self.logger.info('Initializing screen...')
         self._screen = curses.initscr()
         #curses.def_shell_mode()          # Save the current terminal mod
         self._base_window_height, self._base_window_width = self._screen.getmaxyx()
@@ -126,6 +128,7 @@ class Wpm(object):
 
         # Configure colors
         if curses.has_colors():
+            self.logger.info('Starting default colors...')
             curses.start_color()
             curses.use_default_colors()
             # Configure 8/256 colors depending bash *TODO*

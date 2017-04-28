@@ -14,6 +14,8 @@ class SimpleInterface(HWidget):
     """
 
     def __init__(self, width, height, x0, y0, title, print_title):
+        self.background.logger.info("Creating simpleinterface")
+
         # Initialize all variables
         self._title = ""
         self._print_title = False

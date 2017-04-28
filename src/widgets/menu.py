@@ -13,6 +13,8 @@ class Menu(HWidget):
     """
 
     def __init__(self, width, height, x0, y0, title, instructions = "", title_padding = 1, instruction_padding = 1):
+        self.background.logger.info("Creating menu")
+
         # Initialize all variables
         self._title = None
         self._option_selected = 0

@@ -15,6 +15,8 @@ class Table(Element):
         """ Initialize table element class. Always draw all elements with cell size
         return: None
         """
+        self.background.logger.info("Creating table")
+
         # Initialize all variables
         self.title = ""
         self.width_data = 0

@@ -16,6 +16,8 @@ class Button(Element):
     """Button is an element to be draw and with button states.
     """
     def __init__(self, text, width, x0, y0):
+        self.background.logger.info("Creating button")
+
         # Initialize all variables
         self._title = ""
         self._state = ButtonState.normal
