@@ -1,19 +1,40 @@
 # Widget python library
 
-This manager could be a widget library --> wpm = Widget python manager
+wpm = Widget python manager v0.1
 
-[![Build Status]()]()
-[![Codacy Badge]()]()
+[![Build Status](https://travis-ci.org/vgonisanz/wpm.svg?branch=master)](https://travis-ci.org/vgonisanz/wpm)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1b17a8abfe964a1ea304529d755cffa7)](https://www.codacy.com/app/vgonisanz/wpm?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=vgonisanz/wpm&amp;utm_campaign=Badge_Grade)
 
 ## Requeriments
 
-## Concepts
+1. Install dependencies
+```
+pip install -r requirements.txt # None right now, numpy is not needed unless 3d
+```
+1. Install curses manually
+  * Go to this repository: http://www.lfd.uci.edu/~gohlke/pythonlibs/
+  * Download wheel file with your python version, in example: 'curses‑2.2‑cp36‑cp36m‑win_amd64.whl'
+  * Install it manually with: ```python -m pip install curses‑2.2‑cp36‑cp36m‑win_amd64.whl```
+1. Install a compatible shell:
+  * Windows: git-bash or Cygwin works good.
+  * GNU/Linux, you can check your colors using ```tput colors```
+    * /bin/sh has 8 colors. No recommended.
+    * /usr/bin/bash has 256 colors. Recommended.
+    * xterm emulator works fine.
+    * If you use guake, only 8 colors with 256 terminal, try add to your .bashrc to: ```export TERM=xterm-256color```. If you have bug ```]777;notify;Command completed;``` add in another line: ```unset PROMPT_COMMAND``` too.
+  * MacOS: xterm-2 is nice.
 
-* Wpm is a class manage screen and associated widgets, elements and functions.
-* Element is a interactive class with a low level functionality.
-* Widget is a interactive class with high level functionality.
+## Basic concepts
 
-## Organization
+### Basic classes types
+
+* Wpm is a class manage screen and associated widgets, elements and functions. Manager to initialize/respoter terminal, manage widget stack and control all UI.
+* Element is a Dummy interactive class with a low level functionality. It contains a curses WindowClass. Calling its functions can be drawn in different ways.
+* Widget is a interactive class with high level functionality. It have a element with width, height, x and y. Also run function to take I/O control. It ccan generate control and actions externally.
+
+* **TODO**: Remove window parameter. Apply with manager all actions a current windows only (easier) or allow to use window parameter (more complicated, more versatile)?
+
+### Design rules
 
 * All data struct shall be classes without constructor.
 * Manager will use a internal stack to manage different widgets.
@@ -29,20 +50,22 @@ This manager could be a widget library --> wpm = Widget python manager
     * Widget_popup_okcancel: Ask user ok or cancel button.
     * Widget_help: Print a message, ok button.
 
-## wpm
+### Ideas
 
-* print: All functions starting with print shall apply to current widget in widget stack. Exist a group of interesting print elements.
+* themes: Change different themes to use different colors. (Use a palette, change a color type without affect others)
 
-## Elements
+### Documentation /  Full Description
 
-A element is an object with low level logic.
+#### Elements
+
+A element is an object with low level logic. It hierachy from window, adding functions to print inside.
 
 * All element have a status
 * It can be draw calling draw method.
 
 ### Button
 
-A button is a class with 3 states:
+A button is a class with 4 states:
 
 * Normal: The button is active. It is selectable.
 * Inactive: The button is not selectable.
@@ -51,9 +74,26 @@ A button is a class with 3 states:
 
 ## Widget
 
-All widget can contain one or more elements.
+A widget is an object with high level logic. All widget can contain one or more elements and a function to take control.
 
-* It can be draw calling draw method. This refresh all child elements. Update first background and then front elements.
+* It can be draw calling draw method. This refresh all child elements. Update first foreground and then front elements.
+
+# Software design
+
+Style [Index of Python Enhancement Proposals](https://www.python.org/dev/peps/)
+
+## General
+
+wpm is using curses. But it shall transparent to the users. Users shall not parse exceptions while using wpm, but all problems shall be reported in a error file.
+CONTRIBUTING: Rebase pulls: git config --global pull.rebase true
+
+## Output
+
+Logs are required. Print into a file.
+
+## Exceptions
+
+All exceptions shall be in a try, and pass the execution, reporting problem in a error.log
 
 # Static code analysis
 
